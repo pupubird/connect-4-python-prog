@@ -53,10 +53,7 @@ args of draw_loading is by following:
 when using loading animation:
 
     set the daemon of the thread of loading animation to True
-<<<<<<< HEAD
-=======
-
->>>>>>> 6e89095177cd4f5ccb7e6ba5d169ffd7b4bc70cc
+    
 ## <span style="color:red;">game_board.py</span>
 it consists of:
 * GameBoard class
