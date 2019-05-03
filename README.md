@@ -7,7 +7,9 @@ Graphical User Interface | Keanu, Pupubird
 Rules, winning-state checking | Ke Xin, Wen Li
 AI | Yuen Yuee
 
-<h2 style="color:red;">component.py</h2>
+***
+
+## component.py
 it consist of:
 * [Rectangle class](#For-Rectangle-class)
 * [LoadingAnimation class](#For-LoadingAnimation-class)
@@ -54,7 +56,8 @@ when using loading animation:
 
     set the daemon of the thread of loading animation to True
    
-<h2 style="color:red;">game_board.py</h2>
+***
+## game_board.py
 it consists of:
 * GameBoard class
 
