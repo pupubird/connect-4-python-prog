@@ -23,6 +23,13 @@ initialize it with:
         name
     )
 
+    optional args for Rectangle:
+    (
+        top_row = False, 
+        col_index = 0, 
+        init_content = " "
+    )
+
 call *draw_rectangle(args)* to draw the rectangle to the window parsed.
 
 args of draw_rectangle is by following:
@@ -71,7 +78,8 @@ initialize it with:
 
     GameBoard(
         window,
-        box_size
+        box_size,
+        row_size
     )
 
 call *draw_board(args)* to draw the game board
@@ -85,7 +93,7 @@ args of draw_board is by following:
 
 To access game board list:
 
-    list = instance.game_board_list
+    list = instance.game_list
 
     To modify content:
     list[index].content = "<new_value>"

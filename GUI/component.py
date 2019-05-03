@@ -5,9 +5,11 @@ import threading
 
 class Rectangle:
 
-    def __init__(self, window, init_content=" "):
+    def __init__(self, window, top_row=False, col_index=0, init_content=" "):
         self.window = window
         self.box_content = init_content
+        self.top_row = top_row
+        self.col_index = col_index
 
     def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x):
         vertical_line = curses.ACS_VLINE
@@ -34,6 +36,14 @@ class Rectangle:
             self.window.addch(up_left_y, low_right_x, corner_symb)
             self.window.addch(low_right_y, low_right_x, corner_symb)
             self.window.addch(low_right_y, up_left_x, corner_symb)
+
+            if self.top_row:
+                self.window.addch(
+                    up_left_y,
+                    up_left_x + ((low_right_x - up_left_x) // 2),
+                    str(self.col_index)
+                )
+                print(self.col_index)
         except Exception:
             return False
         return True
