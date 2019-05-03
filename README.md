@@ -2,15 +2,15 @@
 ## Component.py
 #### it consist of:
 
-    1.rectangle
-    2.loading animation
+    1.Rectangle(window,name)
+    2.LoadingAnimation(window)
 
-### for Rectangle class :
+### For Rectangle class :
 
 initialize it with:
 
     Rectangle(window,name)
-call **draw_rectangle(args)** to draw the rectangle to the window parsed.
+call *draw_rectangle(args)* to draw the rectangle to the window parsed.
 
 args of draw_rectangle is by following:
 
@@ -27,12 +27,12 @@ args of draw_rectangle is by following:
     get: instance.content
     delete: del instance.content
 
-###for LoadingAnimation class :
+### For LoadingAnimation class :
 
 initialize it with:
 
-    window
-call **draw_loading(args)** to draw the loading animation
+    LoadingAnimation(window)
+call *draw_loading(args)* to draw the loading animation
 
 args of draw_loading is by following:
 
@@ -43,6 +43,6 @@ args of draw_loading is by following:
 
 #### when using loading animation:
 
-    set daemon of the waiting function to true (in threading modules)
+    set the daemon of the thread of loading animation to True
 
 
