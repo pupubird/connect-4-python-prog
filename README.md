@@ -20,7 +20,9 @@ initialize it with:
 
     Rectangle(
         window,
-        name)
+        name
+    )
+
 call *draw_rectangle(args)* to draw the rectangle to the window parsed.
 
 args of draw_rectangle is by following:
@@ -42,7 +44,9 @@ To modify content (e.g.: "O","X"," ") in rectangle:
 
 initialize it with:
 
-    LoadingAnimation(window)
+    LoadingAnimation(
+        window
+    )
 call *draw_loading(args)* to draw the loading animation
 
 args of draw_loading is by following:
@@ -84,7 +88,7 @@ To access game board list:
 
     To modify content:
     list[index].content = "<new_value>"
-##### game_board_list is a one dimentional list, it contains instances of the Rectangle class.
+##### NOTE: game_board_list is a one dimentional list, it contains instances of the Rectangle class.
 
 
 
