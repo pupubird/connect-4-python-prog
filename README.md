@@ -9,10 +9,10 @@ AI | Yuen Yuee
 
 ## Component.py
 it consist of:
-1. Rectangle(window,name)
-2. LoadingAnimation(window)
+* Rectangle(window,name)
+* LoadingAnimation(window)
 
-### For Rectangle class :
+#### For Rectangle class :
 
 initialize it with:
 
@@ -34,7 +34,7 @@ To modify content (e.g.: "O","X"," ") in rectangle:
     get: instance.content
     delete: del instance.content
 
-### For LoadingAnimation class :
+#### For LoadingAnimation class :
 
 initialize it with:
 
