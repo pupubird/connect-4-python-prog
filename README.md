@@ -7,7 +7,7 @@ Graphical User Interface | Keanu, Pupubird
 Rules, winning-state checking | Ke Xin, Wen Li
 AI | Yuen Yuee
 
-## <span style="color:red;">component.py</span>
+## <span style="color:red;">Component.py</span>
 it consist of:
 * [Rectangle class](#For-Rectangle-class)
 * [LoadingAnimation class](#For-LoadingAnimation-class)
