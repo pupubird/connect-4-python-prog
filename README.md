@@ -1,9 +1,16 @@
 # Connect 4 programming assignment
-## Component.py
-#### it consist of:
+People in charged:
 
-    1. Rectangle(window,name)
-    2. LoadingAnimation(window)
+Group | Name
+------ | -----
+Graphical User Interface | Keanu, Pupubird
+Rules, winning-state checking | Ke Xin, Wen Li
+AI | Yuen Yuee
+
+## Component.py
+it consist of:
+1. Rectangle(window,name)
+2. LoadingAnimation(window)
 
 ### For Rectangle class :
 
