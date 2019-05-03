@@ -97,6 +97,15 @@ To access game board list:
 
     To modify content:
     list[index].content = "<new_value>"
+
+To get all data in data[row][col] form:
+
+    content_list = [item.content for item in game_list]
+    data = []
+    for i in range(row):
+        data.append(content_list[row * col: (row + 1) * col])
+    print(data)
+
 ##### NOTE: game_board_list is an one dimentional list, it contains instances of the Rectangle class.
 
 

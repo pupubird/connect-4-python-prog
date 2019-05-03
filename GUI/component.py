@@ -40,7 +40,9 @@ class Rectangle:
             if self.top_row:
                 self.window.addstr(
                     up_left_y,
-                    up_left_x + ((low_right_x - up_left_x) // 2),
+                    # align to center
+                    up_left_x + ((low_right_x - up_left_x) // 2)
+                    - (len(str(self.col_index))//2),
                     str(self.col_index)
                 )
         except Exception:

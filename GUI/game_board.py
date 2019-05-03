@@ -1,8 +1,20 @@
 import curses
+import random
 import component
 
 
 class _BoardColumn:
+    """
+    row size is the amount of row in the game
+    box size is the width and the height of the box of the board's tiles
+
+    Everytime draw_column create a Rectangle class, it is going to store it 
+    into game_board_list for future access
+
+    This class draw the boxes column by column, not row by row,
+    hence it has to be careful when handling with the data
+    """
+
     def __init__(self, window, row_size, box_size, game_board_list=[]):
         self.window = window
         self.row_size = row_size
@@ -64,8 +76,8 @@ if __name__ == "__main__":
 
     def main(window):
         # print board
-        demo = GameBoard(window, 5)
-        demo.draw_board(6, 11)
+        demo = GameBoard(window, 6)
+        demo.draw_board(6, 9)
         time.sleep(2)
 
         # to access to board box content
@@ -73,15 +85,15 @@ if __name__ == "__main__":
 
         # change content
         game_list[1].content = "O"
-        print(game_list[1].content)
+        print("content:", game_list[1].content)
 
-        # to sort the list
-        new_list = []
-        for i in range(1, 7):
-            col_list = []
-            for j in range(9):
-                col_list.append(game_list[0])
-                game_list.pop(0)
-            new_list.append(col_list)
+        # get data
+        for item in game_list:
+            item.content = random.choice(['O', 'X'])
+        content_list = [item.content for item in game_list]
+        data = []
+        for i in range(row):
+            data.append(content_list[row * col: (row + 1) * col])
+        print(data)
 
     curses.wrapper(main)
