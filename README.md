@@ -12,7 +12,7 @@ it consist of:
 * [Rectangle class](#For-Rectangle-class)
 * [LoadingAnimation class](#For-LoadingAnimation-class)
 
-#### For Rectangle class : <a name="For-Rectangle-class"></a>
+### For Rectangle class : <a name="For-Rectangle-class"></a>
 
 initialize it with:
 
@@ -34,7 +34,7 @@ To modify content (e.g.: "O","X"," ") in rectangle:
     get: instance.content
     delete: del instance.content
 
-#### For LoadingAnimation class : <a name="For-LoadingAnimation-class"></a>
+### For LoadingAnimation class : <a name="For-LoadingAnimation-class"></a>
 
 initialize it with:
 
