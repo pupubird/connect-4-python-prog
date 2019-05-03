@@ -26,21 +26,21 @@ class _BoardColumn:
 
 
 class GameBoard(_BoardColumn):
-    def __init__(self, window, game_board_list='', row_size='', box_size=''):
+    def __init__(self, window, box_size, game_board_list='', row_size=''):
         super().__init__(game_board_list, row_size, box_size)
         self.window = window
+        self.box_size = box_size
 
     def draw_board(self, row_amount, column_amount):
-        box_size = 5
         for column in range(0, column_amount * 2, 2):
             # jump by two to avoid overlay
             board = _BoardColumn(self.window,
                                  column_amount,
-                                 box_size)
+                                 self.box_size)
             board.draw_column(0,
-                              box_size * column,
-                              box_size,
-                              box_size * (column + 1))
+                              self.box_size * column,
+                              self.box_size,
+                              self.box_size * (column + 1))
         self.window.refresh()
 
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     def main(window):
         # print board
-        demo = GameBoard(window)
+        demo = GameBoard(window, 3)
         demo.draw_board(6, 9)
         time.sleep(2)
         # to access to board box content

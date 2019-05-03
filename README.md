@@ -70,7 +70,8 @@ it consists of:
 initialize it with:
 
     GameBoard(
-        window
+        window,
+        box_size
     )
 
 call *draw_board(args)* to draw the game board
@@ -88,7 +89,7 @@ To access game board list:
 
     To modify content:
     list[index].content = "<new_value>"
-##### NOTE: game_board_list is a one dimentional list, it contains instances of the Rectangle class.
+##### NOTE: game_board_list is an one dimentional list, it contains instances of the Rectangle class.
 
 
 
