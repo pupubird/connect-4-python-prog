@@ -1,5 +1,5 @@
 #For component.py:
-    :it consist of:
+    it consist of:
         *1.rectangle
          2.loading animation*
 
