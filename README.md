@@ -16,7 +16,9 @@ it consist of:
 
 initialize it with:
 
-    Rectangle(window,name)
+    Rectangle(
+        window,
+        name)
 call *draw_rectangle(args)* to draw the rectangle to the window parsed.
 
 args of draw_rectangle is by following:
@@ -51,5 +53,36 @@ args of draw_loading is by following:
 when using loading animation:
 
     set the daemon of the thread of loading animation to True
+
+## game_board.py
+it consists of:
+* GameBoard class
+
+### For GameBoard class :
+
+initialize it with:
+
+    GameBoard(
+        window
+    )
+
+call *draw_board(args)* to draw the game board
+
+args of draw_board is by following:
+
+    draw_board(
+        row_amount,
+        column_amount
+    )
+
+To access game board list:
+
+    list = instance.game_board_list
+
+    To modify content:
+    list[index].content = "<new_value>"
+##### game_board_list is a one dimentional list, it contains instances of the Rectangle class.
+
+
 
 

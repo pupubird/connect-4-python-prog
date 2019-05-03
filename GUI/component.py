@@ -5,9 +5,9 @@ import threading
 
 class Rectangle:
 
-    def __init__(self, window, name):
+    def __init__(self, window, init_content=" "):
         self.window = window
-        self.name = name
+        self.box_content = init_content
 
     def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x):
         vertical_line = curses.ACS_VLINE
@@ -40,15 +40,15 @@ class Rectangle:
 
     @property
     def content(self):
-        return self.content
+        return self.box_content
 
     @content.setter
     def content(self, new_content):
-        self.content = new_content
+        self.box_content = new_content
 
     @content.deleter
     def content(self, del_content):
-        self.content = " "
+        self.box_content = " "
 
 
 class LoadingAnimation:
