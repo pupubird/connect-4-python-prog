@@ -2,8 +2,8 @@
 ## Component.py
 #### it consist of:
 
-    1.Rectangle(window,name)
-    2.LoadingAnimation(window)
+    1. Rectangle(window,name)
+    2. LoadingAnimation(window)
 
 ### For Rectangle class :
 
@@ -21,7 +21,7 @@ args of draw_rectangle is by following:
         bottom right x coordinate
     )
 
-#### To modify content (e.g.: "O","X"," ") in rectangle:
+To modify content (e.g.: "O","X"," ") in rectangle:
 
     change: instance.content = new_content
     get: instance.content
@@ -41,7 +41,7 @@ args of draw_loading is by following:
         x coordinate
     )
 
-#### when using loading animation:
+when using loading animation:
 
     set the daemon of the thread of loading animation to True
 
