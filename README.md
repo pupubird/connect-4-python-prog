@@ -9,8 +9,8 @@ AI | Yuen Yuee
 
 ## Component.py
 it consist of:
-* Rectangle(window,name)
-* LoadingAnimation(window)
+* [Rectangle class](#For-Rectangle-class)
+* [LoadingAnimation class](#For-LoadingAnimation-class)
 
 #### For Rectangle class :
 
