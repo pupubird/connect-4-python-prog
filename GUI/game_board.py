@@ -39,7 +39,7 @@ class _BoardColumn:
 
 class GameBoard(_BoardColumn):
     # inherit the game board list from _BoardColumn and pass row size to _BoardColumn
-    def __init__(self, window, box_size, row_size, game_board_list=''):
+    def __init__(self, window, box_size, row_size='', game_board_list=''):
         super().__init__(game_board_list, row_size, box_size)
 
         self.window = window
@@ -49,7 +49,7 @@ class GameBoard(_BoardColumn):
         for column in range(0, column_amount * 2, 2):
             # jump by two to avoid overlay
             board = _BoardColumn(self.window,
-                                 column_amount,
+                                 row_amount,
                                  self.box_size)
             board.draw_column(0,
                               self.box_size * column,
@@ -64,9 +64,9 @@ if __name__ == "__main__":
 
     def main(window):
         # print board
-        demo = GameBoard(window, 3, 6)
-        demo.draw_board(6, 9)
-        time.sleep(10)
+        demo = GameBoard(window, 5)
+        demo.draw_board(6, 11)
+        time.sleep(2)
 
         # to access to board box content
         game_list = demo.game_list

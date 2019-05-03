@@ -38,12 +38,11 @@ class Rectangle:
             self.window.addch(low_right_y, up_left_x, corner_symb)
 
             if self.top_row:
-                self.window.addch(
+                self.window.addstr(
                     up_left_y,
                     up_left_x + ((low_right_x - up_left_x) // 2),
                     str(self.col_index)
                 )
-                print(self.col_index)
         except Exception:
             return False
         return True
