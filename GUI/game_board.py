@@ -73,11 +73,13 @@ class GameBoard(_BoardColumn):
         self.window.refresh()
 
     def data(self, game_board_list):
+        for item in game_board_list:
+            item.content = random.choice(['X', 'O', ' '])
         content_list = [item.content for item in game_board_list]
         data = []
-        for i in range(self.row_amount):
+        for i in range(self.column_amount):
             data.append(
-                content_list[i * self.column_amount: (self.column_amount) + (i * self.column_amount)])
+                content_list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
         return data
 
 
