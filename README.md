@@ -98,21 +98,17 @@ To access game board list:
     To modify content:
     list[index].content = "<new_value>"
 
-To get all data in data[col][row] form, call *data(args)*:
-
-args of data() is by following:
-
-    data(
-        game_board_list,
-    )
-
-    where game_board_list is the one dimensional list with Rectangle class instances.
-    
-    data() return a two dimensional list
 
 To get the two dimensional list with content(not instances):
 
     list = instance.data(game_list)
+
+*data()* function return a two-dimensional list and automatically filled with the content of the Rectangle class.
+data() takes only one argument:
+
+    data(
+        game_board_list
+    )
 
 ##### NOTE: game_board_list is an one dimentional list, it contains instances of the Rectangle class.
 
