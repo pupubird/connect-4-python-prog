@@ -58,10 +58,12 @@ class GameBoard(_BoardColumn):
         self.box_size = box_size
 
     def draw_board(self, row_amount, column_amount):
+        self.row_amount = row_amount
+        self.column_amount = column_amount
         for column in range(0, column_amount * 2, 2):
             # jump by two to avoid overlay
             board = _BoardColumn(self.window,
-                                 row_amount,
+                                 self.row_amount,
                                  self.box_size)
             board.draw_column(0,
                               self.box_size * column,
@@ -69,6 +71,14 @@ class GameBoard(_BoardColumn):
                               self.box_size * (column + 1),
                               (column//2)+1)
         self.window.refresh()
+
+    def data(self, game_board_list):
+        content_list = [item.content for item in game_board_list]
+        data = []
+        for i in range(self.row_amount):
+            data.append(
+                content_list[i * self.column_amount: (self.column_amount) + (i * self.column_amount)])
+        return data
 
 
 if __name__ == "__main__":
@@ -88,12 +98,8 @@ if __name__ == "__main__":
         print("content:", game_list[1].content)
 
         # get data
-        for item in game_list:
-            item.content = random.choice(['O', 'X'])
-        content_list = [item.content for item in game_list]
-        data = []
-        for i in range(row):
-            data.append(content_list[row * col: (row + 1) * col])
-        print(data)
+
+        data_list = demo.data(game_list)
+        print(data_list)
 
     curses.wrapper(main)
