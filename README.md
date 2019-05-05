@@ -103,6 +103,14 @@ To get the two dimensional list with content(not instances):
 
     list = instance.data(game_list)
 
+To refresh the board(after update the board data):
+
+    instance.refresh_board()
+
+To get the content inside all the board data:
+
+    instance.data()
+
 *data()* function return a two-dimensional list and automatically filled with the content of the Rectangle class.
 data() takes only no argument, it returns only the content in the rectangles.
 
