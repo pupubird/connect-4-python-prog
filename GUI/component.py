@@ -11,7 +11,13 @@ class Rectangle:
         self.top_row = top_row
         self.col_index = col_index
 
+    # def refresh_rectangle(self):
+    #     up_left_y, up_left_x, low_right_y, low_right_x = self.args
+
+    #     draw_rectangle(up_left_y, up_left_x, low_right_y, low_right_x)
+
     def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x):
+        self.args = (up_left_y, up_left_x, low_right_y, low_right_x)
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
         corner_symb = "+"
@@ -36,6 +42,62 @@ class Rectangle:
             self.window.addch(up_left_y, low_right_x, corner_symb)
             self.window.addch(low_right_y, low_right_x, corner_symb)
             self.window.addch(low_right_y, up_left_x, corner_symb)
+
+            # content
+            self.window.addstr(
+                (low_right_y - up_left_y) // 2 + up_left_y,
+                (low_right_x - up_left_x) // 2 +
+                up_left_x - len(self.content) + 1,
+                self.content
+            )
+
+            if self.top_row:
+                self.window.addstr(
+                    up_left_y,
+                    # align to center
+                    up_left_x + ((low_right_x - up_left_x) // 2)
+                    - (len(str(self.col_index))//2),
+                    str(self.col_index)
+                )
+        except Exception:
+            return False
+        return True
+
+    # redraw the rectangle without redefine the args
+    def refresh_rectangle(self):
+        up_left_y, up_left_x, low_right_y, low_right_x = self.args
+        vertical_line = curses.ACS_VLINE
+        horizontal_line = "-"
+        corner_symb = "+"
+        """
+        Draw a rectangle with corners at the provided upper-left
+        and lower-right coordinates.
+        """
+        try:
+            # vertical line
+            self.window.vline(up_left_y+1, up_left_x, vertical_line,
+                              low_right_y - up_left_y - 1)
+            self.window.vline(up_left_y+1, low_right_x, vertical_line,
+                              low_right_y - up_left_y - 1)
+            # horizontal line
+            self.window.hline(up_left_y, up_left_x+1, horizontal_line,
+                              low_right_x - up_left_x - 1)
+            self.window.hline(low_right_y, up_left_x + 1, horizontal_line,
+                              low_right_x - up_left_x - 1)
+
+            # corner
+            self.window.addch(up_left_y, up_left_x, corner_symb)
+            self.window.addch(up_left_y, low_right_x, corner_symb)
+            self.window.addch(low_right_y, low_right_x, corner_symb)
+            self.window.addch(low_right_y, up_left_x, corner_symb)
+
+            # content
+            self.window.addstr(
+                (low_right_y - up_left_y) // 2 + up_left_y,
+                (low_right_x - up_left_x) // 2 +
+                up_left_x - len(self.content) + 1,
+                self.content
+            )
 
             if self.top_row:
                 self.window.addstr(
@@ -86,6 +148,13 @@ if __name__ == "__main__":
 
         animation.start()
         threadRunning.start()
+
+        rectangle = Rectangle(window)
+        rectangle.draw_rectangle(0, 0, 10, 10)
+        rectangle.content = "O"
+        time.sleep(2)
+        rectangle.refresh_rectangle()
+        time.sleep(3)
 
     def test(window):
         test_ani = LoadingAnimation(window)

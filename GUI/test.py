@@ -1,9 +1,10 @@
 import curses
-from curses import panel
-import snowterm
-import game_board
 import threading
 import time
+import random
+from curses import panel
+from GUI import snowterm
+from GUI import game_board
 
 
 def main(window):
@@ -29,9 +30,22 @@ def main(window):
 
 def refreshwin(window):
     board = game_board.GameBoard(window, 5)
+    board.draw_board(5, 14)
+
+    gamelist = board.game_list
+
+    ran = threading.Thread(target=rand, args=[board, gamelist])
+    ran.start()
     while True:
-        board.draw_board(5, 14)
-        window.refresh()
+        board.refresh_board()
 
 
-curses.wrapper(main)
+def rand(board, gamelist):
+    for item in gamelist:
+        item.content = random.choice(['O', 'X', ' '])
+        time.sleep(1)
+        board.refresh_board()
+
+
+if __name__ == "__main__":
+    curses.wrapper(main)

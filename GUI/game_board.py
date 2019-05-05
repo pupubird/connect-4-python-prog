@@ -1,6 +1,6 @@
 import curses
 import random
-import component
+from GUI import component
 
 
 class _BoardColumn:
@@ -22,6 +22,7 @@ class _BoardColumn:
         self.game_board_list = game_board_list
 
     def draw_column(self, up_left_y, up_left_x, low_right_y, low_right_x, col_index):
+        self.args = up_left_y, up_left_x, low_right_y, low_right_x, col_index
         for row in range(self.row_size):
             if not row:
                 current_row = component.Rectangle(
@@ -48,6 +49,12 @@ class _BoardColumn:
     def game_list(self):
         return self.game_board_list
 
+    def refresh_board(self):
+        for item in self.game_board_list:
+            item.refresh_rectangle()
+            print(item.refresh_rectangle())
+        self.window.refresh()
+
 
 class GameBoard(_BoardColumn):
     # inherit the game board list from _BoardColumn and pass row size to _BoardColumn
@@ -72,10 +79,8 @@ class GameBoard(_BoardColumn):
                               (column//2)+1)
         self.window.refresh()
 
-    def data(self, game_board_list):
-        for item in game_board_list:
-            item.content = random.choice(['X', 'O', ' '])
-        content_list = [item.content for item in game_board_list]
+    def data(self):
+        content_list = [item.content for item in self.game_board_list]
         data = []
         for i in range(self.column_amount):
             data.append(
@@ -101,7 +106,11 @@ if __name__ == "__main__":
 
         # get data
 
-        data_list = demo.data(game_list)
+        data_list = demo.data()
         print(data_list)
+
+        # update board
+        demo.refresh_board()
+        time.sleep(3)
 
     curses.wrapper(main)
