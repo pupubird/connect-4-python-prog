@@ -24,6 +24,7 @@ def snowflake_char(window):
 
 
 def update_snowflakes(prev, window):
+    window.attrset(curses.color_pair(1))
     new = {}
     for (height, position), char in prev.items():
         max_height = max_dimensions(window)[0]
@@ -37,6 +38,7 @@ def update_snowflakes(prev, window):
 
 
 def redisplay(snowflakes, window):
+    window.attrset(curses.color_pair(1))
     for (height, position), char in snowflakes.items():
         max_height, max_width = max_dimensions(window)
         if height > max_height or position >= max_width:
@@ -44,29 +46,8 @@ def redisplay(snowflakes, window):
         window.addch(height, position, char)
 
 
-def draw_moon(window):
-    moon = [
-        '  **   ',
-        '   *** ',
-        '    ***',
-        '    ***',
-        '   *** ',
-        '  **   ',
-    ]
-    start_position = max_dimensions(window)[1] - 10
-    window.attrset(curses.color_pair(1))
-    for height, line in enumerate(moon, start=1):
-        for position, sym in enumerate(line, start=start_position):
-            window.addch(height, position, sym)
-    window.attrset(curses.color_pair(0))
-
-
 def main(window, speed):
-    if curses.can_change_color():
-        curses.init_color(curses.COLOR_BLACK, 0, 0, 0)
-        curses.init_color(curses.COLOR_WHITE, 1000, 1000, 1000)
-        curses.init_color(curses.COLOR_YELLOW, 1000, 1000, 0)
-    curses.init_pair(1, curses.COLOR_YELLOW, 0)
+    curses.init_pair(1, curses.COLOR_RED, 0)
     try:
         curses.curs_set(0)
     except Exception:
@@ -80,7 +61,6 @@ def main(window, speed):
         snowflake = snowflake_char(window)
         snowflakes[(snowflake[0], snowflake[1])] = snowflake[2]
         window.clear()
-        draw_moon(window)
         redisplay(snowflakes, window)
         window.refresh()
         try:

@@ -45,15 +45,14 @@ class _BoardColumn:
                 )
                 self.game_board_list.append(current_row)
 
-    @property
-    def game_list(self):
-        return self.game_board_list
-
     def refresh_board(self):
         for item in self.game_board_list:
             item.refresh_rectangle()
-            print(item.refresh_rectangle())
         self.window.refresh()
+
+    @property
+    def game_list(self):
+        return self.game_board_list
 
 
 class GameBoard(_BoardColumn):

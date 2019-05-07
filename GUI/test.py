@@ -19,7 +19,7 @@ def main(window):
     time.sleep(1)
 
     snow = threading.Thread(target=snowterm.main, args=[
-                            window, 20], daemon=True)
+                            window, 200], daemon=True)
     window_obj = threading.Thread(target=refreshwin, args=[window2])
 
     window_obj.start()
