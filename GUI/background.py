@@ -47,11 +47,9 @@ def redisplay(snowflakes, window):
 
 
 def main(window, speed):
-    curses.init_pair(1, curses.COLOR_RED, 0)
-    try:
-        curses.curs_set(0)
-    except Exception:
-        pass  # Can't hide cursor in 2019 huh?
+    curses.init_pair(1, curses.COLOR_YELLOW, 0)
+    curses.curs_set(0)
+
     snowflakes = {}
     while True:
         height, width = max_dimensions(window)
@@ -67,37 +65,3 @@ def main(window, speed):
             time.sleep((0.2) / (speed / 100))
         except ZeroDivisionError:
             time.sleep(0.2)
-
-
-def start():
-    speed = 100
-    if len(sys.argv) > 1:
-        try:
-            speed = int(sys.argv[1])
-        except ValueError:
-            print(
-                'Usage:\npython snowterm.py [SPEED]\n'
-                'SPEED is integer representing percents.',
-            )
-            sys.exit(1)
-    try:
-        curses.wrapper(main, speed)
-    except KeyboardInterrupt:
-        sys.exit(0)
-
-
-if __name__ == '__main__':
-    speed = 100
-    if len(sys.argv) > 1:
-        try:
-            speed = int(sys.argv[1])
-        except ValueError:
-            print(
-                'Usage:\npython snowterm.py [SPEED]\n'
-                'SPEED is integer representing percents.',
-            )
-            sys.exit(1)
-    try:
-        curses.wrapper(main, speed)
-    except KeyboardInterrupt:
-        sys.exit(0)

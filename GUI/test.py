@@ -3,7 +3,7 @@ import threading
 import time
 import random
 from curses import panel
-from GUI import snowterm
+from GUI import background
 from GUI import game_board
 
 
@@ -18,8 +18,8 @@ def main(window):
 
     time.sleep(1)
 
-    snow = threading.Thread(target=snowterm.main, args=[
-                            window, 200], daemon=True)
+    snow = threading.Thread(target=background.main, args=[
+                            window, 100], daemon=True)
     window_obj = threading.Thread(target=refreshwin, args=[window2])
 
     window_obj.start()
