@@ -3,8 +3,8 @@ import threading
 import time
 import random
 from curses import panel
-from GUI import background
-from GUI import game_board
+from GUI.Component import background
+from GUI.Component import game_board
 
 
 def main(window):

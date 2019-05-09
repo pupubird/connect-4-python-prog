@@ -25,8 +25,8 @@ def main():
 
 
 def get_widheight():
-    os.system('wmic desktopmonitor get screenheight, screenwidth > a.txt')
-    with open("a.txt", 'r') as f:
+    os.system('wmic desktopmonitor get screenheight, screenwidth > scrn_size.txt')
+    with open("scrn_size.txt", 'r') as f:
         lines = f.readlines()
 
     # because of unable to strip()
