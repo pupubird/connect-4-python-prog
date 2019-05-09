@@ -1,6 +1,6 @@
 import curses
 import random
-from GUI import component
+import GUI.Component.low_level_component as component
 
 
 class _BoardColumn:

@@ -78,8 +78,7 @@ initialize it with:
 
     GameBoard(
         window,
-        box_size,
-        row_size
+        box_size
     )
 
 call *draw_board(args)* to draw the game board
@@ -97,11 +96,6 @@ To access game board list:
 
     To modify content:
     list[index].content = "<new_value>"
-
-
-To get the two dimensional list with content(not instances):
-
-    list = instance.data(game_list)
 
 To refresh the board(after update the board data):
 
