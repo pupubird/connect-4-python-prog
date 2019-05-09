@@ -22,13 +22,19 @@ def main(window, win_width):
 
     # draw the board
     board_win = curses.newwin(40, 150, 5, 5)
-    board_thread = threading.Thread(target=_board, args=[board_win, box_size])
-    board_thread.start()
+    _board(board_win, window, box_size)
 
 
-def _board(window, box_size):
+def _board(window, orig_window, box_size):
     board = game_board.GameBoard(window, box_size)
     board.draw_board(6, 9)
+    list = board.game_list
     while True:
+        # under developing
+        col_key = orig_window.getkey()
+        try:
+            list[int(col_key)].content = "0"
+        except Exception:
+            pass
         curses.curs_set(0)
         board.refresh_board()
