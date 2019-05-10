@@ -19,15 +19,14 @@ it consist of:
 initialize it with:
 
     Rectangle(
-        window,
-        name
+        window
     )
 
-    optional args for Rectangle:
+    default optional args for Rectangle:
     (
         top_row = False, 
-        col_index = 0, 
-        init_content = " "
+        col_index = '-', 
+        init_content = ""
     )
 
 call *draw_rectangle(args)* to draw the rectangle to the window parsed.

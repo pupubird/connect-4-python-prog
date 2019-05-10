@@ -5,11 +5,16 @@ import threading
 
 class Rectangle:
 
-    def __init__(self, window, top_row=False, col_index=0, init_content=" "):
+    def __init__(self, window, **kwargs):
         self.window = window
-        self.box_content = init_content
-        self.top_row = top_row
-        self.col_index = col_index
+        try:
+            self.box_content = kwargs['init_content']
+            self.top_row = kwargs['top_row']
+            self.col_index = kwargs['col_index']
+        except:
+            self.box_content = ""
+            self.top_row = False
+            self.col_index = '-'
 
     # def refresh_rectangle(self):
     #     up_left_y, up_left_x, low_right_y, low_right_x = self.args
