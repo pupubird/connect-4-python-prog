@@ -9,11 +9,17 @@ class Rectangle:
         self.window = window
         try:
             self.box_content = kwargs['init_content']
-            self.top_row = kwargs['top_row']
-            self.col_index = kwargs['col_index']
-        except:
+        except KeyError:
             self.box_content = ""
+
+        try:
+            self.top_row = kwargs['top_row']
+        except KeyError:
             self.top_row = False
+
+        try:
+            self.col_index = kwargs['col_index']
+        except KeyError:
             self.col_index = '-'
 
     # def refresh_rectangle(self):

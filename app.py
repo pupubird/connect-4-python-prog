@@ -18,39 +18,8 @@ except Exception:
 
 def main(window):  # adjust window size
     curses.curs_set(0)
-    win_width, _ = get_widheight()
-    if int(win_width) > 1700:
-        os.system('mode 200')
-    else:
-        os.system('mode 150')
-    board_page.main(window, int(win_width))
-
-
-def get_widheight():
-    os.system('wmic desktopmonitor get screenheight, screenwidth > scrn_size.txt')
-    with open("scrn_size.txt", 'r') as f:
-        lines = f.readlines()
-
-    # because of unable to strip()
-    size_line = lines[2]
-    height_line = size_line[0:9]
-    width_line = size_line[29:36]
-
-    height = ""
-    width = ""
-    for height_int in height_line:
-        try:
-            height += str(int(height_int))
-        except Exception:
-            pass
-
-    for width_int in width_line:
-        try:
-            width += str(int(width_int))
-        except Exception:
-            pass
-
-    return width, height
+    os.system('mode 170')
+    board_page.main(window)
 
 
 curses.wrapper(main)

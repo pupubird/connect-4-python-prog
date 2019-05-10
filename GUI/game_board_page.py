@@ -4,13 +4,9 @@ import time
 from GUI.Component import game_board
 
 
-def main(window, win_width):
+def main(window):
     # set the board size according to window screen
     _, win_width = window.getmaxyx()
-    if win_width > 200:
-        box_size = 6
-    else:
-        box_size = 5
     curses.curs_set(0)
 
     # draw the logo
@@ -21,7 +17,12 @@ def main(window, win_width):
     window.refresh()
 
     # draw the board
-    board_win = curses.newwin(40, 150, 5, 5)
+    try:
+        board_win = curses.newwin(40, 150, 6, 5)
+        box_size = 5
+    except Exception:
+        board_win = curses.newwin(30, 150, 6, 5)
+        box_size = 4
     _board(board_win, window, box_size)
 
 
@@ -31,10 +32,8 @@ def _board(window, orig_window, box_size):
     list = board.game_list
     while True:
         # under developing
-        col_key = orig_window.getkey()
-        try:
-            list[int(col_key)].content = "0"
-        except Exception:
-            pass
+        col_key = orig_window.getch()
+        if col_key == curses.KEY_UP:
+            list[1].content = "A"
         curses.curs_set(0)
         board.refresh_board()
