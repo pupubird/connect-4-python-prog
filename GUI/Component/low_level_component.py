@@ -23,14 +23,10 @@ class Rectangle:
         except KeyError:
             self.col_index = '-'
 
-    # def refresh_rectangle(self):
-    #     up_left_y, up_left_x, low_right_y, low_right_x = self.args
-
-    #     draw_rectangle(up_left_y, up_left_x, low_right_y, low_right_x)
-
     def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x):
         self.args = (up_left_y, up_left_x, low_right_y, low_right_x)
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
+        curses.init_pair(2, curses.COLOR_CYAN, 0)
         # symbol
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
@@ -68,6 +64,8 @@ class Rectangle:
             )
 
             if self.top_row:
+
+                self.window.attron(curses.color_pair(2))
                 self.window.addstr(
                     up_left_y,
                     # align to center
@@ -75,6 +73,8 @@ class Rectangle:
                     - (len(str(self.col_index))//2),
                     str(self.col_index)
                 )
+                self.window.attroff(curses.color_pair(2))
+
         except Exception:
             return False
         return True

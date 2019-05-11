@@ -4,7 +4,7 @@ import time
 from GUI.Component import game_board
 
 
-def main(window):
+def main(window, row_size, col_size):
 
     curses.init_pair(1, curses.COLOR_YELLOW, 0)
     # set the board size according to window screen
@@ -27,12 +27,14 @@ def main(window):
     except Exception:
         board_win = curses.newwin(30, 150, 6, 5)
         box_size = 4
-    _board(board_win, window, box_size)
+    _board(board_win, window, box_size, row_size, col_size)
 
 
-def _board(window, orig_window, box_size):
+def _board(window, orig_window, box_size, row_size, col_size):
+    curses.init_pair(2, curses.COLOR_GREEN, 0)
+    curses.init_pair(3, curses.COLOR_BLUE, 0)
     board = game_board.GameBoard(window, box_size)
-    board.draw_board(6, 9)
+    board.draw_board(row_size, col_size)
     list = board.game_list
     # number key of curses, key 49 is 1, key 57 is 9
     number_key = [number for number in range(49, 58)]

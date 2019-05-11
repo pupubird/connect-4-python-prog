@@ -19,8 +19,8 @@ except Exception:
 def main(window):  # adjust window size
     curses.curs_set(0)
     os.system('mode 170')
-    #direct to board page
-    board_page.main(window)
+    # direct to board page
+    board_page.main(window, 6, 9)
 
 
 curses.wrapper(main)
