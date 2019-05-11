@@ -6,6 +6,7 @@ import threading
 class Rectangle:
 
     def __init__(self, window, **kwargs):
+
         self.window = window
         try:
             self.box_content = kwargs['init_content']
@@ -29,6 +30,8 @@ class Rectangle:
 
     def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x):
         self.args = (up_left_y, up_left_x, low_right_y, low_right_x)
+        curses.init_pair(1, curses.COLOR_YELLOW, 0)
+        # symbol
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
         corner_symb = "+"
@@ -49,10 +52,12 @@ class Rectangle:
                               low_right_x - up_left_x - 1)
 
             # corner
+            self.window.attron(curses.color_pair(1))
             self.window.addch(up_left_y, up_left_x, corner_symb)
             self.window.addch(up_left_y, low_right_x, corner_symb)
             self.window.addch(low_right_y, low_right_x, corner_symb)
             self.window.addch(low_right_y, up_left_x, corner_symb)
+            self.window.attroff(curses.color_pair(1))
 
             # content
             self.window.addstr(
