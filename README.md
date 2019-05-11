@@ -94,7 +94,7 @@ To access game board list:
     list = instance.game_list
 
     To modify content:
-    list[index].content = "<new_value>"
+    list[col][row].content = "<new_value>"
 
 To refresh the board(after update the board data):
 

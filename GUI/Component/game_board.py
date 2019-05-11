@@ -50,10 +50,6 @@ class _BoardColumn:
             item.refresh_rectangle()
         self.window.refresh()
 
-    @property
-    def game_list(self):
-        return self.game_board_list
-
 
 class GameBoard(_BoardColumn):
     # inherit the game board list from _BoardColumn and pass row size to _BoardColumn
@@ -85,6 +81,15 @@ class GameBoard(_BoardColumn):
             data.append(
                 content_list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
         return data
+
+    @property
+    def game_list(self):
+        list = [item for item in self.game_board_list]
+        board_data = []
+        for i in range(self.column_amount):
+            board_data.append(
+                list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
+        return board_data
 
 
 if __name__ == "__main__":
