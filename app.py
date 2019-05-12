@@ -2,10 +2,10 @@ import os
 import time
 import threading
 import subprocess
-import GUI.game_board_page as board_page
 
 try:
     import GUI.test as test
+    import GUI.game_board_page as board_page
     import curses
 except Exception:
     try:

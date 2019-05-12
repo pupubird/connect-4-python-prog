@@ -31,12 +31,10 @@ def main(window, row_size, col_size):
 
 
 def _board(window, orig_window, box_size, row_size, col_size):
-    curses.init_pair(2, curses.COLOR_GREEN, 0)
-    curses.init_pair(3, curses.COLOR_BLUE, 0)
     board = game_board.GameBoard(window, box_size)
     board.draw_board(row_size, col_size)
     list = board.game_list
-    # number key of curses, key 49 is 1, key 57 is 9
+    # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
     number_key = [number for number in range(49, 58)]
     while True:
         # under developing

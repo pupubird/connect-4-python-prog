@@ -5,7 +5,7 @@ from Component import low_level_component as component
 
 
 def main(window):
-    window.addch(curses.ACS_DIAMOND)
+    window.addch(curses.ACS_BULLET)
     window.refresh()
     time.sleep(3)
 
