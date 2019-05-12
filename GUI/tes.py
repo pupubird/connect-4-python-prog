@@ -1,7 +1,13 @@
+from curses import textpad
 import curses
 import time
 from Component import low_level_component as component
 
 
-a = [i for i in range(49, 58)]
-print(a)
+def main(window):
+    window.addch(curses.ACS_DIAMOND)
+    window.refresh()
+    time.sleep(3)
+
+
+curses.wrapper(main)
