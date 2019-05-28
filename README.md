@@ -39,11 +39,11 @@ args of draw_rectangle is by following:
         top left x coordinate,
         botton right y coordinate,
         bottom right x coordinate,
-        default_corn_sym
+        default_corn_sym = True
     )
 
     where default_corn_sym is True by default = "+",
-    change it to False means the corner will be ACS line corner
+    change it to False means the corner will be ACS line corner (e.g.:curses.ACS_LLCORNER)
 
 To modify content (e.g.: "O","X"," ") in rectangle:
 

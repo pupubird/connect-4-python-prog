@@ -1,29 +1,25 @@
 import os
-import time
-import threading
-import subprocess
-
-
 try:
-    import GUI.test as test
-    import GUI.game_board_page as board_page
-    # import GUI.tes as test
     import curses
 except Exception:
+    # means it might be the first time the user run the program
     try:
-        # using this curses library instead because built-in curses has import problems.
         os.system('pip install "curses-2.2+utf8-cp37-cp37m-win_amd64.whl"')
     except Exception:
-        # user is using 32 bit python
-        os.system('pip install "curses-2.2+utf8-cp37-cp37m-win32"')
+        # user is using 32-bit python
+        os.system('pip install "curses-2.2+utf8-cp37-cp37m-win32.whl"')
+    # open terminal to run the program as shell doesnt run it well
+    os.system('start cmd.exe @cmd /k "python app.py"')
+import time
 
 
 def main(window):  # adjust window size
+    import GUI.game_board_page as board_page
+    import GUI.test as test
     curses.curs_set(0)
-    os.system('mode 150')
+    os.system('mode 165')
     # direct to board page
     board_page.main(window, 6, 9)
-    # test.main(window)
 
 
 curses.wrapper(main)

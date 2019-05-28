@@ -17,8 +17,8 @@ def main(window, row_size, col_size):
     window.attron(curses.color_pair(1))
     with open("assets\ASCII_Art\logo.txt", "r") as logo:
         logo_text = logo.readlines()
-        for row in range(len(logo_text)):
-            window.addstr(row, 5, logo_text[row])
+        for row in range(1, len(logo_text)+1):
+            window.addstr(row, 5, logo_text[row-1])
     window.refresh()
     window.attroff(curses.color_pair(1))
 
@@ -26,10 +26,10 @@ def main(window, row_size, col_size):
     _score_board()
     # draw the game board
     try:
-        board_win = curses.newwin(40, 90, 6, 5)
+        board_win = curses.newwin(40, 100, 7, 5)
         box_size = 5
     except Exception:
-        board_win = curses.newwin(30, 90, 6, 5)
+        board_win = curses.newwin(30, 100, 7, 5)
         box_size = 4
     _board(board_win, window, box_size, row_size, col_size)
 
@@ -82,6 +82,6 @@ def _AI_move():
 
 
 def _score_board():
-    score_win = curses.newwin(40, 35, 3, 110)
+    score_win = curses.newwin(38, 35, 3, 128)
     score = score_board.ScoreBoard(score_win, 33, 35)
     score.draw_score_board()

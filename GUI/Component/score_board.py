@@ -10,6 +10,6 @@ class ScoreBoard:
 
     def draw_score_board(self):
         border = component.Rectangle(
-            self.window, top_row=True, top_sym="Score board")
+            self.window, top_row=True, top_sym="SCORE BOARD")
         border.draw_rectangle(0, 0, self.ncols, self.nlines, False)
         self.window.refresh()
