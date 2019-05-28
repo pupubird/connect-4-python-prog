@@ -22,6 +22,8 @@ def main(window, row_size, col_size):
     window.refresh()
     window.attroff(curses.color_pair(1))
 
+    # draw the score board
+    _score_board()
     # draw the game board
     try:
         board_win = curses.newwin(40, 90, 6, 5)
@@ -29,13 +31,6 @@ def main(window, row_size, col_size):
     except Exception:
         board_win = curses.newwin(30, 90, 6, 5)
         box_size = 4
-
-    # draw the score board
-
-    score_win = curses.newwin(40, 35, 3, 110)
-    score = score_board.ScoreBoard(score_win, 33, 35)
-    score.draw_score_board()
-
     _board(board_win, window, box_size, row_size, col_size)
 
 
@@ -46,20 +41,46 @@ def _board(window, orig_window, box_size, row_size, col_size):
     # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
     number_key = [number for number in range(49, 58)]
     logic = game_logic.GameLogic()
+    # game loop start
+    isPlayer = True
     while True:
-        # under developing
-        col_key = orig_window.getch()
-
-        if col_key in number_key:
-            # game logic checking
+        # player turn
+        if isPlayer:
+            col_key = orig_window.getch()
+            if col_key in number_key:
+                # game logic checking
+                valid_move, move_index = logic.slot_check(
+                    game_list, number_key.index(col_key))
+                if valid_move:
+                    game_list[number_key.index(
+                        col_key)][move_index].content = "O"
+                    isPlayer = not isPlayer
+                else:
+                    # invalid move, show some message
+                    pass
+        # AI turn
+        else:
+            ai_index = _AI_move()
             valid_move, move_index = logic.slot_check(
-                game_list, number_key.index(col_key))
-
+                game_list, ai_index
+            )
             if valid_move:
-                game_list[number_key.index(col_key)][move_index].content = "O"
+                game_list[number_key.index(
+                    col_key)][move_index].content = "X"
+                isPlayer = not isPlayer
             else:
-                # invalid move, show some message
+                # unlikely to happen...but yea just in case
                 pass
-
         curses.curs_set(0)
         board.refresh_board()
+
+
+def _AI_move():
+    # develop the AI move here, return the col_key
+    return 1
+
+
+def _score_board():
+    score_win = curses.newwin(40, 35, 3, 110)
+    score = score_board.ScoreBoard(score_win, 33, 35)
+    score.draw_score_board()
