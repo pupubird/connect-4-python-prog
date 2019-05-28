@@ -1,28 +1,27 @@
+import json
 import curses
-from Component import low_level_component
 import time
 
 
+def dataa():
+    with open('./assets/data/scores.json', 'r') as f:
+        data = json.load(f)
+        data['scores'] = sorted(
+            data['scores'], key=lambda i: i[0], reverse=True)
+        return data['scores']
+
+
 def main(window):
-    a = low_level_component.Rectangle(window)
-    a.draw_rectangle(0, 0, 10, 10)
-    a.content = "A"
-    a.color = curses.COLOR_YELLOW
-    a.refresh_rectangle()
-    b = low_level_component.Rectangle(window)
-    b.draw_rectangle(0, 20, 10, 30)
-    b.content = "B"
-    b.color = curses.COLOR_YELLOW
-    b.refresh_rectangle()
-    window.refresh()
-    time.sleep(1)
-    b.content = "C"
-    b.color = curses.COLOR_CYAN
-    a.refresh_rectangle()
-    b.refresh_rectangle()
+    data = dataa()
+    j = 1
+    for i in range(10):
+        window.addstr(j, 4, str(i+1)+'.')
+        window.addstr(j, 7, str(data[i][0]))
+        window.addstr(j, 13, data[i][1])
+        window.addstr(j, 19, data[i][2])
+        j += 1
     window.refresh()
     time.sleep(3)
-    print(a, b)
 
 
 curses.wrapper(main)

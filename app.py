@@ -15,7 +15,7 @@ import time
 
 def main(window):  # adjust window size
     import GUI.game_board_page as board_page
-    import GUI.test as test
+    # start background music
     import threading
     background_music = threading.Thread(target=music, daemon=True)
     background_music.start()
