@@ -35,6 +35,7 @@ def main(window, row_size, col_size):
 
 
 def _board(window, orig_window, box_size, row_size, col_size):
+
     board = game_board.GameBoard(window, box_size)
     board.draw_board(row_size, col_size)
     game_list = board.game_list

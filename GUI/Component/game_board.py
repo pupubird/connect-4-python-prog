@@ -26,22 +26,22 @@ class _BoardColumn:
         for row in range(self.row_size):
             if not row:
                 current_row = component.Rectangle(
-                    self.window, top_row=True, col_index=col_index)
+                    self.window, top_row=True, top_sym=col_index, color=curses.COLOR_YELLOW)
                 current_row.draw_rectangle(
                     up_left_y + (self.box_size * row),
                     up_left_x,
                     low_right_y + (self.box_size*row),
-                    low_right_x + self.box_size
+                    low_right_x + self.box_size,
                 )
                 self.game_board_list.append(current_row)
             else:
                 current_row = component.Rectangle(
-                    self.window)
+                    self.window, color=curses.COLOR_YELLOW)
                 current_row.draw_rectangle(
                     up_left_y + (self.box_size * row),
                     up_left_x,
                     low_right_y + (self.box_size*row),
-                    low_right_x + self.box_size
+                    low_right_x + self.box_size,
                 )
                 self.game_board_list.append(current_row)
 

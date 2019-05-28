@@ -26,7 +26,8 @@ initialize it with:
     (
         top_row = False, 
         col_index = '-', 
-        init_content = ""
+        init_content = "",
+        color = curses.COLOR_WHITE
     )
 
 call *draw_rectangle(args)* to draw the rectangle to the window parsed.

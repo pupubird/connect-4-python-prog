@@ -11,22 +11,27 @@ class Rectangle:
         try:
             self.box_content = kwargs['init_content']
         except KeyError:
-            self.box_content = ""
+            self.box_content = " "
 
         try:
             self.top_row = kwargs['top_row']
         except KeyError:
             self.top_row = False
-
         try:
-            self.col_index = kwargs['col_index']
+            self.col_index = kwargs['top_sym']
         except KeyError:
             self.col_index = '-'
+        try:
+            self.content_color = kwargs['color']
+        except KeyError:
+            self.content_color = curses.COLOR_WHITE
 
     def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x, default_corn_sym=True):
         self.args = (up_left_y, up_left_x, low_right_y, low_right_x)
+        # corner color, border color, and content color
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         curses.init_pair(2, curses.COLOR_CYAN, 0)
+        curses.init_pair(3, self.color, 0)
         # symbol
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
@@ -62,13 +67,16 @@ class Rectangle:
             self.window.attroff(curses.color_pair(1))
 
             # content
+            self.window.attron(curses.color_pair(3))
             self.window.addstr(
                 (low_right_y - up_left_y) // 2 + up_left_y,
                 (low_right_x - up_left_x) // 2 +
                 up_left_x - (len(self.content)//2),
                 self.content
             )
+            self.window.attroff(curses.color_pair(3))
 
+            # draw for top row numbers
             if self.top_row:
 
                 self.window.attron(curses.color_pair(2))
@@ -101,6 +109,14 @@ class Rectangle:
     @content.deleter
     def content(self, del_content):
         self.box_content = " "
+
+    @property
+    def color(self):
+        return self.content_color
+
+    @color.setter
+    def color(self, new_color):
+        self.content_color = new_color
 
 
 class LoadingAnimation:

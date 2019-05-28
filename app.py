@@ -3,6 +3,7 @@ import time
 import threading
 import subprocess
 
+
 try:
     import GUI.test as test
     import GUI.game_board_page as board_page
@@ -19,7 +20,7 @@ except Exception:
 
 def main(window):  # adjust window size
     curses.curs_set(0)
-    os.system('mode 160')
+    os.system('mode 150')
     # direct to board page
     board_page.main(window, 6, 9)
     # test.main(window)
