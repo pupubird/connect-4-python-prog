@@ -23,14 +23,20 @@ class Rectangle:
         except KeyError:
             self.col_index = '-'
 
-    def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x):
+    def draw_rectangle(self, up_left_y, up_left_x, low_right_y, low_right_x, default_corn_sym=True):
         self.args = (up_left_y, up_left_x, low_right_y, low_right_x)
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         curses.init_pair(2, curses.COLOR_CYAN, 0)
         # symbol
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
-        corner_symb = "+"
+        if not default_corn_sym:
+            left_upcorner = curses.ACS_ULCORNER
+            left_downcorner = curses.ACS_LLCORNER
+            right_upcorner = curses.ACS_URCORNER
+            right_downcorner = curses.ACS_LRCORNER
+        else:
+            left_upcorner = left_downcorner = right_upcorner = right_downcorner = "+"
         """
         Draw a rectangle with corners at the provided upper-left
         and lower-right coordinates.
@@ -49,10 +55,10 @@ class Rectangle:
 
             # corner
             self.window.attron(curses.color_pair(1))
-            self.window.addch(up_left_y, up_left_x, corner_symb)
-            self.window.addch(up_left_y, low_right_x, corner_symb)
-            self.window.addch(low_right_y, low_right_x, corner_symb)
-            self.window.addch(low_right_y, up_left_x, corner_symb)
+            self.window.addch(up_left_y, up_left_x, left_upcorner)
+            self.window.addch(up_left_y, low_right_x, right_upcorner)
+            self.window.addch(low_right_y, low_right_x, right_downcorner)
+            self.window.addch(low_right_y, up_left_x, left_downcorner)
             self.window.attroff(curses.color_pair(1))
 
             # content

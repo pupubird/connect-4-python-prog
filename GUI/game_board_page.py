@@ -44,12 +44,11 @@ def _board(window, orig_window, box_size, row_size, col_size):
     game_list = board.game_list
     # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
     number_key = [number for number in range(49, 58)]
-    # while True:
-    #     # under developing
-    #     col_key = orig_window.getch()
+    while True:
+        # under developing
+        col_key = orig_window.getch()
 
-    #     if col_key in number_key:
-    #         game_list[number_key.index(col_key)][-1].content = "O"
-    #     curses.curs_set(0)
-    #     board.refresh_board()
-    time.sleep(3)
+        if col_key in number_key:
+            game_list[number_key.index(col_key)][-1].content = "O"
+        curses.curs_set(0)
+        board.refresh_board()
