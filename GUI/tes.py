@@ -1,11 +1,11 @@
-from curses import textpad
 import curses
+from Component import score_board
 import time
-from Component import low_level_component as component
 
 
 def main(window):
-    window.addch(curses.ACS_BULLET)
+    score = score_board.ScoreBoard(window, 10, 10)
+    score.draw_score_board()
     window.refresh()
     time.sleep(3)
 
