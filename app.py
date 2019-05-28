@@ -27,7 +27,7 @@ def main(window):  # adjust window size
 
 def music():
     import winsound
-    winsound.PlaySound('assets/music/background.wav', winsound.SND_LOOP)
+    winsound.PlaySound('assets/music/menu_background.wav', winsound.SND_LOOP)
 
 
 curses.wrapper(main)

@@ -1,16 +1,17 @@
 import curses
 import threading
 import time
+import winsound
 from GUI.Component import game_board
 from GUI.Component import score_board
 from GUI.Game_Logic import game_logic
 
 
 def main(window, row_size, col_size):
+    # play background music
+    threading.Thread(target=play_background, daemon=True).start()
 
     curses.init_pair(1, curses.COLOR_YELLOW, 0)
-    # set the board size according to window screen
-    _, win_width = window.getmaxyx()
     curses.curs_set(0)
 
     # draw the logo, set it to yellow colour
@@ -35,7 +36,7 @@ def main(window, row_size, col_size):
 
 
 def _board(window, orig_window, box_size, row_size, col_size):
-
+    import threading
     board = game_board.GameBoard(window, box_size)
     board.draw_board(row_size, col_size)
     game_list = board.game_list
@@ -74,6 +75,15 @@ def _board(window, orig_window, box_size, row_size, col_size):
                 pass
         curses.curs_set(0)
         board.refresh_board()
+
+
+def clicking_music():
+    winsound.PlaySound('./assets/music/clicking.wav', winsound.SND_ASYNC)
+
+
+def play_background():
+    winsound.PlaySound(
+        '../assets/music/game_background.wav', winsound.SND_LOOP)
 
 
 def _AI_move():
