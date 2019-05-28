@@ -3,6 +3,7 @@ import threading
 import time
 from GUI.Component import game_board
 from GUI.Component import score_board
+from GUI.Game_Logic import game_logic
 
 
 def main(window, row_size, col_size):
@@ -44,11 +45,21 @@ def _board(window, orig_window, box_size, row_size, col_size):
     game_list = board.game_list
     # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
     number_key = [number for number in range(49, 58)]
+    logic = game_logic.GameLogic()
     while True:
         # under developing
         col_key = orig_window.getch()
 
         if col_key in number_key:
-            game_list[number_key.index(col_key)][-1].content = "O"
+            # game logic checking
+            valid_move, move_index = logic.slot_check(
+                game_list, number_key.index(col_key))
+
+            if valid_move:
+                game_list[number_key.index(col_key)][move_index].content = "O"
+            else:
+                # invalid move, show some message
+                pass
+
         curses.curs_set(0)
         board.refresh_board()
