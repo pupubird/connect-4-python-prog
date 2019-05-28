@@ -16,10 +16,18 @@ import time
 def main(window):  # adjust window size
     import GUI.game_board_page as board_page
     import GUI.test as test
+    import threading
+    background_music = threading.Thread(target=music, daemon=True)
+    background_music.start()
     curses.curs_set(0)
     os.system('mode 165')
     # direct to board page
     board_page.main(window, 6, 9)
+
+
+def music():
+    import winsound
+    winsound.PlaySound('assets/music/background.wav', winsound.SND_LOOP)
 
 
 curses.wrapper(main)
