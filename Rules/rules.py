@@ -24,22 +24,23 @@ def winning_check(win_connect):
             else:
                 previous_c = current
                 connect_col = 1
-        if connect_col == win_connect and previous_c != " ":
-            return previous_c, True
+            if connect_col == win_connect and previous_c != " ":
+                return previous_c, True
 
     # initialize connect_row
     previous_r = str()
     connect_row = 1
     # check for horizontal row
-    for row in board_data:
-        for current in row:
-            if current == previous_r and current != " ":
+    #[0][-1] [1][-1] [2][-1]
+    for i in range(1, len(board_data[0])+1):
+        for j in range(len(board_data)):
+            if board_data[j][-i] == previous_r and previous_r != " ":
                 connect_row += 1
             else:
-                previous_r = current
+                previous_r = board_data[j][-i]
                 connect_row = 1
-        if connect_row == win_connect and previous_r != " ":
-            return previous_r, True
+            if connect_row == win_connect and previous_r != " ":
+                return previous_r, True
 
     # initialize connect_pdiag and previous
     previous_pd = str()
