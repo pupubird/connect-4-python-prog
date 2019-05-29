@@ -126,7 +126,8 @@ class LoadingAnimation:
     def draw_loading(self, y, x):
         animation_frame = ['-', '\\', '|', '/']
         current_frame = 0
-        while True:
+        time_count = 0
+        while time_count < 6:
             self.window.addstr(y, x, animation_frame[current_frame])
             if current_frame == len(animation_frame) - 1:
                 current_frame = 0
@@ -134,6 +135,8 @@ class LoadingAnimation:
                 current_frame += 1
             self.window.refresh()
             time.sleep(0.5)
+            time_count += 1
+        self.window.addstr(y, x, " ")
 
 
 if __name__ == "__main__":
