@@ -11,10 +11,12 @@ from GUI.Component.low_level_component import LoadingAnimation
 def main(window, row_size, col_size):
     # play background music
     threading.Thread(target=play_background, daemon=True).start()
-    window.addstr(7, 5, "Please enter number 1-9 to insert:              ")
     window.refresh()
     curses.init_pair(1, curses.COLOR_YELLOW, 0)
     curses.curs_set(0)
+
+    window.addstr(
+        7, 5, "Please enter number 1-9 to insert:              ")
 
     # draw the logo, set it to yellow colour
     window.attron(curses.color_pair(1))
@@ -61,6 +63,8 @@ def _board(window, orig_window, box_size, row_size, col_size):
                         board, game_list, number_key.index(col_key), move_index, "O")
 
                     isPlayer = not isPlayer
+                    orig_window.addstr(
+                        7, 5, "Please enter number 1-9 to insert:              ")
                 else:
                     # invalid move, show some message
                     orig_window.addstr(
@@ -82,18 +86,23 @@ def _board(window, orig_window, box_size, row_size, col_size):
                 logic.dropping_animation(
                     board, game_list, ai_col, move_index, "X")
                 isPlayer = not isPlayer
+                orig_window.addstr(
+                    7, 5, "Please enter number 1-9 to insert:              ")
             else:
                 # unlikely to happen...but yea just in case
                 orig_window.addstr(
                     7, 5, "invalid move, Please enter number 1-9 to insert:")
+
         save_data(board.data())
         curses.curs_set(0)
         board.refresh_board()
 
 
 def _AI_move():
+    import random
     # develop the AI move here, return the col_key
-    return 1
+    col_key = random.choice([0, 1])
+    return col_key
 
 
 def clicking_music():

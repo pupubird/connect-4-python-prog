@@ -124,10 +124,12 @@ class LoadingAnimation:
         self.window = window
 
     def draw_loading(self, y, x):
+        import random
         animation_frame = ['-', '\\', '|', '/']
         current_frame = 0
         time_count = 0
-        while time_count < 6:
+        time_limit = random.choice([6, 5, 4, 3])
+        while time_count < time_limit:
             self.window.addstr(y, x, animation_frame[current_frame])
             if current_frame == len(animation_frame) - 1:
                 current_frame = 0
