@@ -1,30 +1,21 @@
 import json
 
 
-def data_import(filename):
-    #read json file here, return a two dimemsional list
+def load_data(filename):
+    # read json file here, return a two dimemsional list
+    with open(f'./assets/data/{filename}.json', 'r') as f:
+        board_data = json.load(f)
+    return board_data['board_data']
+
 
 def winning_check(win_connect):
-    #board_data = data_import(filename)
-    board_data = [
-        [' ', ' ', ' ', ' ', ' ', 'O'],
-        [' ', ' ', 'O', 'O', 'O', 'O'],
-        [' ', ' ', 'X', 'O', 'X', 'X'],
-        [' ', ' ', 'O', 'X', 'O', 'O'],
-        [' ', 'X', 'O', 'O', 'X', 'O'],
-        [' ', ' ', 'X', 'O', 'O', 'X'],
-        [' ', ' ', ' ', 'X', 'O', 'O'],
-        [' ', ' ', ' ', 'X', 'X', 'X'],
-        [' ', ' ', ' ', ' ', 'X', 'X']
-    ]
-
-
+    board_data = load_data('board_data')
 
     # initialize previous and connect_col
     previous_c = str()
     connect_col = 1
 
-    #check for vertical column
+    # check for vertical column
     for column in board_data:
         # if last symbol = current row symbol, means they are the same, connect+1
         for current in column:
@@ -34,11 +25,12 @@ def winning_check(win_connect):
                 previous_c = current
                 connect_col = 1
         if connect_col == win_connect and previous_c != " ":
-            return True
+            return previous_c, True
+
     # initialize connect_row
     previous_r = str()
     connect_row = 1
-    #check for horizontal row
+    # check for horizontal row
     for row in board_data:
         for current in row:
             if current == previous_r and current != " ":
@@ -47,13 +39,13 @@ def winning_check(win_connect):
                 previous_r = current
                 connect_row = 1
         if connect_row == win_connect and previous_r != " ":
-            return True
+            return previous_r, True
 
-    #initialize connect_pdiag and previous
+    # initialize connect_pdiag and previous
     previous_pd = str()
     connect_pdiag = 1
 
-    #check for positive diagonal
+    # check for positive diagonal
     for col in range(len(board_data)):
         row = 1
         while row <= (win_connect+1):
@@ -67,16 +59,16 @@ def winning_check(win_connect):
                 previous_pd = board_data[col + row - 1][-(row)]
 
                 if connect_pdiag == win_connect and previous_pd != ' ':
-                    return True
+                    return previous_pd, True
             except IndexError:
                 pass
             row += 1
 
-    #initialize connect_ndiag and previous
+    # initialize connect_ndiag and previous
     previous_nd = str()
     connect_ndiag = 1
 
-    #check for negative diagonal from bottom right
+    # check for negative diagonal from bottom right
 
     for col in range(len(board_data)):
         row = 1
@@ -89,21 +81,16 @@ def winning_check(win_connect):
                 previous_nd = board_data[-(col + row)][-(row)]
 
                 if connect_ndiag == win_connect and previous_nd != ' ':
-
-                    return True
+                    return previous_nd, True
             except IndexError:
                 pass
             row += 1
-    return False
 
+    return "none", False
 
 
 # win_connect = 4 when 6X7 gameboard is chosen
 # win_connect = 5 when 6X9 gameboard is chosen
-print(winning_check(3))
-
-
-win = winning_check(5)
-
-
-
+if __name__ == "__main__":
+    value, boo = winning_check(5)
+    print(value)

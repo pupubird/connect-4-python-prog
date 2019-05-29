@@ -6,6 +6,7 @@ from GUI.Component import game_board
 from GUI.Component import score_board
 from GUI.Game_Logic import game_logic
 from GUI.Component.low_level_component import LoadingAnimation
+from Rules import rules
 
 
 def main(window, row_size, col_size):
@@ -41,15 +42,25 @@ def main(window, row_size, col_size):
 
 def _board(window, orig_window, box_size, row_size, col_size):
     import threading
+    # total attemp counting
+    total_attempt = 0
+    orig_window.addstr(
+        40, 136, f"Total attepmt: {total_attempt}")
+    orig_window.refresh()
+
+    # board initialize
     board = game_board.GameBoard(window, box_size)
     board.draw_board(row_size, col_size)
     game_list = board.game_list
+
     # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
     number_key = [number for number in range(49, 58)]
     logic = game_logic.GameLogic()
     # game loop start
     isPlayer = True
     while True:
+
+        save_data(board.data())
         # player turn
         if isPlayer:
             col_key = orig_window.getch()
@@ -63,12 +74,18 @@ def _board(window, orig_window, box_size, row_size, col_size):
                         board, game_list, number_key.index(col_key), move_index, "O")
 
                     isPlayer = not isPlayer
+                    total_attempt += 1
                     orig_window.addstr(
                         7, 5, "Please enter number 1-9 to insert:              ")
+
                 else:
                     # invalid move, show some message
                     orig_window.addstr(
                         7, 5, "invalid move, Please enter number 1-9 to insert:")
+
+                orig_window.addstr(
+                    40, 136, f"Total attepmt: {total_attempt}")
+                orig_window.refresh()
         # AI turn
         else:
             ai_col = _AI_move()
@@ -93,7 +110,22 @@ def _board(window, orig_window, box_size, row_size, col_size):
                 orig_window.addstr(
                     7, 5, "invalid move, Please enter number 1-9 to insert:")
 
+        # win check
         save_data(board.data())
+        value, win_boo = rules.winning_check(5)
+        if win_boo:
+            # do something here, gameover page
+            if value == "O":
+                orig_window.addstr(
+                    7, 5, "congrats! you win!                               ")
+            elif value == "X":
+                orig_window.addstr(
+                    7, 5, "sorry! you lose!                                 ")
+
+            orig_window.refresh()
+            time.sleep(5)
+            break
+
         curses.curs_set(0)
         board.refresh_board()
 
@@ -106,7 +138,7 @@ def _AI_move():
 
 
 def clicking_music():
-    winsound.PlaySound('./assets/music/clicking.wav', winsound.SND_ASYNC)
+    winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
 
 
 def play_background():
@@ -129,4 +161,4 @@ def save_data(game_list):
     import json
     with open('./assets/data/board_data.json', 'w') as f:
         data = {'board_data': game_list}
-        json.dump(data, f)
+        json.dump(data, f, indent=2)

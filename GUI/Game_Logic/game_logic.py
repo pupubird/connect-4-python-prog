@@ -16,6 +16,8 @@ class GameLogic:
             time.sleep(0.2)
             game_list[
                 col_key][i].content = " "
+            board.refresh_board()
 
         game_list[
             col_key][move_index].content = char
+        board.refresh_board()
