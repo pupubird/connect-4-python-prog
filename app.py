@@ -11,7 +11,6 @@ except Exception:
     # open terminal to run the program as shell doesnt run it well
     os.system('start cmd.exe @cmd /k "python app.py"')
 import time
-os.system('mode 165')
 
 
 def main(window):  # adjust window size
@@ -21,6 +20,7 @@ def main(window):  # adjust window size
     background_music = threading.Thread(target=music, daemon=True)
     background_music.start()
     curses.curs_set(0)
+    os.system('mode 165')
     # direct to board page
     board_page.main(window, 6, 9)
 

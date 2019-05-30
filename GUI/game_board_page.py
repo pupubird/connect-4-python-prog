@@ -133,7 +133,7 @@ def _board(window, orig_window, box_size, row_size, col_size):
 def _AI_move():
     import random
     # develop the AI move here, return the col_key
-    col_key = random.choice([0, 1, 2, 3, 4, 5, 6, 7, 8])
+    col_key = random.choice([0, 1])
     return col_key
 
 
@@ -160,5 +160,5 @@ def _score_board():
 def save_data(game_list):
     import json
     with open('./assets/data/board_data.json', 'w') as f:
-        data = {'6:9': game_list}
+        data = {'board_data': game_list}
         json.dump(data, f, indent=2)
