@@ -1,1 +1,4 @@
-# save scores and show puas here
+# save scores and show sapnu here
+class GameOverPage:
+    def __init__(self, window):
+        pass
