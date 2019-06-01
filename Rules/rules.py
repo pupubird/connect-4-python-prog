@@ -89,7 +89,7 @@ def winning_check(win_connect, filename, game_mode):
 
     # check for draw
     for column in board_data:
-        for row in board_data:
+        for row in column:
             if row == " ":
                 break
         else:

@@ -20,11 +20,13 @@ import time
 
 def main(window):  # adjust window size
     import GUI.game_board_page as board_page
+
     # start background music
     import threading
     background_music = threading.Thread(target=music, daemon=True)
     background_music.start()
     curses.curs_set(0)
+
     os.system('mode 165')
     # direct to board page
     row_size = 6
