@@ -63,7 +63,6 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode):
     isPlayer = True
     while True:
 
-        save_data(board.data())
         # player turn
         if isPlayer:
             col_key = orig_window.getch()
@@ -115,9 +114,9 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode):
         orig_window.refresh()
 
         # win check
-        save_data(board.data())
+        save_data(board.data(), game_mode)
         win_mode = 5 if game_mode == "6:9" else 4
-        value, win_boo = rules.winning_check(win_mode)
+        value, win_boo = rules.winning_check(win_mode, 'board_data', game_mode)
         if win_boo:
             # do something here, gameover page
             if value == "O":
@@ -162,8 +161,10 @@ def _score_board(game_mode):
     score.draw_score_board()
 
 
-def save_data(game_list):
+def save_data(game_list, game_mode):
     import json
     with open('./assets/data/board_data.json', 'w') as f:
-        data = {'board_data': game_list}
+        # read first, then replace
+        data = {'board_data': {game_mode: game_list}}
+
         json.dump(data, f, indent=2)

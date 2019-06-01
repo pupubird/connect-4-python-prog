@@ -1,15 +1,15 @@
 import json
 
 
-def load_data(filename):
+def load_data(filename, game_mode):
     # read json file here, return a two dimemsional list
     with open(f'./assets/data/{filename}.json', 'r') as f:
         board_data = json.load(f)
-    return board_data['board_data']
+    return board_data[filename][game_mode]
 
 
-def winning_check(win_connect):
-    board_data = load_data('board_data')
+def winning_check(win_connect, filename, game_mode):
+    board_data = load_data(filename, game_mode)
 
     # initialize previous and connect_col
     previous_c = str()
