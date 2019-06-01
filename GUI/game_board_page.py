@@ -170,7 +170,7 @@ class GameBoardPage:
 
     def play_background(self):
         winsound.PlaySound(
-            '../assets/music/game_background.wav', winsound.SND_LOOP)
+            './assets/music/game_background.wav', winsound.SND_LOOP)
 
     def loading(self, window):
         animation = LoadingAnimation(window)

@@ -20,24 +20,28 @@ import time
 
 def main(window):  # adjust window size
     import GUI.game_board_page as board_page
+    import GUI.main_menu as main_menu
 
     # start background music
     import threading
     background_music = threading.Thread(target=music, daemon=True)
-    background_music.start()
     curses.curs_set(0)
 
     os.system('mode 165')
     # direct to board page
     row_size = 6
     col_size = 7
-    board_page.GameBoardPage(window, row_size, col_size,
-                             f"{row_size}:{col_size}")
+    background_music.start()
+    main_menu.main(window)
+
+    # board_page.GameBoardPage(window, row_size, col_size,
+    #                          f"{row_size}:{col_size}")
 
 
 def music():
     import winsound
-    winsound.PlaySound('assets/music/menu_background.wav', winsound.SND_LOOP)
+    winsound.PlaySound('assets/music/menu_background.wav',
+                       winsound.SND_LOOP | winsound.SND_ASYNC)
 
 
 curses.wrapper(main)
