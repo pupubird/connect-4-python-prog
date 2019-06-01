@@ -20,7 +20,7 @@ import time
 
 def main(window):  # adjust window size
     import GUI.game_board_page as board_page
-    import GUI.main_menu as main_menu
+    import GUI.test_board as main_menu
 
     # start background music
     import threading
