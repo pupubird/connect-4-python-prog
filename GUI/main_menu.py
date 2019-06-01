@@ -7,24 +7,43 @@ buttons = ["Start", "Leaderboards", "Options", "Quit"]
 
 def main(stdscr):
     curses.curs_set(0)
-    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
-
-    height, width = stdscr.getmaxyx()
     current_button = 1
 
     def draw_menu():
         stdscr.clear()
 
-        for button in buttons:
-            if buttons.index(button)+1 == current_button:
-                stdscr.addstr((height//2)-(len(buttons)//2)+buttons.index(button),
-                              (width//2)-(len(button)//2), button, curses.color_pair(1))
+        # draw the logo, set it to yellow colour
+        curses.init_pair(1, curses.COLOR_YELLOW, 0)
+        stdscr.attron(curses.color_pair(1))
+        with open("./assets/ASCII_Art/logo.txt", "r") as logo:
+            logo_text = logo.readlines()
+            for row in range(1, len(logo_text)+1):
+                stdscr.addstr(row+9, 52, logo_text[row-1])
+        stdscr.refresh()
+        stdscr.attroff(curses.color_pair(1))
+
+        width = 50
+        height = 4
+        start_y, start_x = 19, 55
+        gap = 1
+        for index, button in enumerate(buttons):
+            if current_button == index+1:
+                rectangle.Rectangle(stdscr, init_content=button, top_row=True, top_sym="X").draw_rectangle(
+                    (height * index) + gap + start_y,
+                    0 + start_x,
+                    (height * (index + gap)) + start_y,
+                    width + start_x)
             else:
-                stdscr.addstr((height//2)-(len(buttons)//2) +
-                              buttons.index(button), (width//2)-(len(button)//2), button)
+                rectangle.Rectangle(stdscr, init_content=button).draw_rectangle(
+                    (height * index) + gap + start_y,
+                    0 + start_x,
+                    (height * (index + gap)) + start_y,
+                    width + start_x, False)
+
         stdscr.refresh()
 
     while True:
+        curses.curs_set(0)
         draw_menu()
         key = stdscr.getch()
 
@@ -34,24 +53,19 @@ def main(stdscr):
         if key == curses.KEY_DOWN and current_button < len(buttons):
             current_button += 1
 
-        # user choose, get the last key entered
         if key == curses.KEY_ENTER or key in [10, 13]:
             stdscr.clear()
 
-            # direct menu here
+            # navigate here
             import GUI.game_board_page as board_page
+            clicking()
             if current_button == 1:  # start
-                clicking()
                 return board_page.GameBoardPage(stdscr, 6, 9, '6:9')
             elif current_button == 2:  # leaderboard
-                clicking()
                 pass
-            elif current_button == 3:  # options
-                clicking()
+            if current_button == 3:  # option
                 pass
-            elif current_button == len(buttons):  # exit
-                clicking()
-                time.sleep(1)
+            if current_button == len(buttons):  # exit
                 break
 
             stdscr.refresh()

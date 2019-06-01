@@ -22,15 +22,15 @@ class GameBoardPage:
         # play background music
         threading.Thread(target=self.play_background, daemon=True).start()
         self.window.refresh()
-        curses.init_pair(1, curses.COLOR_YELLOW, 0)
         curses.curs_set(0)
 
         self.window.addstr(
             7, 5, f"Please enter number 1-{self.col_size} to insert:              ")
 
         # draw the logo, set it to yellow colour
+        curses.init_pair(1, curses.COLOR_YELLOW, 0)
         self.window.attron(curses.color_pair(1))
-        with open("assets\ASCII_Art\logo.txt", "r") as logo:
+        with open("./assets/ASCII_Art/logo.txt", "r") as logo:
             logo_text = logo.readlines()
             for row in range(1, len(logo_text)+1):
                 self.window.addstr(row, 5, logo_text[row-1])
