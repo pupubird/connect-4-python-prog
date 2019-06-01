@@ -9,186 +9,174 @@ from GUI.Component.low_level_component import LoadingAnimation
 from Rules import rules
 
 
-def main(window, row_size, col_size, game_mode, load_saved=False):
-    # play background music
-    threading.Thread(target=play_background, daemon=True).start()
-    window.refresh()
-    curses.init_pair(1, curses.COLOR_YELLOW, 0)
-    curses.curs_set(0)
+class GameBoardPage:
+    def __init__(self, window, row_size, col_size, game_mode, load_saved=False):
+        self.window = window
+        self.row_size = row_size
+        self.col_size = col_size
+        self.game_mode = game_mode
+        self.load_saved = load_saved
+        self.main()
 
-    window.addstr(
-        7, 5, f"Please enter number 1-{col_size} to insert:              ")
+    def main(self):
+        # play background music
+        threading.Thread(target=self.play_background, daemon=True).start()
+        self.window.refresh()
+        curses.init_pair(1, curses.COLOR_YELLOW, 0)
+        curses.curs_set(0)
 
-    # draw the logo, set it to yellow colour
-    window.attron(curses.color_pair(1))
-    with open("assets\ASCII_Art\logo.txt", "r") as logo:
-        logo_text = logo.readlines()
-        for row in range(1, len(logo_text)+1):
-            window.addstr(row, 5, logo_text[row-1])
-    window.refresh()
-    window.attroff(curses.color_pair(1))
+        self.window.addstr(
+            7, 5, f"Please enter number 1-{self.col_size} to insert:              ")
 
-    # draw the score board
-    _score_board(game_mode)
-    # draw the game board
-    try:
-        board_win = curses.newwin(40, 100, 8, 5)
-        box_size = 5
-    except Exception:
-        board_win = curses.newwin(30, 100, 8, 5)
-        box_size = 4
-    _board(board_win, window, box_size, row_size,
-           col_size, game_mode, load_saved)
+        # draw the logo, set it to yellow colour
+        self.window.attron(curses.color_pair(1))
+        with open("assets\ASCII_Art\logo.txt", "r") as logo:
+            logo_text = logo.readlines()
+            for row in range(1, len(logo_text)+1):
+                self.window.addstr(row, 5, logo_text[row-1])
+        self.window.refresh()
+        self.window.attroff(curses.color_pair(1))
 
+        # draw the score board
+        self._score_board()
+        # draw the game board
+        try:
+            board_win = curses.newwin(40, 100, 8, 5)
+            box_size = 5
+        except Exception:
+            board_win = curses.newwin(30, 100, 8, 5)
+            box_size = 4
+        self._board(board_win, box_size)
 
-def _board(window, orig_window, box_size, row_size, col_size, game_mode, load_saved=False):
-    import threading
-    prompting_string = f"Please enter number 1-{col_size} to insert:              "
-    invalid_string = f"invalid move, Please enter number 1-{col_size} to insert:"
-    loading_string = f"Ai is thinking...                                          "
-    # total attemp counting
-    total_attempt = 0
-    orig_window.addstr(
-        40, 136, f"Total attepmt: {total_attempt}")
-    orig_window.refresh()
+    def _board(self, board_window, box_size):
+        import threading
+        prompting_string = f"Please enter number 1-{self.col_size} to insert:              "
+        invalid_string = f"invalid move, Please enter number 1-{self.col_size} to insert:"
+        loading_string = f"Ai is thinking...                                          "
+        # total attemp counting
+        self.total_attempt = 0
+        self.window.addstr(
+            40, 136, f"Total attepmt: {self.total_attempt}")
+        self.window.refresh()
 
-    # board initialize
-    board = game_board.GameBoard(window, box_size)
-    board.draw_board(row_size, col_size)
+        # board initialize
+        board = game_board.GameBoard(board_window, box_size)
+        board.draw_board(self.row_size, self.col_size)
 
-    if load_saved:
-        data, total_attempt = load_saved_data(game_mode)
-        board.data_set(data)
+        # if continue game is true, load the data list, else, make a new list
+        if self.load_saved:
+            data, total_attempt = self.load_saved_data()
+            self.total_attempt = total_attempt
+            board.data_set(data)
 
-    game_list = board.game_list
+        game_list = board.game_list
 
-    # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
-    number_key = [number for number in range(49, 58)]
-    logic = game_logic.GameLogic()
-    # game loop start
-    isPlayer = True
-    while True:
+        # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
+        number_key = [number for number in range(49, 58)]
+        logic = game_logic.GameLogic()
+        # game loop start
+        isPlayer = True
+        while True:
 
-        # player turn
-        if isPlayer:
-            col_key = orig_window.getch()
-            if col_key in number_key:
-                # game logic checking
+            # player turn
+            if isPlayer:
+                col_key = self.window.getch()
+                if col_key in number_key:
+                    # game logic checking
+                    valid_move, move_index = logic.slot_check(
+                        game_list, number_key.index(col_key))
+                    if valid_move:
+                        # dropping animation
+                        logic.dropping_animation(
+                            board, game_list, number_key.index(col_key), move_index, "O")
+
+                        isPlayer = not isPlayer
+                        self.total_attempt += 1
+                        self.window.addstr(7, 5, prompting_string)
+                    else:
+                        # invalid move, show some message
+                        self.window.addstr(
+                            7, 5, invalid_string)
+
+            # AI turn
+            else:
+                ai_col = self._AI_move()
                 valid_move, move_index = logic.slot_check(
-                    game_list, number_key.index(col_key))
+                    game_list, ai_col
+                )
                 if valid_move:
+                    # loading animation
+                    self.window.addstr(7, 5, loading_string)
+                    load = threading.Thread(
+                        target=self.loading, args=[self.window])
+                    load.start()
+                    load.join()
+                    curses.flushinp()
+
                     # dropping animation
                     logic.dropping_animation(
-                        board, game_list, number_key.index(col_key), move_index, "O")
-
+                        board, game_list, ai_col, move_index, "X")
                     isPlayer = not isPlayer
-                    total_attempt += 1
-                    orig_window.addstr(7, 5, prompting_string)
+                    self.window.addstr(
+                        7, 5, prompting_string)
                 else:
-                    # invalid move, show some message
-                    orig_window.addstr(
+                    # unlikely to happen...but yea just in case
+                    self.window.addstr(
                         7, 5, invalid_string)
 
-        # AI turn
-        else:
-            ai_col = _AI_move()
-            valid_move, move_index = logic.slot_check(
-                game_list, ai_col
-            )
-            if valid_move:
-                # loading animation
-                orig_window.addstr(7, 5, loading_string)
-                load = threading.Thread(target=loading, args=[orig_window])
-                load.start()
-                load.join()
-                curses.flushinp()
+            # add total attempt to screen
+            self.window.addstr(
+                40, 136, f"Total attepmt: {self.total_attempt}")
 
-                # dropping animation
-                logic.dropping_animation(
-                    board, game_list, ai_col, move_index, "X")
-                isPlayer = not isPlayer
-                orig_window.addstr(
-                    7, 5, prompting_string)
-            else:
-                # unlikely to happen...but yea just in case
-                orig_window.addstr(
-                    7, 5, invalid_string)
+            # save progress
+            if self.total_attempt == 3:
+                logic.save_data('temp_board_data', board.data(),
+                                self.game_mode, self.total_attempt)
+            self.window.refresh()
 
-        # add total attempt to screen
-        orig_window.addstr(
-            40, 136, f"Total attepmt: {total_attempt}")
+            # win check
+            logic.save_data('temp_board_data', board.data(),
+                            self.game_mode, self.total_attempt)
+            win_mode = 5 if self.game_mode == "6:9" else 4
+            value, win_boo = rules.winning_check(
+                win_mode, 'temp_board_data', self.game_mode)
+            if win_boo:
+                # do something here, gameover page
+                if value == "O":
+                    self.window.addstr(
+                        7, 5, "congrats! you win!                               ")
+                elif value == "X":
+                    self.window.addstr(
+                        7, 5, "sorry! you lose!                                 ")
+                elif value == "draw":
+                    self.window.addstr(
+                        7, 5, "Draw!                                            ")
 
-        # save progress
-        if total_attempt == 3:
-            save_data(game_list, game_mode, 'board_data',
-                      board.data(), total_attempt)
-        orig_window.refresh()
+                self.window.refresh()
+                time.sleep(5)
+                break
 
-        # win check
-        save_data(board.data(),  game_mode, 'temp_board_data',
-                  board.data(), total_attempt)
-        win_mode = 5 if game_mode == "6:9" else 4
-        value, win_boo = rules.winning_check(
-            win_mode, 'temp_board_data', game_mode)
-        if win_boo:
-            # do something here, gameover page
-            if value == "O":
-                orig_window.addstr(
-                    7, 5, "congrats! you win!                               ")
-            elif value == "X":
-                orig_window.addstr(
-                    7, 5, "sorry! you lose!                                 ")
+            curses.curs_set(0)
+            board.refresh_board()
 
-            orig_window.refresh()
-            time.sleep(5)
-            break
+    def _AI_move(self):
+        import random
+        # develop the AI move here, return the col_key
+        col_key = random.choice([0, 1])
+        return col_key
 
-        curses.curs_set(0)
-        board.refresh_board()
+    def clicking_music(self):
+        winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
 
+    def play_background(self):
+        winsound.PlaySound(
+            '../assets/music/game_background.wav', winsound.SND_LOOP)
 
-def _AI_move():
-    import random
-    # develop the AI move here, return the col_key
-    col_key = random.choice([0, 1])
-    return col_key
+    def loading(self, window):
+        animation = LoadingAnimation(window)
+        animation.draw_loading(7, 40)
 
-
-def clicking_music():
-    winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
-
-
-def play_background():
-    winsound.PlaySound(
-        '../assets/music/game_background.wav', winsound.SND_LOOP)
-
-
-def loading(window):
-    animation = LoadingAnimation(window)
-    animation.draw_loading(7, 40)
-
-
-def _score_board(game_mode):
-    score_win = curses.newwin(38, 35, 3, 128)
-    score = score_board.ScoreBoard(score_win, 33, 35, game_mode)
-    score.draw_score_board()
-
-
-def save_data(game_list, game_mode, filename, content_list, total_attempt):
-    import json
-    file = f"./assets/data/{filename}.json"
-    with open(file, 'r') as f:
-        data = json.load(f)
-        with open(file, 'w') as g:
-            # read first, then replace
-            data['board_data'][game_mode] = content_list
-            data['meta'][game_mode]['total_attempt'] = total_attempt
-            data['meta'][game_mode]['exists'] = 1
-            json.dump(data, g, indent=2)
-
-
-def load_saved_data(game_mode):
-    import json
-    with open('./assets/data/board_data.json', 'r') as f:
-        data = json.load(f)
-        return data['board_data'][game_mode], data['meta'][game_mode]['total_attempt']
+    def _score_board(self):
+        score_win = curses.newwin(38, 35, 3, 128)
+        score = score_board.ScoreBoard(score_win, 33, 35, self.game_mode)
+        score.draw_score_board()

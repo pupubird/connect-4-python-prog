@@ -87,6 +87,17 @@ def winning_check(win_connect, filename, game_mode):
                 pass
             row += 1
 
+    # check for draw
+    for column in board_data:
+        for row in board_data:
+            if row == " ":
+                break
+        else:
+            continue
+        break  # only execute when inner loop does break
+    else:
+        return "draw", True  # all filled, draw
+
     return "none", False
 
 

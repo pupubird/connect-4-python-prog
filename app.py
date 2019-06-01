@@ -28,8 +28,9 @@ def main(window):  # adjust window size
     os.system('mode 165')
     # direct to board page
     row_size = 6
-    col_size = 9
-    board_page.main(window, row_size, col_size, f"{row_size}:{col_size}", True)
+    col_size = 7
+    board_page.GameBoardPage(window, row_size, col_size,
+                             f"{row_size}:{col_size}")
 
 
 def music():

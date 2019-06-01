@@ -137,10 +137,10 @@ To draw on window:
 
 ####For board game page:
 
-    game_board_page.main(
-        window,
-        row_size,
-        col_size,
+    GameBoardPage(
+        window, 
+        row_size, 
+        col_size, 
         game_mode,
         load_saved=False
     )
