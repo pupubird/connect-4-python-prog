@@ -5,7 +5,7 @@ def load_data(filename, game_mode):
     # read json file here, return a two dimemsional list
     with open(f'./assets/data/{filename}.json', 'r') as f:
         board_data = json.load(f)
-    return board_data[filename][game_mode]
+    return board_data['board_data'][game_mode]
 
 
 def winning_check(win_connect, filename, game_mode):

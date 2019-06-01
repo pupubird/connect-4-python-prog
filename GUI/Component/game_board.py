@@ -82,13 +82,24 @@ class GameBoard(_BoardColumn):
                 content_list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
         return data
 
+    def data_set(self, new_data):
+        set_content_list = [item for item in self.game_board_list]
+        set_data = []
+        for i in range(self.column_amount):
+            set_data.append(
+                set_content_list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
+
+        for i in range(len(set_data)):
+            for j in range(len(set_data[i])):
+                set_data[i][j].content = new_data[i][j]
+
     @property
     def game_list(self):
-        list = [item for item in self.game_board_list]
+        board_list = [item for item in self.game_board_list]
         board_data = []
         for i in range(self.column_amount):
             board_data.append(
-                list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
+                board_list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
         return board_data
 
 

@@ -9,7 +9,7 @@ from GUI.Component.low_level_component import LoadingAnimation
 from Rules import rules
 
 
-def main(window, row_size, col_size, game_mode):
+def main(window, row_size, col_size, game_mode, load_saved=False):
     # play background music
     threading.Thread(target=play_background, daemon=True).start()
     window.refresh()
@@ -37,10 +37,11 @@ def main(window, row_size, col_size, game_mode):
     except Exception:
         board_win = curses.newwin(30, 100, 8, 5)
         box_size = 4
-    _board(board_win, window, box_size, row_size, col_size, game_mode)
+    _board(board_win, window, box_size, row_size,
+           col_size, game_mode, load_saved)
 
 
-def _board(window, orig_window, box_size, row_size, col_size, game_mode):
+def _board(window, orig_window, box_size, row_size, col_size, game_mode, load_saved=False):
     import threading
     prompting_string = f"Please enter number 1-{col_size} to insert:              "
     invalid_string = f"invalid move, Please enter number 1-{col_size} to insert:"
@@ -54,6 +55,11 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode):
     # board initialize
     board = game_board.GameBoard(window, box_size)
     board.draw_board(row_size, col_size)
+
+    if load_saved:
+        data, total_attempt = load_saved_data(game_mode)
+        board.data_set(data)
+
     game_list = board.game_list
 
     # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
@@ -111,12 +117,17 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode):
         # add total attempt to screen
         orig_window.addstr(
             40, 136, f"Total attepmt: {total_attempt}")
+        if total_attempt == 3:
+            save_data(game_list, game_mode, 'board_data',
+                      board.data(), total_attempt)
         orig_window.refresh()
 
         # win check
-        save_data(board.data(), game_mode)
+        save_data(board.data(),  game_mode, 'temp_board_data',
+                  board.data(), total_attempt)
         win_mode = 5 if game_mode == "6:9" else 4
-        value, win_boo = rules.winning_check(win_mode, 'board_data', game_mode)
+        value, win_boo = rules.winning_check(
+            win_mode, 'temp_board_data', game_mode)
         if win_boo:
             # do something here, gameover page
             if value == "O":
@@ -161,10 +172,20 @@ def _score_board(game_mode):
     score.draw_score_board()
 
 
-def save_data(game_list, game_mode):
+def save_data(game_list, game_mode, filename, content_list, total_attempt):
     import json
-    with open('./assets/data/board_data.json', 'w') as f:
-        # read first, then replace
-        data = {'board_data': {game_mode: game_list}}
+    file = f"./assets/data/{filename}.json"
+    with open(file, 'r') as f:
+        data = json.load(f)
+        with open(file, 'w') as g:
+            # read first, then replace
+            data['board_data'][game_mode] = content_list
+            data['meta'][game_mode]['total_attempt'] = total_attempt
+            json.dump(data, g, indent=2)
 
-        json.dump(data, f, indent=2)
+
+def load_saved_data(game_mode):
+    import json
+    with open('./assets/data/board_data.json', 'r') as f:
+        data = json.load(f)
+        return data['board_data'][game_mode], data['meta'][game_mode]['total_attempt']

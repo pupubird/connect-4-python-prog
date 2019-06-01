@@ -109,6 +109,10 @@ To get the content inside all the board data:
 
     instance.data()
 
+To change all the content inside board data so some list:
+
+    instance.data_set(new_list)
+
 *data()* function return a two-dimensional list and automatically filled with the content of the Rectangle class.
 data() takes only no argument, it returns only the content in the rectangles.
 
@@ -131,5 +135,13 @@ To draw on window:
     it will autimatically draw it on the 0,0 of the window parse, so create a newwin for ScoreBoard is advicable
 
 
+####For board game page:
 
+    game_board_page.main(
+        window,
+        row_size,
+        col_size,
+        game_mode,
+        load_saved=False
+    )
 
