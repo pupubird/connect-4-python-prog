@@ -117,6 +117,8 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode, load_sa
         # add total attempt to screen
         orig_window.addstr(
             40, 136, f"Total attepmt: {total_attempt}")
+
+        # save progress
         if total_attempt == 3:
             save_data(game_list, game_mode, 'board_data',
                       board.data(), total_attempt)
@@ -181,6 +183,7 @@ def save_data(game_list, game_mode, filename, content_list, total_attempt):
             # read first, then replace
             data['board_data'][game_mode] = content_list
             data['meta'][game_mode]['total_attempt'] = total_attempt
+            data['meta'][game_mode]['exists'] = 1
             json.dump(data, g, indent=2)
 
 
