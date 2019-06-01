@@ -114,6 +114,22 @@ data() takes only no argument, it returns only the content in the rectangles.
 
 ##### NOTE: game_board_list is an one dimentional list, it contains instances of the Rectangle class.
 
+####For ScoreBoard class:
+initialize it with:
+
+    ScoreBoard(
+        window, 
+        nlines, #width 
+        ncols, #height
+        game_mode
+    )
+
+To draw on window:
+
+    draw_score_board()
+
+    it will autimatically draw it on the 0,0 of the window parse, so create a newwin for ScoreBoard is advicable
+
 
 
 

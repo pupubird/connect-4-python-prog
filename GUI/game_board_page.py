@@ -84,9 +84,6 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode):
                     orig_window.addstr(
                         7, 5, invalid_string)
 
-                orig_window.addstr(
-                    40, 136, f"Total attepmt: {total_attempt}")
-                orig_window.refresh()
         # AI turn
         else:
             ai_col = _AI_move()
@@ -111,6 +108,11 @@ def _board(window, orig_window, box_size, row_size, col_size, game_mode):
                 # unlikely to happen...but yea just in case
                 orig_window.addstr(
                     7, 5, invalid_string)
+
+        # add total attempt to screen
+        orig_window.addstr(
+            40, 136, f"Total attepmt: {total_attempt}")
+        orig_window.refresh()
 
         # win check
         save_data(board.data())

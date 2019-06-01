@@ -9,7 +9,12 @@ except Exception:
         # user is using 32-bit python
         os.system('pip install "curses-2.2+utf8-cp37-cp37m-win32.whl"')
     # open terminal to run the program as shell doesnt run it well
-    os.system('start cmd.exe @cmd /k "python app.py"')
+    while True:
+        try:
+            os.system('start cmd.exe @cmd /k "python app.py"')
+            break
+        except Exception:
+            input("Please maximize your screen...(press any key to continue)")
 import time
 
 
