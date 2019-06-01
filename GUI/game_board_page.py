@@ -9,7 +9,7 @@ from GUI.Component.low_level_component import LoadingAnimation
 from Rules import rules
 
 
-def main(window, row_size, col_size):
+def main(window, row_size, col_size, game_mode):
     # play background music
     threading.Thread(target=play_background, daemon=True).start()
     window.refresh()
@@ -17,7 +17,7 @@ def main(window, row_size, col_size):
     curses.curs_set(0)
 
     window.addstr(
-        7, 5, "Please enter number 1-9 to insert:              ")
+        7, 5, f"Please enter number 1-{col_size} to insert:              ")
 
     # draw the logo, set it to yellow colour
     window.attron(curses.color_pair(1))
@@ -29,7 +29,7 @@ def main(window, row_size, col_size):
     window.attroff(curses.color_pair(1))
 
     # draw the score board
-    _score_board()
+    _score_board(game_mode)
     # draw the game board
     try:
         board_win = curses.newwin(40, 100, 8, 5)
@@ -37,11 +37,14 @@ def main(window, row_size, col_size):
     except Exception:
         board_win = curses.newwin(30, 100, 8, 5)
         box_size = 4
-    _board(board_win, window, box_size, row_size, col_size)
+    _board(board_win, window, box_size, row_size, col_size, game_mode)
 
 
-def _board(window, orig_window, box_size, row_size, col_size):
+def _board(window, orig_window, box_size, row_size, col_size, game_mode):
     import threading
+    prompting_string = f"Please enter number 1-{col_size} to insert:              "
+    invalid_string = f"invalid move, Please enter number 1-{col_size} to insert:"
+    loading_string = f"Ai is thinking...                                          "
     # total attemp counting
     total_attempt = 0
     orig_window.addstr(
@@ -75,13 +78,11 @@ def _board(window, orig_window, box_size, row_size, col_size):
 
                     isPlayer = not isPlayer
                     total_attempt += 1
-                    orig_window.addstr(
-                        7, 5, "Please enter number 1-9 to insert:              ")
-
+                    orig_window.addstr(7, 5, prompting_string)
                 else:
                     # invalid move, show some message
                     orig_window.addstr(
-                        7, 5, "invalid move, Please enter number 1-9 to insert:")
+                        7, 5, invalid_string)
 
                 orig_window.addstr(
                     40, 136, f"Total attepmt: {total_attempt}")
@@ -94,6 +95,7 @@ def _board(window, orig_window, box_size, row_size, col_size):
             )
             if valid_move:
                 # loading animation
+                orig_window.addstr(7, 5, loading_string)
                 load = threading.Thread(target=loading, args=[orig_window])
                 load.start()
                 load.join()
@@ -104,15 +106,16 @@ def _board(window, orig_window, box_size, row_size, col_size):
                     board, game_list, ai_col, move_index, "X")
                 isPlayer = not isPlayer
                 orig_window.addstr(
-                    7, 5, "Please enter number 1-9 to insert:              ")
+                    7, 5, prompting_string)
             else:
                 # unlikely to happen...but yea just in case
                 orig_window.addstr(
-                    7, 5, "invalid move, Please enter number 1-9 to insert:")
+                    7, 5, invalid_string)
 
         # win check
         save_data(board.data())
-        value, win_boo = rules.winning_check(5)
+        win_mode = 5 if game_mode == "6:9" else 4
+        value, win_boo = rules.winning_check(win_mode)
         if win_boo:
             # do something here, gameover page
             if value == "O":
@@ -151,9 +154,9 @@ def loading(window):
     animation.draw_loading(7, 40)
 
 
-def _score_board():
+def _score_board(game_mode):
     score_win = curses.newwin(38, 35, 3, 128)
-    score = score_board.ScoreBoard(score_win, 33, 35)
+    score = score_board.ScoreBoard(score_win, 33, 35, game_mode)
     score.draw_score_board()
 
 

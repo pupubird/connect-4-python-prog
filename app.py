@@ -22,7 +22,7 @@ def main(window):  # adjust window size
     curses.curs_set(0)
     os.system('mode 165')
     # direct to board page
-    board_page.main(window, 6, 9)
+    board_page.main(window, 6, 7, '6:7')
 
 
 def music():
