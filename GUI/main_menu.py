@@ -81,16 +81,18 @@ def navigation(stdscr, current_button):
     # navigate here
     import GUI.game_board_page as board_page
     import os
+    import sys
     clicking()
     if current_button == 1:  # start
         board_page.GameBoardPage(stdscr, 6, 7, '6:7')
-        os.system('python app.py')  # restart the program
     elif current_button == 2:  # leaderboard
         pass
     if current_button == 3:  # option
         pass
     if current_button == len(buttons):  # exit
-        pass
+        sys.exit(0)
+
+    os.system('python app.py')  # restart the program
 
 
 def clicking():

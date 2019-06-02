@@ -5,6 +5,7 @@ try:
     import curses
 except Exception:
     # means it might be the first time the user run the program
+    print("installing update...")
     try:
         os.system('pip install "curses-2.2+utf8-cp37-cp37m-win_amd64.whl"')
     except Exception:
@@ -33,14 +34,9 @@ def main(window):  # adjust window size
     curses.curs_set(0)
 
     os.system('mode 165')
-    # direct to board page
-    row_size = 6
-    col_size = 7
+    # direct to menu page
     background_music.start()
     main_menu.main(window)
-
-    # board_page.GameBoardPage(window, row_size, col_size,
-    #                          f"{row_size}:{col_size}")
 
 
 def music():
