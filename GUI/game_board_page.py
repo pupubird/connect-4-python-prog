@@ -128,18 +128,13 @@ class GameBoardPage:
             self.window.addstr(
                 40, 136, f"Total attepmt: {self.total_attempt}")
 
-            # save progress
-            if self.total_attempt == 3:
-                logic.save_data('temp_board_data', board.data(),
-                                self.game_mode, self.total_attempt)
-            self.window.refresh()
-
             # win check
             logic.save_data('temp_board_data', board.data(),
                             self.game_mode, self.total_attempt)
             win_mode = 5 if self.game_mode == "6:9" else 4
             value, win_boo = rules.winning_check(
                 win_mode, 'temp_board_data', self.game_mode)
+
             if win_boo:  # win
 
                 # direct to gameover page
