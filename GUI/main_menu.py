@@ -60,7 +60,7 @@ def main(stdscr):
                     width + start_x, False)
 
         stdscr.addstr(
-            36, 55, "Press W for up key, S for down key, Enter to choose")
+            36, 60, "Press W A S D to control, Enter to choose")
         stdscr.refresh()
 
     while True:
@@ -69,10 +69,10 @@ def main(stdscr):
         draw_menu()
         key = stdscr.getch()
 
-        if key == curses.KEY_UP or key == 119 and current_button > 1:
+        if key == curses.KEY_UP or key == 119 or key == 97 and current_button > 1:
             current_button -= 1
 
-        if key == curses.KEY_DOWN or key == 115 and current_button < len(buttons):
+        if key == curses.KEY_DOWN or key == 115 or key == 100 and current_button < len(buttons):
             current_button += 1
 
         if key == curses.KEY_ENTER or key in [10, 13]:

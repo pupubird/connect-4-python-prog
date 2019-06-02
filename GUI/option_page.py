@@ -17,11 +17,14 @@ class OptionPage:
         current_color = 1
 
         def draw_options(current_button, current_music, current_color):
+            self.window.addstr(
+                13, 60, "Press W A S D to control, ENTER to preview")
+
             if current_button == 1:
                 music = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[0])
                 music.content = music_list[current_music - 1]
-                music.draw_rectangle(15, 43, 20, 118, False)
+                music.draw_rectangle(15, 43, 20, 118)
                 self.window.addstr(18, 39, "<")
                 self.window.addstr(18, 122, ">")
                 self.window.addstr(28, 39, " ")
@@ -30,7 +33,7 @@ class OptionPage:
                 color = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[1])
                 color.content = color_list[current_color-1]
-                color.draw_rectangle(25, 43, 30, 118)
+                color.draw_rectangle(25, 43, 30, 118, False)
                 self.window.addstr(18, 41, " ")
                 self.window.addstr(18, 120, " ")
                 self.window.addstr(28, 41, "<")
@@ -38,13 +41,13 @@ class OptionPage:
 
                 save = rectangle.Rectangle(self.window)
                 save.content = buttons[2]
-                save.draw_rectangle(33, 74, 37, 86, True)
+                save.draw_rectangle(33, 74, 37, 86, False)
 
             elif current_button == 2:
                 color = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[1])
                 color.content = color_list[current_color-1]
-                color.draw_rectangle(25, 43, 30, 118, False)
+                color.draw_rectangle(25, 43, 30, 118)
                 self.window.addstr(18, 41, "<")
                 self.window.addstr(18, 120, ">")
                 self.window.addstr(28, 41, " ")
@@ -53,7 +56,7 @@ class OptionPage:
                 music = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[0])
                 music.content = music_list[current_music - 1]
-                music.draw_rectangle(15, 43, 20, 118)
+                music.draw_rectangle(15, 43, 20, 118, False)
                 self.window.addstr(18, 39, " ")
                 self.window.addstr(18, 122, " ")
                 self.window.addstr(28, 39, "<")
@@ -61,22 +64,23 @@ class OptionPage:
 
                 save = rectangle.Rectangle(self.window)
                 save.content = buttons[2]
-                save.draw_rectangle(33, 74, 37, 86, True)
+                save.draw_rectangle(33, 74, 37, 86, False)
 
             elif current_button == 3:
-                save = rectangle.Rectangle(self.window)
+                save = rectangle.Rectangle(
+                    self.window, top_row=True, top_sym="X")
                 save.content = buttons[2]
-                save.draw_rectangle(33, 74, 37, 86, False)
+                save.draw_rectangle(33, 74, 37, 86)
 
                 color = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[1])
                 color.content = color_list[current_color-1]
-                color.draw_rectangle(25, 43, 30, 118)
+                color.draw_rectangle(25, 43, 30, 118, False)
 
                 music = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[0])
                 music.content = music_list[current_music - 1]
-                music.draw_rectangle(15, 43, 20, 118)
+                music.draw_rectangle(15, 43, 20, 118, False)
 
                 self.window.addstr(18, 41, "<")
                 self.window.addstr(18, 120, ">")
