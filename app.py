@@ -1,4 +1,6 @@
 import os
+import time
+
 try:
     import curses
 except Exception:
@@ -14,8 +16,11 @@ except Exception:
             os.system('start cmd.exe @cmd /k "python app.py"')
             break
         except Exception:
-            input("Please maximize your screen...(press any key to continue)")
-import time
+            input("""
+            if you are facing any issue:
+                1. make sure python is in the system path
+                2. make sure the window is maximized
+            press any key to continue...""")
 
 
 def main(window):  # adjust window size
@@ -44,4 +49,5 @@ def music():
                        winsound.SND_LOOP | winsound.SND_ASYNC)
 
 
-curses.wrapper(main)
+if __name__ == "__main__":
+    curses.wrapper(main)

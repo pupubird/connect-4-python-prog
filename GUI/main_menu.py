@@ -75,22 +75,16 @@ def main(stdscr):
             y, x = stdscr.getmaxyx()
             board_win = curses.newwin(y, x)
             navigation(board_win, current_button)
-            import os
-            os.remove('./assets/data/temp_board_data.json')
-            import app
 
 
 def navigation(stdscr, current_button):
     # navigate here
     import GUI.game_board_page as board_page
+    import os
     clicking()
-    count = 0
     if current_button == 1:  # start
-        if count == 0:
-            board_page.GameBoardPage(stdscr, 6, 7, '6:7')
-            count += 1
-        else:
-            board_page.GameBoardPage(stdscr, 6, 9, '6:9')
+        board_page.GameBoardPage(stdscr, 6, 7, '6:7')
+        os.system('python app.py')  # restart the program
     elif current_button == 2:  # leaderboard
         pass
     if current_button == 3:  # option

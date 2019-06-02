@@ -153,7 +153,8 @@ class GameBoardPage:
                         7, 5, "Draw!                                            ")
 
                 self.window.refresh()
-                time.sleep(5)
+                time.sleep(3)
+                self.clicking_music()
                 break
 
             curses.curs_set(0)
