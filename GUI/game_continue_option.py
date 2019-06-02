@@ -75,8 +75,8 @@ class ContinueGameOptions:
     def navigation(self, current_button):
         # navigate here
         if current_button == buttons.index("return")+1:  # return
-            import app
-            app.main(self.window)
+            import GUI.game_option as option_page
+            option_page.OptionsPage(self.window)
         else:  # continue
             import GUI.game_board_page as board_page
             row = 6

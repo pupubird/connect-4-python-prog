@@ -87,6 +87,7 @@ def navigation(stdscr, current_button):
     import GUI.game_board_page as board_page
     import GUI.leaderboards_page as leader_boards_page
     import GUI.game_option as game_option_page
+    import GUI.option_page as option_page
     import os
     import sys
     clicking()
@@ -98,7 +99,7 @@ def navigation(stdscr, current_button):
         leader_boards_page.LeaderBoardsPage(stdscr)
 
     elif current_button == 3:  # option
-        pass
+        option_page.OptionPage(stdscr)
 
     elif current_button == len(buttons):  # exit
         stdscr.clear()
