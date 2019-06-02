@@ -1,3 +1,4 @@
+
 import os
 import time
 
@@ -31,11 +32,12 @@ def main(window):  # adjust window size
     # start background music
     import threading
     background_music = threading.Thread(target=music, daemon=True)
-    curses.curs_set(0)
 
     os.system('mode 165')
     # direct to menu page
     background_music.start()
+    curses.curs_set(0)
+    curses.resize_term(49, 165)
     main_menu.main(window)
 
 

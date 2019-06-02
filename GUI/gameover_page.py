@@ -48,7 +48,11 @@ class GameOverPage:
         size = self.game_mode.split(":")
         hori_size = size[0]
         verti_size = size[1]
-        score = ((int(hori_size)*int(verti_size)) - self.total_attempt) * 100
+        if self.status == "O":
+            score = ((int(hori_size) * int(verti_size)) -
+                     self.total_attempt) * 100
+        elif self.status == "X":
+            score = self.total_attempt * 100
         self.window.addstr(11+3, 36, f"Your score: {score}")
 
         self.window.border()
@@ -60,6 +64,7 @@ class GameOverPage:
             self.window, top_row=True, top_sym="Your Name(Only alphabet)")
         name.draw_rectangle(18, 25, 22, 68)
 
+        # player name input
         alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         key_int = [x for x in range(97, len(alpha)+98)]

@@ -23,8 +23,10 @@ def main(stdscr):
         time.sleep(0.1)
 
     def draw_menu():
-        stdscr.clear()
 
+        curses.resize_term(49, 165)
+        stdscr.clear()
+        curses.curs_set(0)
         # draw logo
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         stdscr.attron(curses.color_pair(1))
@@ -60,6 +62,7 @@ def main(stdscr):
         stdscr.refresh()
 
     while True:
+
         curses.curs_set(0)
         draw_menu()
         key = stdscr.getch()
@@ -84,12 +87,20 @@ def navigation(stdscr, current_button):
     import sys
     clicking()
     if current_button == 1:  # start
-        board_page.GameBoardPage(stdscr, 6, 7, '6:7')
+
+        try:
+            board_page.GameBoardPage(stdscr, 6, 7, '6:7')
+        except Exception:
+            input("Please maximize your screen to continue")
+            navigation(stdscr, current_button)
+
     elif current_button == 2:  # leaderboard
         pass
     if current_button == 3:  # option
         pass
     if current_button == len(buttons):  # exit
+        stdscr.clear()
+        stdscr.refresh()
         sys.exit(0)
 
     os.system('python app.py')  # restart the program

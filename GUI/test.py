@@ -1,15 +1,15 @@
 import curses
+import time
 
 
-def main(window):
-
-    alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    key_int = [x for x in range(97, len(alpha)+98)]
+def main(screen):
+    # Action in loop if resize is True:
     while True:
-        key = window.getch()
-        if key in key_int:
-            window.addstr(str(alpha[key_int.index(key)]))
+        y, x = screen.getmaxyx()
+        screen.clear()
+        screen.addstr(y // 2, x // 2, str(x))
+        screen.refresh()
+        curses.resize_term(49, 165)
 
 
 curses.wrapper(main)

@@ -19,6 +19,7 @@ class GameBoardPage:
         self.main()
 
     def main(self):
+        curses.resize_term(49, 165)
         # play background music
         threading.Thread(target=self.play_background, daemon=True).start()
         self.window.refresh()
@@ -52,7 +53,7 @@ class GameBoardPage:
         import threading
         prompting_string = f"Please enter number 1-{self.col_size} to insert:              "
         invalid_string = f"invalid move, Please enter number 1-{self.col_size} to insert:"
-        loading_string = f"Ai is thinking...                                          "
+        loading_string = f"Computer is thinking...                                       "
         # total attemp counting
         self.total_attempt = 0
         self.window.addstr(
@@ -77,7 +78,6 @@ class GameBoardPage:
         # game loop start
         isPlayer = True
         while True:
-
             # player turn
             if isPlayer:
                 col_key = self.window.getch()
@@ -141,7 +141,6 @@ class GameBoardPage:
                 self.clicking_music()
                 self._gameover_page(value)
                 break
-
             curses.curs_set(0)
             board.refresh_board()
 
