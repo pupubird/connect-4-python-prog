@@ -67,14 +67,13 @@ class Rectangle:
             self.window.attroff(curses.color_pair(1))
 
             # content
-            self.window.attron(curses.color_pair(3))
             self.window.addstr(
                 (low_right_y - up_left_y) // 2 + up_left_y,
                 (low_right_x - up_left_x) // 2 +
                 up_left_x - (len(self.content)//2),
-                self.content
+                self.content,
+                curses.color_pair(3)
             )
-            self.window.attroff(curses.color_pair(3))
 
             # draw for top row numbers
             if self.top_row:
