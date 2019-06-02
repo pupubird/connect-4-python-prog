@@ -59,6 +59,8 @@ def main(stdscr):
                     (height * (index + gap)) + start_y,
                     width + start_x, False)
 
+        stdscr.addstr(
+            36, 55, "Press W for up key, S for down key, Enter to choose")
         stdscr.refresh()
 
     while True:
@@ -67,10 +69,10 @@ def main(stdscr):
         draw_menu()
         key = stdscr.getch()
 
-        if key == curses.KEY_UP and current_button > 1:
+        if key == curses.KEY_UP or key == 119 and current_button > 1:
             current_button -= 1
 
-        if key == curses.KEY_DOWN and current_button < len(buttons):
+        if key == curses.KEY_DOWN or key == 115 and current_button < len(buttons):
             current_button += 1
 
         if key == curses.KEY_ENTER or key in [10, 13]:
@@ -84,22 +86,21 @@ def navigation(stdscr, current_button):
     # navigate here
     import GUI.game_board_page as board_page
     import GUI.leaderboards_page as leader_boards_page
+    import GUI.game_option as game_option_page
     import os
     import sys
     clicking()
     if current_button == 1:  # start
 
-        try:
-            board_page.GameBoardPage(stdscr, 6, 7, '6:7')
-        except Exception:
-            input("Please maximize your screen to continue")
-            navigation(stdscr, current_button)
+        game_option_page.OptionsPage(stdscr)
 
     elif current_button == 2:  # leaderboard
         leader_boards_page.LeaderBoardsPage(stdscr)
-    if current_button == 3:  # option
+
+    elif current_button == 3:  # option
         pass
-    if current_button == len(buttons):  # exit
+
+    elif current_button == len(buttons):  # exit
         stdscr.clear()
         stdscr.refresh()
         sys.exit(0)

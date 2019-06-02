@@ -50,6 +50,7 @@ class GameBoardPage:
         self._board(board_win, box_size)
 
     def _board(self, board_window, box_size):
+        logic = game_logic.GameLogic()
         import threading
         prompting_string = f"Please enter number 1-{self.col_size} to insert:              "
         invalid_string = f"invalid move, Please enter number 1-{self.col_size} to insert:"
@@ -66,15 +67,17 @@ class GameBoardPage:
 
         # if continue game is true, load the data list, else, make a new list
         if self.load_saved:
-            data, total_attempt = self.load_saved_data()
+            data, total_attempt, _ = logic.load_saved_data(self.game_mode)
             self.total_attempt = total_attempt
             board.data_set(data)
+            board.refresh_board()
+        else:
+            logic.reset_data(self.game_mode)
 
         game_list = board.game_list
 
         # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
         number_key = [number for number in range(49, 58)]
-        logic = game_logic.GameLogic()
         # game loop start
         isPlayer = True
         while True:
@@ -129,14 +132,14 @@ class GameBoardPage:
                 40, 136, f"Total attepmt: {self.total_attempt}")
 
             # win check
-            logic.save_data('temp_board_data', board.data(),
+            logic.save_data(board.data(),
                             self.game_mode, self.total_attempt)
+
             win_mode = 5 if self.game_mode == "6:9" else 4
             value, win_boo = rules.winning_check(
                 win_mode, 'temp_board_data', self.game_mode)
 
             if win_boo:  # win
-
                 # direct to gameover page
                 self.clicking_music()
                 self._gameover_page(value)
@@ -171,4 +174,4 @@ class GameBoardPage:
         import GUI.gameover_page as gameover_page
         gameover_win = curses.newwin(40, 99, 5, 40)
         gameover_page.GameOverPage(
-            gameover_win, value, self.total_attempt, self.game_mode)
+            gameover_win, self.window, value, self.total_attempt, self.game_mode)

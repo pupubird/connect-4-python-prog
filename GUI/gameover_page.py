@@ -4,8 +4,9 @@ import curses
 
 class GameOverPage:
     # width:100, height:40
-    def __init__(self, window, status, total_attempt, game_mode):
+    def __init__(self, window, orig_window, status, total_attempt, game_mode):
         self.window = window
+        self.orig_window = orig_window
         self.status = status
         self.total_attempt = total_attempt
         self.game_mode = game_mode
@@ -75,6 +76,8 @@ class GameOverPage:
                 name.refresh_rectangle()
             if key == curses.KEY_ENTER or key in [10, 13]:
                 self.save_score(name.content, score)
+                import app
+                app.main(self.orig_window)
                 break
             self.window.refresh()
 
