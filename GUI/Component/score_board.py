@@ -10,9 +10,9 @@ class ScoreBoard:
         self.nlines = nlines
         self.game_mode = game_mode
 
-    def draw_score_board(self):
+    def draw_score_board(self, top_sym="SCORE BOARD"):
         border = component.Rectangle(
-            self.window, top_row=True, top_sym="SCORE BOARD")
+            self.window, top_row=True, top_sym=top_sym)
         border.draw_rectangle(0, 0, self.ncols, self.nlines, False)
         self.show_scores()
         self.window.refresh()
