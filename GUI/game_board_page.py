@@ -140,21 +140,11 @@ class GameBoardPage:
             win_mode = 5 if self.game_mode == "6:9" else 4
             value, win_boo = rules.winning_check(
                 win_mode, 'temp_board_data', self.game_mode)
-            if win_boo:
-                # do something here, gameover page
-                if value == "O":
-                    self.window.addstr(
-                        7, 5, "congrats! you win!                               ")
-                elif value == "X":
-                    self.window.addstr(
-                        7, 5, "sorry! you lose!                                 ")
-                elif value == "draw":
-                    self.window.addstr(
-                        7, 5, "Draw!                                            ")
+            if win_boo:  # win
 
-                self.window.refresh()
-                time.sleep(3)
+                # direct to gameover page
                 self.clicking_music()
+                self._gameover_page(value)
                 break
 
             curses.curs_set(0)
@@ -178,6 +168,13 @@ class GameBoardPage:
         animation.draw_loading(7, 40)
 
     def _score_board(self):
-        score_win = curses.newwin(38, 35, 3, 128)
-        score = score_board.ScoreBoard(score_win, 33, 35, self.game_mode)
+        score_win = curses.newwin(38, 50, 3, 110)
+        score = score_board.ScoreBoard(score_win, 45, 35, self.game_mode)
         score.draw_score_board()
+
+    def _gameover_page(self, value):
+
+        import GUI.gameover_page as gameover_page
+        gameover_win = curses.newwin(40, 99, 5, 40)
+        gameover_page.GameOverPage(
+            gameover_win, value, self.total_attempt, self.game_mode)

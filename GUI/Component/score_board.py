@@ -31,16 +31,19 @@ class ScoreBoard:
         try:
             j = 3
             for i in range(10):
+                # score
                 self.window.attron(curses.color_pair(1))
                 self.window.addstr(j, 7, str(data[i][0]))
                 self.window.attroff(curses.color_pair(1))
 
                 self.window.addstr(j, 4, str(i + 1) + '.')
 
+                # name
                 self.window.addstr(j, 13, data[i][1])
 
+                # date
                 self.window.attron(curses.color_pair(4))
-                self.window.addstr(j, 19, data[i][2])
+                self.window.addstr(j, 33, data[i][2])
                 self.window.attroff(curses.color_pair(4))
                 j += 3
         except IndexError:
