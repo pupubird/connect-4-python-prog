@@ -33,7 +33,7 @@ def main(window):  # adjust window size
     import threading
     background_music = threading.Thread(target=music, daemon=True)
 
-    os.system('mode 165')
+    curses.resize_term(49, 165)
     # direct to menu page
     background_music.start()
     curses.curs_set(0)
