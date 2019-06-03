@@ -168,8 +168,9 @@ class GameBoardPage:
             board.refresh_board()
 
     def _AI_move(self):
+        import random
         import AI.ai as ai
-        col_key = ai.ai(self.game_mode)
+        col_key = random.choices([0,1,2,3,4,5,6])
         return col_key
 
     def clicking_music(self):

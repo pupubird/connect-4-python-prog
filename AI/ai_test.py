@@ -180,7 +180,7 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
     else:
         return "draw", True  # all filled, draw
 
-    return (0, 0), "", False
+    return (0, 0), False
 
 
 # win_connect = 4 when 6X7 gameboard is chosen
