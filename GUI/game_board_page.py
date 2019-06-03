@@ -157,8 +157,12 @@ class GameBoardPage:
         winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
 
     def play_background(self):
+        with open('./assets/data/config.json', 'r') as f:
+            import json
+            data = json.load(f)
+            music = data[1]
         winsound.PlaySound(
-            './assets/music/game_background.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+            f'./assets/music/{music}.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
 
     def loading(self, window):
         animation = LoadingAnimation(window)

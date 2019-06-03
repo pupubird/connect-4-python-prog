@@ -1,7 +1,7 @@
 import curses
 import GUI.Component.low_level_component as rectangle
 buttons = ["Music", "Game board color", "Save"]
-music_list = [" 1 ", " 2 ", " 3 "]
+music_list = [" Music 1 ", " Music 2 ", " Music 3 "]
 color_list = [" Yellow ", " Cyan ", "  Red  "]
 
 
@@ -97,14 +97,14 @@ class OptionPage:
         while True:
             curses.curs_set(0)
             draw_options(current_button, current_music, current_color)
-
             key = self.window.getch()
-            if key == curses.KEY_UP or key == 119 and current_button > 1:
+            disrupt_music()
+            if key == curses.KEY_UP or key == 119 or key == 87 and current_button > 1:
                 current_button -= 1
 
-            elif key == curses.KEY_DOWN or key == 115 and current_button < len(buttons):
+            elif key == curses.KEY_DOWN or key == 115 or key == 83 and current_button < len(buttons):
                 current_button += 1
-            elif key == 97:  # left
+            elif key == 97 or key == curses.KEY_LEFT:  # left
                 if current_button == 1:
                     if current_music > 1:
                         current_music -= 1
@@ -115,7 +115,7 @@ class OptionPage:
                         current_color -= 1
                     else:
                         pass
-            elif key == 100:  # right
+            elif key == 100 or key == curses.KEY_RIGHT:  # right
                 if current_button == 1:
                     if current_music < len(music_list):
                         current_music += 1
@@ -129,11 +129,40 @@ class OptionPage:
             elif key == curses.KEY_ENTER or key in [10, 13]:
                 clicking()
                 # music preview
-                if current_button == 3:
+                if current_button == 1:
+                    play_music(current_music)
+                elif current_button == 3:
+                    save_configuration(current_color, current_music)
                     import app
                     app.main(self.window)
 
 
 def clicking():
     import winsound
-    winsound.PlaySound('./assets/music/clicking.wav', winsound.SND_FILENAME)
+    winsound.PlaySound('./assets/music/clicking.wav',
+                       winsound.SND_FILENAME)
+
+
+def disrupt_music():
+    import winsound
+    winsound.PlaySound(None, winsound.SND_FILENAME)
+
+
+def play_music(current_music):
+    import winsound
+    winsound.PlaySound(f'./assets/music/game_background{current_music}.wav',
+                       winsound.SND_ASYNC)
+
+
+def save_configuration(color, music):
+    import json
+    with open('./assets/data/config.json', 'w') as f:
+        if color == 1:
+            color = "YELLOW"
+        elif color == 2:
+            color = "CYAN"
+        elif color == 3:
+            color = "RED"
+
+        data = (color, "game_background"+str(music))
+        json.dump(data, f)

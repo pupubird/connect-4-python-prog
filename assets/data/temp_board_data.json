@@ -6,7 +6,7 @@
     },
     "6:7": {
       "exists": 1,
-      "total_attempt": 2
+      "total_attempt": 1
     }
   },
   "board_data": {
@@ -139,7 +139,7 @@
         " ",
         " ",
         " ",
-        " "
+        "O"
       ]
     ]
   }

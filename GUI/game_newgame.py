@@ -20,10 +20,10 @@ class NewGameOptions:
             self.draw_menu(current_button)
             key = self.window.getch()
 
-            if key == curses.KEY_UP or key == 119 and current_button > 1:
+            if key == curses.KEY_UP or key == 119 or key == 87 and current_button > 1:
                 current_button -= 1
 
-            elif key == curses.KEY_DOWN or key == 115 and current_button < len(buttons):
+            elif key == curses.KEY_DOWN or key == 115 or key == 83 and current_button < len(buttons):
                 current_button += 1
 
             elif key == curses.KEY_ENTER or key in [10, 13]:

@@ -22,11 +22,23 @@ class _BoardColumn:
         self.game_board_list = game_board_list
 
     def draw_column(self, up_left_y, up_left_x, low_right_y, low_right_x, col_index):
+        import json
+        with open('./assets/data/config.json', 'r') as f:
+            data = json.load(f)
+            if data[0] == "YELLOW":
+                color = curses.COLOR_YELLOW
+            elif data[0] == "CYAN":
+                color = curses.COLOR_CYAN
+            elif data[0] == "RED":
+                color = curses.COLOR_RED
+            else:
+                color = curses.COLOR_YELLOW
+
         self.args = up_left_y, up_left_x, low_right_y, low_right_x, col_index
         for row in range(self.row_size):
             if not row:
                 current_row = component.Rectangle(
-                    self.window, top_row=True, top_sym=col_index, color=curses.COLOR_YELLOW)
+                    self.window, top_row=True, top_sym=col_index, color=color)
                 current_row.draw_rectangle(
                     up_left_y + (self.box_size * row),
                     up_left_x,
@@ -36,7 +48,7 @@ class _BoardColumn:
                 self.game_board_list.append(current_row)
             else:
                 current_row = component.Rectangle(
-                    self.window, color=curses.COLOR_YELLOW)
+                    self.window, color=color)
                 current_row.draw_rectangle(
                     up_left_y + (self.box_size * row),
                     up_left_x,
