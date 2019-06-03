@@ -156,7 +156,7 @@ class GameBoardPage:
                             self.game_mode, self.total_attempt)
 
             win_mode = 5 if self.game_mode == "6:9" else 4
-            value, win_boo = rules.winning_check(
+            value,_, win_boo = rules.winning_check(
                 win_mode, 'temp_board_data', self.game_mode)
 
             if win_boo:  # win
