@@ -22,7 +22,7 @@ def winning_check(win_connect, filename, game_mode):
         [
             " ",
             " ",
-            " ",
+            "X",
             " ",
             " ",
             "X"

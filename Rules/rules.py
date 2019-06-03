@@ -70,6 +70,9 @@ def winning_check(win_connect, filename, game_mode):
                     pass
                 row += 1
 
+        previous = str()
+        connected = 1
+
     previous = str()
     connected = 1
     # check for negative diagonal
@@ -90,6 +93,9 @@ def winning_check(win_connect, filename, game_mode):
                 except IndexError:
                     pass
                 row += 1
+
+        previous = str()
+        connected = 1
 
     # check for draw
     for column in board_data:
