@@ -24,9 +24,10 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
                 connected = 1
             previous = board_data[i][-j]
             if connected == win_connect and previous != " ":
+                # if ai mode is true, return the index and information
                 if ai_mode:
                     if previous == "X":
-                        return (i, -j), True
+                        return (i, -j), "verti", True
                 else:
                     return previous, True
         previous = str()
@@ -45,9 +46,10 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
                 connected = 1
             previous = board_data[j][-i]
             if connected == win_connect and previous != " ":
+                # if ai mode is true, return the index and information
                 if ai_mode:
                     if previous == "X":
-                        return (j, -i), True
+                        return (j, -i), "hori", True
                 else:
                     return previous, True
         # reset for every row
@@ -72,9 +74,10 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
                         previous = board_data[col + row - 1][-(row + i)]
 
                     if connected == win_connect and previous != ' ':
+                        # if ai mode is true, return the index and information
                         if ai_mode:
                             if previous == "X":
-                                return (col+row-1, -(row+i)), True
+                                return (col+row-1, -(row+i)), "pdiag", True
                         else:
                             return previous, True
                 except IndexError:
@@ -100,9 +103,10 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
                         connected = 1
                         previous = board_data[-(row)][-(row + i)]
                     if connected == win_connect and previous != ' ':
+                        # if ai mode is true, return the index and information
                         if ai_mode:
                             if previous == "X":
-                                return (-row, -(row+i)), True
+                                return (-row, -(row+i)), "ndiag", True
                         else:
                             return previous, True
                 except IndexError:
@@ -123,7 +127,7 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
     else:
         return "draw", True  # all filled, draw
 
-    return (0, 0), False
+    return (0, 0), "", False
 
 
 # win_connect = 4 when 6X7 gameboard is chosen
