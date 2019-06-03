@@ -2,7 +2,7 @@ import curses
 import GUI.Component.low_level_component as rectangle
 
 
-buttons = ["New Game", "Continue"]
+buttons = ["New Game", "Continue", "Return"]
 
 
 class OptionsPage:
@@ -39,7 +39,7 @@ class OptionsPage:
 
         width = 50
         height = 4
-        start_y, start_x = 19, 55
+        start_y, start_x = 17, 55
         gap = 1
         for index, button in enumerate(buttons):
             if current_button == index+1:
@@ -70,6 +70,9 @@ class OptionsPage:
         elif current_button == 2:
             import GUI.game_continue_option as continue_page
             continue_page.ContinueGameOptions(self.window)
+        elif current_button == 3:
+            import app
+            app.main(self.window)
 
     def clicking(self):
         import winsound

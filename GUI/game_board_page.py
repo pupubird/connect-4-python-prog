@@ -58,7 +58,7 @@ class GameBoardPage:
         # total attemp counting
         self.total_attempt = 0
         self.window.addstr(
-            40, 136, f"Total attepmt: {self.total_attempt}")
+            40, 136, f"Total attempt: {self.total_attempt}")
         self.window.refresh()
 
         # board initialize
@@ -129,7 +129,7 @@ class GameBoardPage:
 
             # add total attempt to screen
             self.window.addstr(
-                40, 136, f"Total attepmt: {self.total_attempt}")
+                40, 136, f"Total attempt: {self.total_attempt}")
 
             # win check
             logic.save_data(board.data(),
