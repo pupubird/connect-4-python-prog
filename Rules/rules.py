@@ -43,9 +43,6 @@ def winning_check(win_connect, filename, game_mode):
 
     previous = str()
     connected = 1
-
-    previous = str()
-    connected = 1
     # check for positive diagonal
     for i in range(len(board_data[0])):
         for col in range(len(board_data)):
@@ -66,28 +63,28 @@ def winning_check(win_connect, filename, game_mode):
                 except IndexError:
                     pass
                 row += 1
+
     previous = str()
     connected = 1
     # check for negative diagonal
     for i in range(len(board_data[0])):
-        for col in range(len(board_data)):
+        for col in range(len(board_data)-win_connect+1):
             row = 1
             while row <= (win_connect):
                 try:
                     # col + row -1 is because whenever row + 1, col also grow with it
-
-                    # [0][-1] [1][-2] [2][-3] [3][-4]
-                    if board_data[-(col + row)][-(row+i)] == previous and board_data[-(col + row)][-(row+i)] != ' ':
+                    # [-1][-1] [-2][-2] -> [-1][-2] [-2][-3]
+                    if board_data[-(row)][-(row+i)] == previous and board_data[-(row)][-(row+i)] != ' ':
                         connected += 1
                     else:
                         connected = 1
-                        previous = board_data[-(col + row)][-(row + i)]
-
+                        previous = board_data[-(row)][-(row + i)]
                     if connected == win_connect and previous != ' ':
                         return previous, True
                 except IndexError:
                     pass
                 row += 1
+
     # check for draw
     for column in board_data:
         for row in column:
