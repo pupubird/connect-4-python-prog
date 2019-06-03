@@ -170,7 +170,7 @@ class GameBoardPage:
     def _AI_move(self):
         import random
         import AI.ai as ai
-        col_key = random.choices([0,1,2,3,4,5,6])
+        col_key = random.choice([0,1,2,3,4,5,6])
         return col_key
 
     def clicking_music(self):
