@@ -49,7 +49,7 @@ class ContinueGameOptions:
 
         width = 50
         height = 4
-        start_y, start_x = 19, 55
+        start_y, start_x = 17, 55
         gap = 1
         for index, button in enumerate(buttons):
             if current_button == index+1:

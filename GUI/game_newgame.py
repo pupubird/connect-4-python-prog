@@ -2,7 +2,7 @@ import curses
 import GUI.Component.low_level_component as rectangle
 
 
-buttons = ["normal (6 x 7)", "advance (6 x 9)"]
+buttons = ["normal (6 x 7)", "advance (6 x 9)", "return"]
 
 
 class NewGameOptions:
@@ -39,7 +39,7 @@ class NewGameOptions:
 
         width = 50
         height = 4
-        start_y, start_x = 19, 55
+        start_y, start_x = 17, 55
         gap = 1
         for index, button in enumerate(buttons):
             if current_button == index+1:
@@ -74,6 +74,9 @@ class NewGameOptions:
             row = 6
             col = 9
             board_page.GameBoardPage(self.window, row, col, f"{row}:{col}")
+        elif current_button == 3:
+            import GUI.game_option as game_option_page
+            game_option_page.OptionsPage(self.window)
 
     def clicking(self):
         import winsound

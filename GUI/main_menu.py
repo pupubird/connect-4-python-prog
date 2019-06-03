@@ -14,7 +14,7 @@ def main(stdscr):
         stdscr.clear()
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         stdscr.attron(curses.color_pair(1))
-        with open("./assets/ASCII_Art/logo.txt", "r") as logo:
+        with open("./assets/ASCII_Art/logo1.txt", "r") as logo:
             logo_text = logo.readlines()
             for row in range(1, len(logo_text)+1):
                 stdscr.addstr(row+i, 52, logo_text[row-1])
@@ -30,7 +30,7 @@ def main(stdscr):
         # draw logo
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         stdscr.attron(curses.color_pair(1))
-        with open("./assets/ASCII_Art/logo.txt", "r") as logo:
+        with open("./assets/ASCII_Art/logo1.txt", "r") as logo:
             logo_text = logo.readlines()
             for row in range(1, len(logo_text)+1):
                 stdscr.addstr(row+i, 52, logo_text[row-1])

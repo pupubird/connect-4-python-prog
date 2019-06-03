@@ -31,7 +31,8 @@ class GameBoardPage:
         # draw the logo, set it to yellow colour
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         self.window.attron(curses.color_pair(1))
-        with open("./assets/ASCII_Art/logo.txt", "r") as logo:
+        state = 1 if self.game_mode == "6:7" else 2
+        with open(f"./assets/ASCII_Art/logo{state}.txt", "r") as logo:
             logo_text = logo.readlines()
             for row in range(1, len(logo_text)+1):
                 self.window.addstr(row, 5, logo_text[row-1])
@@ -54,7 +55,7 @@ class GameBoardPage:
         import threading
         prompting_string = f"Please enter number 1-{self.col_size} to insert:              "
         invalid_string = f"invalid move, Please enter number 1-{self.col_size} to insert:"
-        loading_string = f"Computer is thinking...                                       "
+        loading_string = f"Computer is thinking...  Autosaving                           "
         # total attemp counting
         self.total_attempt = 0
         self.window.addstr(
@@ -64,6 +65,25 @@ class GameBoardPage:
         # board initialize
         board = game_board.GameBoard(board_window, box_size)
         board.draw_board(self.row_size, self.col_size)
+
+        if self.game_mode == "6:7":
+            win = 4
+        else:
+            win = 5
+        board_window.addstr(
+            31, 0, "How to Play:")
+        board_window.addstr(
+            32, 0, "Choose column 1-9, O is you and X is the opponent.")
+        board_window.addstr(
+            33, 0, "Objective: connect   horizontally, verticallly or diagonally to win")
+
+        curses.init_pair(10, curses.COLOR_YELLOW, 0)
+        board_window.attron(curses.color_pair(10))
+        board_window.addstr(
+            33, 19, f"{win}")
+        board_window.attroff(curses.color_pair(10))
+
+        board_window.refresh()
 
         # if continue game is true, load the data list, else, make a new list
         if self.load_saved:
@@ -100,7 +120,6 @@ class GameBoardPage:
                         # invalid move, show some message
                         self.window.addstr(
                             7, 5, invalid_string)
-
             # AI turn
             else:
                 ai_col = self._AI_move()
@@ -148,9 +167,8 @@ class GameBoardPage:
             board.refresh_board()
 
     def _AI_move(self):
-        import random
-        # develop the AI move here, return the col_key
-        col_key = random.choice([0, 1, 2, 3, 4, 5, 6])
+        import AI.ai as ai
+        col_key = ai.ai(self.game_mode)
         return col_key
 
     def clicking_music(self):
