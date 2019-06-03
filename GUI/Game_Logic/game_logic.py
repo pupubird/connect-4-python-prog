@@ -58,6 +58,8 @@ class GameLogic:
                         data_list.append(current_list)
 
                     data['board_data'][game_mode] = data_list
+                    data['meta'][game_mode]['exists'] = 0
+                    data['meta'][game_mode]['total_attempt'] = 0
 
                     json.dump(data, g, indent=2)
         except Exception:

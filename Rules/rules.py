@@ -19,7 +19,6 @@ def winning_check(win_connect, filename, game_mode):
     for column in board_data:
         # if last symbol = current row symbol, means they are the same, connect+1
         for current in column:
-            connect_col = 1
             if current == previous_c and current != " ":
                 connect_col += 1
             else:
@@ -35,7 +34,6 @@ def winning_check(win_connect, filename, game_mode):
     #[0][-1] [1][-1] [2][-1]
     for i in range(1, len(board_data[0])+1):
         for j in range(len(board_data)):
-            connect_row = 1
             if board_data[j][-i] == previous_r and previous_r != " ":
                 connect_row += 1
             else:
