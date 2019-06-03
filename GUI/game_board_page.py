@@ -122,6 +122,7 @@ class GameBoardPage:
                             7, 5, invalid_string)
             # AI turn
             else:
+
                 ai_col = self._AI_move()
                 valid_move, move_index = logic.slot_check(
                     game_list, ai_col
