@@ -70,11 +70,11 @@ def main(stdscr):
         curses.curs_set(0)
         draw_menu()
         key = stdscr.getch()
-
-        if key == curses.KEY_UP or key == 119 or key == 87 and current_button > 1:
+        # W A S D with capital considered
+        if (key == curses.KEY_UP or key == 119 or key == 87) and current_button > 1:
             current_button -= 1
 
-        if key == curses.KEY_DOWN or key == 115 or key == 83 and current_button < len(buttons):
+        if (key == curses.KEY_DOWN or key == 115 or key == 83) and current_button < len(buttons):
             current_button += 1
 
         if key == curses.KEY_ENTER or key in [10, 13]:
