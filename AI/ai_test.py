@@ -9,7 +9,64 @@ def load_data(filename, game_mode):
 
 
 def winning_check(win_connect, filename, game_mode, ai_mode=False):
-    board_data = load_data(filename, game_mode)
+    board_data = [
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            "O"
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            "O"
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            "X"
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            "X"
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ]
+    ]
 
     previous = str()
     connected = 1
@@ -129,5 +186,5 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False):
 # win_connect = 4 when 6X7 gameboard is chosen
 # win_connect = 5 when 6X9 gameboard is chosen
 if __name__ == "__main__":
-    value, boo = winning_check(5)
+    value, boo = winning_check(2, 'temp_board_data', '6:7', True)
     print(value)
