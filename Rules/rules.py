@@ -25,6 +25,9 @@ def winning_check(win_connect, filename, game_mode):
             previous = current
             if connected == win_connect and previous != " ":
                 return previous, True
+        # reset for every column
+        previous = str()
+        connected = 1
 
     previous = str()
     connected = 1
@@ -40,6 +43,9 @@ def winning_check(win_connect, filename, game_mode):
             previous = board_data[j][-i]
             if connected == win_connect and previous != " ":
                 return previous, True
+        # reset for every row
+        previous = str()
+        connected = 1
 
     previous = str()
     connected = 1
