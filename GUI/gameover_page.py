@@ -14,6 +14,10 @@ class GameOverPage:
 
     def main(self):
 
+        import GUI.Game_Logic.game_logic as log
+        logic = log.GameLogic()
+        logic.reset_data(self.game_mode)
+
         import threading
         if self.status == "O":
             text = "win"
@@ -107,6 +111,3 @@ class GameOverPage:
             score_data['scores'][self.game_mode].append(data)
 
             json.dump(score_data, f)
-            import GUI.Game_Logic.game_logic as log
-            logic = log.GameLogic()
-            logic.reset_data(self.game_mode)

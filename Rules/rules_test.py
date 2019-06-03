@@ -10,7 +10,64 @@ def load_data(filename, game_mode):
 
 def winning_check(win_connect, filename, game_mode):
     board_data = load_data(filename, game_mode)
-
+    board_data = [
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            "X",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            "X",
+            " ",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            "X",
+            " ",
+            " "
+        ],
+        [
+            " ",
+            " ",
+            " ",
+            " ",
+            "X",
+            " "
+        ]
+    ]
     previous = str()
     connected = 1
 
@@ -55,6 +112,7 @@ def winning_check(win_connect, filename, game_mode):
                     # col + row -1 is because whenever row + 1, col also grow with it
 
                     # [0][-1] [1][-2] [2][-3] [3][-4]
+                    # is the same as [0][-1]==[-1][-2]==[-2][-3]==[-3][-4]...
                     if board_data[col + row - 1][-(row+i)] == previous and board_data[col + row - 1][-(row+i)] != ' ':
                         connected += 1
                     else:
@@ -77,6 +135,7 @@ def winning_check(win_connect, filename, game_mode):
                     # col + row -1 is because whenever row + 1, col also grow with it
 
                     # [0][-1] [1][-2] [2][-3] [3][-4]
+                    # is the same as [0][-1]==[-1][-2]==[-2][-3]==[-3][-4]...
                     if board_data[-(col + row)][-(row+i)] == previous and board_data[-(col + row)][-(row+i)] != ' ':
                         connected += 1
                     else:
@@ -88,22 +147,29 @@ def winning_check(win_connect, filename, game_mode):
                 except IndexError:
                     pass
                 row += 1
-    # check for draw
-    for column in board_data:
-        for row in column:
-            if row == " ":
-                break
-        else:
-            continue
-        break  # only execute when inner loop does break
-    else:
-        return "draw", True  # all filled, draw
 
-    return "none", False
+    return None, False
 
 
-# win_connect = 4 when 6X7 gameboard is chosen
-# win_connect = 5 when 6X9 gameboard is chosen
 if __name__ == "__main__":
-    value, boo = winning_check(5)
-    print(value)
+    print(winning_check(4, "temp_board_data", '6:7'))
+
+    # # check for negative diagonal from bottom right
+
+    # previous = str()
+    # connected = 1
+    # for col in range(len(board_data)):
+    #     row = 1
+    #     while row <= (win_connect+1):
+    #         try:
+    #             if board_data[-(col + row)][-(row)] == previous and board_data[-(col + row)][-(row)] != ' ':
+    #                 connected += 1
+    #             else:
+    #                 connected = 1
+    #             previous = board_data[-(col + row)][-(row)]
+
+    #             if connected == win_connect and previous != ' ':
+    #                 return previous, True
+    #         except IndexError:
+    #             pass
+    #         row += 1

@@ -41,7 +41,6 @@ class ContinueGameOptions:
                 self.clicking()
                 self.window.clear()
                 y, x = self.window.getmaxyx()
-                board_win = curses.newwin(y, x)
                 self.navigation(current_button)
 
     def draw_menu(self, current_button):
