@@ -38,3 +38,5 @@ class LeaderBoardsPage:
             import winsound
             winsound.PlaySound('./assets/music/clicking.wav',
                                winsound.SND_FILENAME)
+            import app
+            app.main(self.window)
