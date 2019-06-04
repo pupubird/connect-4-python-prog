@@ -31,11 +31,6 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                                     return (i, -(j+1)), "verti", True
                             except Exception:
                                 pass
-                            try:
-                                if board_data[i][-(j - 1)] == " " and j - 1 != 0:
-                                    return (i, -(j - 1)), "verti", True
-                            except Exception:
-                                pass
                         return (0, 0), "", False
                     else:
                         return board_data[i][-j], "", True
@@ -108,14 +103,14 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                                         pass
                                 return (0, 0), "", False
                             else:
-                                return board_data[col + row - 1], "", True
+                                return board_data[col + row - 1][-(row+i)], "", True
 
                     except IndexError:
                         pass
                     row += 1
 
-            previous = str()
-            connected = 1
+                previous = str()
+                connected = 1
 
         return (0, 0), "pdiag", False
 
@@ -145,15 +140,25 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                                         pass
 
                             else:
-                                return board_data[1+row][-(row + i)], "", True
+                                return board_data[-(row+col)][-(row + i)], "", True
                     except IndexError:
                         pass
                     row += 1
-
-            previous = str()
-            connected = 1
+                previous = str()
+                connected = 1
 
         return (0, 0), "ndiag", False
+
+    # check for draw
+    for column in board_data:
+        for row in column:
+            if row == " ":
+                break
+        else:
+            continue
+        break  # only execute when inner loop does break
+    else:
+        return "draw", True  # all filled, draw
 
     if ai_mode:
         if specific_check == "hori":
@@ -185,17 +190,6 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
         value, mode, boo = ndiag_check()
         if boo:
             return value, mode, boo
-
-    # check for draw
-    for column in board_data:
-        for row in column:
-            if row == " ":
-                break
-        else:
-            continue
-        break  # only execute when inner loop does break
-    else:
-        return "draw", True  # all filled, draw
 
     return (0, 0), "", False
 

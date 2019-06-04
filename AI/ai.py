@@ -2,7 +2,12 @@ def ai(game_mode):
     import Rules.rules as rules
     import GUI.Game_Logic.game_logic as logic
 
-    check_list = [(3, 'X'), (3, 'O'), (2, 'X'), (1, 'X')]
+    data = game_mode.split(':')
+    if data[1] == 9:
+        check_list = [(4, 'X'), (4, 'O'), (3, 'X'), (2, 'X'), (1, 'X')]
+    else:
+        check_list = [(3, 'X'), (3, 'O'), (2, 'X'), (1, 'X')]
+
     mode_list = ['hori', 'verti', 'pdiag', 'ndiag']
 
     for connect, sym in check_list:

@@ -26,7 +26,7 @@ class GameOverPage:
         elif self.status == "draw":
             text = "draw"
         else:
-            text = ""
+            text = "lose"
         threading.Thread(target=self.play_background,
                          args=[text], daemon=True).start()
 
@@ -60,6 +60,8 @@ class GameOverPage:
                      self.total_attempt) * 100
         elif self.status == "X":
             score = self.total_attempt * 100
+        else:
+            score = 0
         self.window.addstr(11+3, 36, f"Your score: {score}")
 
         self.window.border()
