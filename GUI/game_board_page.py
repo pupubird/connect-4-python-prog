@@ -123,7 +123,7 @@ class GameBoardPage:
             # AI turn
             else:
 
-                ai_col, move_index = self._AI_move()
+                ai_col, move_index = self._AI_move(self.game_mode)
                 # loading animation
                 self.window.addstr(7, 5, loading_string)
                 load = threading.Thread(
