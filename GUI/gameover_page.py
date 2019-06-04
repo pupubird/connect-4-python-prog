@@ -25,6 +25,8 @@ class GameOverPage:
             text = "lose"
         elif self.status == "draw":
             text = "draw"
+        else:
+            text = ""
         threading.Thread(target=self.play_background,
                          args=[text], daemon=True).start()
 

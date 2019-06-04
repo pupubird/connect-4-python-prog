@@ -123,7 +123,7 @@ class GameBoardPage:
             # AI turn
             else:
 
-                ai_col, move_index = self._AI_move(self.game_mode)
+                ai_col, move_index = self._AI_move()
                 # loading animation
                 self.window.addstr(7, 5, loading_string)
                 load = threading.Thread(
@@ -161,7 +161,7 @@ class GameBoardPage:
 
     def _AI_move(self):
         import AI.ai as ai_on
-        return ai_on.ai()
+        return ai_on.ai(self.game_mode)
 
     def clicking_music(self):
         winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
