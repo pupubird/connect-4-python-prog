@@ -123,29 +123,21 @@ class GameBoardPage:
             # AI turn
             else:
 
-                ai_col = self._AI_move()
-                valid_move, move_index = logic.slot_check(
-                    game_list, ai_col
-                )
-                if valid_move:
-                    # loading animation
-                    self.window.addstr(7, 5, loading_string)
-                    load = threading.Thread(
-                        target=self.loading, args=[self.window])
-                    load.start()
-                    load.join()
-                    curses.flushinp()
+                ai_col, move_index = self._AI_move()
+                # loading animation
+                self.window.addstr(7, 5, loading_string)
+                load = threading.Thread(
+                    target=self.loading, args=[self.window])
+                load.start()
+                load.join()
+                curses.flushinp()
 
-                    # dropping animation
-                    logic.dropping_animation(
-                        board, game_list, ai_col, move_index, "X")
-                    isPlayer = not isPlayer
-                    self.window.addstr(
-                        7, 5, prompting_string)
-                else:
-                    # unlikely to happen...but yea just in case
-                    self.window.addstr(
-                        7, 5, invalid_string)
+                # dropping animation
+                logic.dropping_animation(
+                    board, game_list, ai_col, move_index, "X")
+                isPlayer = not isPlayer
+                self.window.addstr(
+                    7, 5, prompting_string)
 
             # add total attempt to screen
             self.window.addstr(
@@ -156,7 +148,7 @@ class GameBoardPage:
                             self.game_mode, self.total_attempt)
 
             win_mode = 5 if self.game_mode == "6:9" else 4
-            value,_, win_boo = rules.winning_check(
+            value, _, win_boo = rules.winning_check(
                 win_mode, 'temp_board_data', self.game_mode)
 
             if win_boo:  # win
@@ -168,10 +160,8 @@ class GameBoardPage:
             board.refresh_board()
 
     def _AI_move(self):
-        import random
-        import AI.ai as ai
-        col_key = random.choice([0,1,2,3,4,5,6])
-        return col_key
+        import AI.ai as ai_on
+        return ai_on.ai()
 
     def clicking_music(self):
         winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
