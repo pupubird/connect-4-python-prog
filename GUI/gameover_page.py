@@ -87,6 +87,7 @@ class GameOverPage:
                 self.distrup_music()
                 import os
                 os.system('python app.py')
+                break
 
     def play_background(self, state):
         import winsound
