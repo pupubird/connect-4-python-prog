@@ -82,11 +82,19 @@ class GameOverPage:
             if key in key_int:
                 name.content += str(alpha[key_int.index(key)])
                 name.refresh_rectangle()
+            if key == 8:
+                a = name.content[:-1]
+                name.content = a
+                name.refresh_rectangle()
             if key == curses.KEY_ENTER or key in [10, 13]:
                 self.save_score(name.content, score)
                 self.distrup_music()
+                self.window.clear()
+                self.window.refresh()
                 import os
+                import sys
                 os.system('python app.py')
+                sys.exit(0)
                 break
 
     def play_background(self, state):
