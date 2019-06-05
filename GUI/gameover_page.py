@@ -84,13 +84,9 @@ class GameOverPage:
                 name.refresh_rectangle()
             if key == curses.KEY_ENTER or key in [10, 13]:
                 self.save_score(name.content, score)
-                import app
-                app.main(self.orig_window)
-                break
-            self.window.refresh()
-
-        self.window.refresh()
-        self.distrup_music()
+                self.distrup_music()
+                import os
+                os.system('python app.py')
 
     def play_background(self, state):
         import winsound
@@ -113,5 +109,8 @@ class GameOverPage:
             today = date.today()
             data = [score, name, today.strftime("%d/%m/%Y")]
             score_data['scores'][self.game_mode].append(data)
+
+            import GUI.Game_Logic.game_logic as logic
+            logic.GameLogic().reset_data(self.game_mode)
 
             json.dump(score_data, f)

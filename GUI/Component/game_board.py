@@ -105,6 +105,17 @@ class GameBoard(_BoardColumn):
             for j in range(len(set_data[i])):
                 set_data[i][j].content = new_data[i][j]
 
+    def data_reset(self):
+        set_content_list = [item for item in self.game_board_list]
+        set_data = []
+        for i in range(self.column_amount):
+            set_data.append(
+                set_content_list[i * self.row_amount: (self.row_amount) + (i * self.row_amount)])
+
+        for i in range(len(set_data)):
+            for j in range(len(set_data[i])):
+                set_data[i][j].content = " "
+
     @property
     def game_list(self):
         board_list = [item for item in self.game_board_list]

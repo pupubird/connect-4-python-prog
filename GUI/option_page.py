@@ -18,7 +18,7 @@ class OptionPage:
 
         def draw_options(current_button, current_music, current_color):
             self.window.addstr(
-                13, 60, "Press W A S D to control, ENTER to preview")
+                13, 60, "Press W A S D to control, ENTER to preview music.")
 
             if current_button == 1:
                 music = rectangle.Rectangle(

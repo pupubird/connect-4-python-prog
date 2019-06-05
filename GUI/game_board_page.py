@@ -66,6 +66,16 @@ class GameBoardPage:
         board = game_board.GameBoard(board_window, box_size)
         board.draw_board(self.row_size, self.col_size)
 
+        # if continue game is true, load the data list, else, make a new list
+        if self.load_saved:
+            data, total_attempt, _ = logic.load_saved_data(self.game_mode)
+            self.total_attempt = total_attempt
+            board.data_set(data)
+            board.refresh_board()
+        else:
+            board.data_reset()
+            logic.reset_data(self.game_mode)
+
         if self.game_mode == "6:7":
             win = 4
         else:
@@ -76,6 +86,8 @@ class GameBoardPage:
             32, 0, "Choose column 1-9, O is you and X is the opponent.")
         board_window.addstr(
             33, 0, "Objective: connect   horizontally, verticallly or diagonally to win")
+        board_window.addstr(
+            34, 0, "psst..you can change game preferences in options menu")
 
         curses.init_pair(10, curses.COLOR_YELLOW, 0)
         board_window.attron(curses.color_pair(10))
@@ -84,15 +96,6 @@ class GameBoardPage:
         board_window.attroff(curses.color_pair(10))
 
         board_window.refresh()
-
-        # if continue game is true, load the data list, else, make a new list
-        if self.load_saved:
-            data, total_attempt, _ = logic.load_saved_data(self.game_mode)
-            self.total_attempt = total_attempt
-            board.data_set(data)
-            board.refresh_board()
-        else:
-            logic.reset_data(self.game_mode)
 
         game_list = board.game_list
 
