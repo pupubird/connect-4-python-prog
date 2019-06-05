@@ -1,8 +1,8 @@
 import curses
 import GUI.Component.low_level_component as rectangle
-buttons = ["Music", "Game board color", "Save"]
+buttons = ["Music", "Player color", "Save"]
 music_list = [" Music 1 ", " Music 2 ", " Music 3 "]
-color_list = [" Yellow ", " Cyan ", "  Red  "]
+color_list = [" Yellow ", " Green ", "  Red  "]
 
 
 class OptionPage:
@@ -161,7 +161,7 @@ def save_configuration(color, music):
         if color == 1:
             color = "YELLOW"
         elif color == 2:
-            color = "CYAN"
+            color = "GREEN"
         elif color == 3:
             color = "RED"
 

@@ -27,8 +27,8 @@ class _BoardColumn:
             data = json.load(f)
             if data[0] == "YELLOW":
                 color = curses.COLOR_YELLOW
-            elif data[0] == "CYAN":
-                color = curses.COLOR_CYAN
+            elif data[0] == "GREEN":
+                color = curses.COLOR_GREEN
             elif data[0] == "RED":
                 color = curses.COLOR_RED
             else:
