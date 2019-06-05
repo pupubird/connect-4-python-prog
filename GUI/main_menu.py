@@ -61,8 +61,6 @@ def main(stdscr):
 
         stdscr.addstr(
             36, 60, "Press W A S D to control, Enter to choose")
-        stdscr.addstr(
-            37, 60, "(or up and down key... XD)")
         stdscr.refresh()
 
     while True:
@@ -91,7 +89,6 @@ def navigation(stdscr, current_button):
     import GUI.leaderboards_page as leader_boards_page
     import GUI.game_option as game_option_page
     import GUI.option_page as option_page
-    import os
     import sys
     clicking()
     if current_button == 1:  # start

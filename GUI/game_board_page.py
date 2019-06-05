@@ -83,7 +83,7 @@ class GameBoardPage:
         board_window.addstr(
             31, 0, "How to Play:")
         board_window.addstr(
-            32, 0, "Choose column 1-9, O is you and X is the opponent.")
+            32, 0, f"Choose column 1-{self.col_size}, O is you and X is the opponent.")
         board_window.addstr(
             33, 0, "Objective: connect   horizontally, verticallly or diagonally to win")
         board_window.addstr(

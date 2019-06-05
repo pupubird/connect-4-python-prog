@@ -32,6 +32,7 @@ class Rectangle:
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         curses.init_pair(2, curses.COLOR_CYAN, 0)
         curses.init_pair(3, self.color, 0)
+        curses.init_pair(4, curses.COLOR_CYAN, 0)
         # symbol
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
@@ -67,13 +68,22 @@ class Rectangle:
             self.window.attroff(curses.color_pair(1))
 
             # content
-            self.window.addstr(
-                (low_right_y - up_left_y) // 2 + up_left_y,
-                (low_right_x - up_left_x) // 2 +
-                up_left_x - (len(self.content)//2),
-                self.content,
-                curses.color_pair(3)
-            )
+            if self.content == "X":
+                self.window.addstr(
+                    (low_right_y - up_left_y) // 2 + up_left_y,
+                    (low_right_x - up_left_x) // 2 +
+                    up_left_x - (len(self.content)//2),
+                    self.content,
+                    curses.color_pair(4)
+                )
+            else:
+                self.window.addstr(
+                    (low_right_y - up_left_y) // 2 + up_left_y,
+                    (low_right_x - up_left_x) // 2 +
+                    up_left_x - (len(self.content)//2),
+                    self.content,
+                    curses.color_pair(3)
+                )
 
             # draw for top row numbers
             if self.top_row:

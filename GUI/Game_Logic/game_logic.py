@@ -14,18 +14,32 @@ class GameLogic:
 
     def dropping_animation(self, board, game_list, col_key, move_index, char):
         import time
-        for i in range(-6, move_index):
-            game_list[
-                col_key][i].content = char
-            board.refresh_board()
-            time.sleep(0.2)
-            game_list[
-                col_key][i].content = " "
-            board.refresh_board()
+        if char == "O":
+            for i in range(-6, move_index):
+                game_list[
+                    col_key][i].content = char
+                board.refresh_board()
+                time.sleep(0.2)
+                game_list[
+                    col_key][i].content = " "
+                board.refresh_board()
 
-        game_list[
-            col_key][move_index].content = char
-        board.refresh_board()
+            game_list[
+                col_key][move_index].content = char
+            board.refresh_board()
+        elif char == "X":
+            for i in range(-6, move_index):
+                game_list[
+                    col_key][i].content = char
+                board.refresh_board()
+                time.sleep(0.2)
+                game_list[
+                    col_key][i].content = " "
+                board.refresh_board()
+
+            game_list[
+                col_key][move_index].content = char
+            board.refresh_board()
 
     def save_data(self, content_list, game_mode, total_attempt):
         import json

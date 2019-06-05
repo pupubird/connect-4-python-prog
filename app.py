@@ -25,7 +25,7 @@ except Exception:
             press any key to continue...""")
 
 
-def main(window):  # adjust window size
+def main(window):
     import GUI.game_board_page as board_page
     import GUI.main_menu as main_menu
 
