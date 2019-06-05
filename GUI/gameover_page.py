@@ -76,16 +76,31 @@ class GameOverPage:
         # player name input
         alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        upper_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                       'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        # 65-90
         key_int = [x for x in range(97, len(alpha)+98)]
+        key_upper_int = [i for i in range(65, 91)]
         while True:
             key = self.window.getch()
+            # lower alphabet
             if key in key_int:
                 name.content += str(alpha[key_int.index(key)])
                 name.refresh_rectangle()
-            if key == 8:
-                a = name.content[:-1]
-                name.content = a
+            # uppercase
+            if key in key_upper_int:
+                name.content += str(upper_alpha[key_upper_int.index(key)])
                 name.refresh_rectangle()
+            # backspace
+            if key == 8:
+                content_list = [word for word in name.content]
+                content_list = content_list[:-1]
+                content = str()
+                for word in content_list:
+                    content += word
+                name.content = content
+                name.refresh_rectangle()
+            # enter
             if key == curses.KEY_ENTER or key in [10, 13]:
                 self.save_score(name.content, score)
                 self.distrup_music()
