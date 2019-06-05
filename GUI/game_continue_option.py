@@ -40,8 +40,8 @@ class ContinueGameOptions:
             elif key == curses.KEY_ENTER or key in [10, 13]:
                 self.clicking()
                 self.window.clear()
-                y, x = self.window.getmaxyx()
                 self.navigation(current_button)
+                break
 
     def draw_menu(self, current_button):
         self.window.clear()

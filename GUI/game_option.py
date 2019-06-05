@@ -30,8 +30,8 @@ class OptionsPage:
                 self.clicking()
                 self.window.clear()
                 y, x = self.window.getmaxyx()
-                board_win = curses.newwin(y, x)
                 self.navigation(current_button)
+                break
 
     def draw_menu(self, current_button):
         self.window.clear()

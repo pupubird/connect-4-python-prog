@@ -82,6 +82,7 @@ def main(stdscr):
             y, x = stdscr.getmaxyx()
             board_win = curses.newwin(y, x)
             navigation(board_win, current_button)
+            break
 
 
 def navigation(stdscr, current_button):

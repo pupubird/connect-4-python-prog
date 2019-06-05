@@ -135,6 +135,7 @@ class OptionPage:
                     save_configuration(current_color, current_music)
                     import app
                     app.main(self.window)
+                    break
 
 
 def clicking():
