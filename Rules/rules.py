@@ -17,7 +17,7 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
         # check for vertical column
         # [0][-1] [0][-2] [0][-3] [0][-4]
         for i in range(len(board_data)):
-            for j in range(len(board_data[i])):
+            for j in range(1, len(board_data[i])+1):
                 if board_data[i][-j] == previous and previous != " ":
                     connected += 1
                 else:

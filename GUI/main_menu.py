@@ -109,8 +109,6 @@ def navigation(stdscr, current_button):
         stdscr.refresh()
         sys.exit(0)
 
-    os.system('python app.py')  # restart the program
-
 
 def clicking():
     import winsound
