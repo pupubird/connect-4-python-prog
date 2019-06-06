@@ -107,13 +107,17 @@ class GameOverPage:
                 name.refresh_rectangle()
             # backspace
             if key == 8:
-                content_list = [word for word in name.content]
+                orig_content = name.content
+                content_list = [word for word in orig_content]
                 content_list = content_list[:-1]
                 content = str()
                 for word in content_list:
                     content += word
+                name.content = " "*len(orig_content)
+                name.refresh_rectangle()
                 name.content = content
                 name.refresh_rectangle()
+
             # enter
             if key == curses.KEY_ENTER or key in [10, 13]:
                 self.save_score(name.content, score)

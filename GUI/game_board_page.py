@@ -100,7 +100,10 @@ class GameBoardPage:
         game_list = board.game_list
 
         # number(1,2,3..) key of curses, key 49 is 1, key 57 is 9
-        number_key = [number for number in range(49, 58)]
+        if self.game_mode == '6:9':
+            number_key = [number for number in range(49, 58)]
+        else:
+            number_key = [number for number in range(49, 56)]
         # game loop start
         isPlayer = True
         while True:

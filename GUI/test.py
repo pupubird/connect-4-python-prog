@@ -1,9 +1,3 @@
-a = "wtf"
-b = [word for word in a]
-b = b[:-1]
-b = b[:-1]
-b = b[:-1]
-c = str()
-for x in b:
-    c += x
-print(c)
+a = [1, 2, 3, 4]
+a.insert(0, 0)
+print(a)
