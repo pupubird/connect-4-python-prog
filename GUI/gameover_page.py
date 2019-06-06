@@ -70,7 +70,7 @@ class GameOverPage:
             elif self.total_attempt >= 10 and self.total_attempt <= 15:
                 string = "Not too bad, try harder"
             elif self.total_attempt < 10:
-                string = "You have no the talent :c!"
+                string = "You have no talent :c!"
         else:
             score = 0
 
