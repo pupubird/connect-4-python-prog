@@ -120,15 +120,19 @@ class GameOverPage:
 
             # enter
             if key == curses.KEY_ENTER or key in [10, 13]:
-                self.save_score(name.content, score)
-                self.distrup_music()
-                self.window.clear()
-                self.window.refresh()
-                import os
-                import sys
-                os.system('python app.py')
-                sys.exit(0)
-                break
+                if name.content in alpha or name.content in upper_alpha:
+                    self.save_score(name.content, score)
+                    self.distrup_music()
+                    self.window.clear()
+                    self.window.refresh()
+                    import os
+                    import sys
+                    os.system('python app.py')
+                    sys.exit(0)
+                    break
+                else:
+                    self.window.addstr(23, 32, "Player name can't be empty")
+                    self.window.refresh()
 
     def play_background(self, state):
         import winsound
