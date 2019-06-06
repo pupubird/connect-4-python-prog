@@ -47,9 +47,6 @@ class GameOverPage:
             string = "Not too bad"
         elif self.total_attempt < 10:
             string = "You have the talent!"
-        self.window.addstr(
-            8+3, 36, f"Your total attempt: {self.total_attempt}")
-        self.window.addstr(9 + 3, 36, string)
 
         # score
         size = self.game_mode.split(":")
@@ -58,12 +55,29 @@ class GameOverPage:
         if self.status == "O":
             score = ((int(hori_size) * int(verti_size)) -
                      self.total_attempt) * 100
+            # print total attempt
+            if self.total_attempt > 15:
+                string = "You can do better"
+            elif self.total_attempt >= 10 and self.total_attempt <= 15:
+                string = "Not too bad"
+            elif self.total_attempt < 10:
+                string = "You have the talent!"
         elif self.status == "X":
             score = self.total_attempt * 100
+            # print total attempt
+            if self.total_attempt > 15:
+                string = "You can do better"
+            elif self.total_attempt >= 10 and self.total_attempt <= 15:
+                string = "Not too bad, try harder"
+            elif self.total_attempt < 10:
+                string = "You have no the talent :c!"
         else:
             score = 0
-        self.window.addstr(11+3, 36, f"Your score: {score}")
 
+        self.window.addstr(11+3, 36, f"Your score: {score}")
+        self.window.addstr(
+            8+3, 36, f"Your total attempt: {self.total_attempt}")
+        self.window.addstr(9 + 3, 36, string)
         self.window.border()
         self.window.refresh()
 
@@ -137,4 +151,4 @@ class GameOverPage:
             import GUI.Game_Logic.game_logic as logic
             logic.GameLogic().reset_data(self.game_mode)
 
-            json.dump(score_data, f)
+            json.dump(score_data, f, indent=2)
