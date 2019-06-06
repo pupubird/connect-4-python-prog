@@ -83,7 +83,7 @@ class GameBoardPage:
         board_window.addstr(
             31, 0, "How to Play:")
         board_window.addstr(
-            32, 0, f"Choose column 1-{self.col_size}, O is you and X is the opponent.")
+            32, 0, f"Choose column 1-{self.col_size},   is you and   is the opponent.")
         board_window.addstr(
             33, 0, "Objective: connect   horizontally, verticallly or diagonally to win")
         board_window.addstr(
@@ -92,8 +92,16 @@ class GameBoardPage:
         curses.init_pair(10, curses.COLOR_YELLOW, 0)
         board_window.attron(curses.color_pair(10))
         board_window.addstr(
+            32, 19, "O")
+        board_window.addstr(
             33, 19, f"{win}")
         board_window.attroff(curses.color_pair(10))
+
+        curses.init_pair(11, curses.COLOR_CYAN, 0)
+        board_window.attron(curses.color_pair(11))
+        board_window.addstr(
+            32, 32, "X")
+        board_window.attroff(curses.color_pair(11))
 
         board_window.refresh()
 
