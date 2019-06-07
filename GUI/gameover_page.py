@@ -120,7 +120,8 @@ class GameOverPage:
 
             # enter
             if key == curses.KEY_ENTER or key in [10, 13]:
-                if name.content in alpha or name.content in upper_alpha:
+                name_list = [word for word in name.content]
+                if name_list in alpha or name.content in upper_alpha:
                     self.save_score(name.content, score)
                     self.distrup_music()
                     self.window.clear()
