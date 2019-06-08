@@ -1,3 +1,6 @@
 a = [1, 2, 3, 4]
-a.insert(0, 0)
-print(a)
+b = [1, 2, 5]
+if b in a:
+    print('wa')
+else:
+    print('wtf')
