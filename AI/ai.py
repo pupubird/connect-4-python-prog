@@ -25,10 +25,12 @@ def ai(game_mode):
     board_data, _, _ = log.load_saved_data(game_mode)
 
     data = game_mode.split(':')
+    # AI algorithm, always prevent it from winning
     if int(data[1]) == 9:
-        check_list = [(4, 'X'), (4, 'O'), (3, 'X'), (2, 'X'), (1, 'X')]
+        check_list = [(4, 'X'), (4, 'O'), (3, 'O'),
+                      (3, 'X'), (2, 'X'), (1, 'X')]
     else:
-        check_list = [(3, 'X'), (3, 'O'), (2, 'X'), (1, 'X')]
+        check_list = [(3, 'X'), (3, 'O'), (2, 'O'), (2, 'X'), (1, 'X')]
 
     mode_list = ['hori', 'verti', 'pdiag', 'ndiag']
 

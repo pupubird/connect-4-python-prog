@@ -167,6 +167,7 @@ class GameBoardPage:
 
             if win_boo:  # win
                 # direct to gameover page
+                time.sleep(0.5)
                 self.clicking_music()
                 self._gameover_page(value)
                 break

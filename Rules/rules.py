@@ -97,7 +97,6 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                                 if board_data[col + row - 1][-(row + i)] == specific_sym:
                                     try:
                                         if board_data[col + row][-(row + i + 1)] == " ":
-
                                             return (col + row, -(row + i+1)), "pdiag", True
                                     except Exception:
                                         pass
@@ -161,20 +160,20 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
         return "draw", True  # all filled, draw
 
     if ai_mode:
-        if specific_check == "hori":
-            value, mode, boo = hori_check()
-            if boo:
-                return value, mode, boo
-        elif specific_check == "verti":
-            value, mode, boo = verti_check()
-            if boo:
-                return value, mode, boo
-        elif specific_check == "pdiag":
+        if specific_check == "pdiag":
             value, mode, boo = pdiag_check()
             if boo:
                 return value, mode, boo
         elif specific_check == "ndiag":
             value, mode, boo = ndiag_check()
+            if boo:
+                return value, mode, boo
+        elif specific_check == "hori":
+            value, mode, boo = hori_check()
+            if boo:
+                return value, mode, boo
+        elif specific_check == "verti":
+            value, mode, boo = verti_check()
             if boo:
                 return value, mode, boo
     else:
