@@ -46,12 +46,13 @@ def ai(game_mode):
     # means no move available, most likely to be the first move, hence randomly generate one move
     import random
     size = 7 if game_mode == '6:7' else 9
-    rand_col = random.choice([x for x in range(1, size + 1)])
+
+    rand_col = random.choice([x for x in range(size)])
     rand_boo, index = log.slot_check(board_data, rand_col, True)
     if rand_boo:
         return rand_col, index
     while not rand_boo:
-        rand_col = random.choice([x for x in range(1, size + 1)])
+        rand_col = random.choice([x for x in range(size)])
         rand_boo, index = log.slot_check(board_data, rand_col, True)
         if rand_boo:
             return rand_col, index

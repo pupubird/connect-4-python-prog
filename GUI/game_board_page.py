@@ -200,7 +200,7 @@ class GameBoardPage:
             data = json.load(f)
             music = data[1]
         winsound.PlaySound(
-            f'./assets/music/{music}.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+            f'./assets/music/{music}.wav', winsound.SND_LOOP)
 
     def loading(self, window):
         animation = LoadingAnimation(window)
