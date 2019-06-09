@@ -97,7 +97,12 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                                 if board_data[col + row - 1][-(row + i)] == specific_sym:
                                     try:
                                         if board_data[col + row][-(row + i + 1)] == " ":
-                                            return (col + row, -(row + i+1)), "pdiag", True
+                                            return (col + row, -(row + i + 1)), "pdiag", True
+                                    except Exception:
+                                        pass
+                                    try:
+                                        if board_data[col + row - 1 - win_connect][-(row + i - win_connect)] == " ":
+                                            return (col + row - 1 - win_connect, (-(row + i - win_connect))), "pdiag", True
                                     except Exception:
                                         pass
                                 return (0, 0), "", False
@@ -134,7 +139,13 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                                 if board_data[-(row+col)][-(row + i)] == specific_sym:
                                     try:
                                         if board_data[-(row + col + 1)][-(row + i + 1)] == " ":
-                                            return ((row + col), -(row + i + 1)), "ndiag", True
+                                            return (-(row + col+1), -(row + i + 1)), "ndiag", True
+                                    except Exception:
+                                        pass
+
+                                    try:
+                                        if board_data[-(row + col - win_connect)][-(row + i - 1)] == " ":
+                                            return (-(row + col - win_connect), -(row + i - 1)), "ndiag", True
                                     except Exception:
                                         pass
 

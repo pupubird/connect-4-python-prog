@@ -168,7 +168,7 @@ class GameBoardPage:
 
             # add total attempt to screen
             self.window.addstr(
-                40, 136, f"Total attempt: {self.total_attempt} {1 if isPlayer else 0}")
+                40, 136, f"Total attempt: {self.total_attempt}")
 
             # win check
             logic.save_data(board.data(),

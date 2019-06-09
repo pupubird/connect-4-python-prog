@@ -32,7 +32,7 @@ def ai(game_mode):
     else:
         check_list = [(3, 'X'), (3, 'O'), (2, 'O'), (2, 'X'), (1, 'X')]
 
-    mode_list = ['hori', 'verti', 'pdiag', 'ndiag']
+    mode_list = ['pdiag', 'ndiag', 'verti', 'hori']
 
     for connect, sym in check_list:
         for mode in mode_list:
