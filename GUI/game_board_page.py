@@ -72,6 +72,19 @@ class GameBoardPage:
             self.total_attempt = total_attempt
             board.data_set(data)
             board.refresh_board()
+            # win check
+            logic.save_data(board.data(),
+                            self.game_mode, self.total_attempt)
+
+            win_mode = 5 if self.game_mode == "6:9" else 4
+            value, _, win_boo = rules.winning_check(
+                win_mode, 'temp_board_data', self.game_mode)
+
+            if win_boo:  # win
+                # direct to gameover page
+                time.sleep(0.5)
+                self.clicking_music()
+                self._gameover_page(value)
         else:
             board.data_reset()
             logic.reset_data(self.game_mode)
@@ -155,7 +168,7 @@ class GameBoardPage:
 
             # add total attempt to screen
             self.window.addstr(
-                40, 136, f"Total attempt: {self.total_attempt}")
+                40, 136, f"Total attempt: {self.total_attempt} {1 if isPlayer else 0}")
 
             # win check
             logic.save_data(board.data(),

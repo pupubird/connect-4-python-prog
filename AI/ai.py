@@ -25,7 +25,7 @@ def ai(game_mode):
     board_data, _, _ = log.load_saved_data(game_mode)
 
     data = game_mode.split(':')
-    # AI algorithm, always prevent it from winning
+    # AI algorithm, always prevent player from winning
     if int(data[1]) == 9:
         check_list = [(4, 'X'), (4, 'O'), (3, 'O'),
                       (3, 'X'), (2, 'X'), (1, 'X')]
@@ -45,12 +45,13 @@ def ai(game_mode):
                     return col, row
     # means no move available, most likely to be the first move, hence randomly generate one move
     import random
-    rand_col = random.choice([1, 2])
+    size = 7 if game_mode == '6:7' else 9
+    rand_col = random.choice([x for x in range(1, size + 1)])
     rand_boo, index = log.slot_check(board_data, rand_col, True)
     if rand_boo:
         return rand_col, index
     while not rand_boo:
-        rand_col = random.choice([2, 3])
+        rand_col = random.choice([x for x in range(1, size + 1)])
         rand_boo, index = log.slot_check(board_data, rand_col, True)
         if rand_boo:
             return rand_col, index

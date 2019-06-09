@@ -148,17 +148,6 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
 
         return (0, 0), "ndiag", False
 
-    # check for draw
-    for column in board_data:
-        for row in column:
-            if row == " ":
-                break
-        else:
-            continue
-        break  # only execute when inner loop does break
-    else:
-        return "draw", True  # all filled, draw
-
     if ai_mode:
         if specific_check == "pdiag":
             value, mode, boo = pdiag_check()
@@ -168,28 +157,37 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
             value, mode, boo = ndiag_check()
             if boo:
                 return value, mode, boo
-        elif specific_check == "hori":
-            value, mode, boo = hori_check()
-            if boo:
-                return value, mode, boo
         elif specific_check == "verti":
             value, mode, boo = verti_check()
             if boo:
                 return value, mode, boo
+        elif specific_check == "hori":
+            value, mode, boo = hori_check()
+            if boo:
+                return value, mode, boo
     else:
-        value, mode, boo = hori_check()
-        if boo:
-            return value, mode, boo
-        value, mode, boo = verti_check()
-        if boo:
-            return value, mode, boo
-        value, mode, boo = pdiag_check()
-        if boo:
-            return value, mode, boo
-        value, mode, boo = ndiag_check()
-        if boo:
-            return value, mode, boo
-
+        value, mode, hori_boo = hori_check()
+        if hori_boo:
+            return value, mode, hori_boo
+        value, mode, verti_boo = verti_check()
+        if verti_boo:
+            return value, mode, verti_boo
+        value, mode, pdiag_boo = pdiag_check()
+        if pdiag_boo:
+            return value, mode, pdiag_boo
+        value, mode, ndiag_boo = ndiag_check()
+        if ndiag_boo:
+            return value, mode, ndiag_boo
+            # check for draw
+        for column in board_data:
+            for row in column:
+                if row == " ":
+                    break
+            else:
+                continue
+            break  # only execute when inner loop does break
+        else:
+            return "draw", "", True  # all filled, draw
     return (0, 0), "", False
 
 
