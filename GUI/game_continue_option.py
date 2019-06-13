@@ -17,7 +17,6 @@ buttons.append("return")
 
 
 class ContinueGameOptions:
-    # new game or continue
 
     def __init__(self, window):
         self.window = window
@@ -73,10 +72,11 @@ class ContinueGameOptions:
 
     def navigation(self, current_button):
         # navigate here
-        if current_button == buttons.index("return")+1:  # return
-            import GUI.game_option as option_page
-            option_page.OptionsPage(self.window)
-        else:  # continue
+
+        if current_button == buttons.index("return")+1:  # return to last page
+            import GUI.game_option as game_option_page
+            game_option_page.OptionsPage(self.window)
+        else:
             import GUI.game_board_page as board_page
             row = 6
 

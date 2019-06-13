@@ -11,6 +11,7 @@ from Rules import rules
 
 class GameBoardPage:
     def __init__(self, window, row_size, col_size, game_mode, load_saved=False):
+        # if continue game, load_saved = True, else, new game
         self.window = window
         self.row_size = row_size
         self.col_size = col_size
@@ -20,8 +21,9 @@ class GameBoardPage:
 
     def main(self):
         curses.resize_term(49, 165)
+
         # play background music
-        threading.Thread(target=self.play_background, daemon=True).start()
+        threading.Thread(target=self._play_background, daemon=True).start()
         self.window.refresh()
         curses.curs_set(0)
 
@@ -41,6 +43,7 @@ class GameBoardPage:
 
         # draw the score board
         self._score_board()
+
         # draw the game board
         try:
             board_win = curses.newwin(40, 100, 8, 5)
@@ -52,11 +55,42 @@ class GameBoardPage:
 
     def _board(self, board_window, box_size):
         logic = game_logic.GameLogic()
-        import threading
         prompting_string = f"Please enter number 1-{self.col_size} to insert:              "
         invalid_string = f"invalid move, Please enter number 1-{self.col_size} to insert:"
         loading_string = f"Computer is thinking...  Autosaving                           "
-        # total attemp counting
+
+        # instruction--------------------
+        if self.game_mode == "6:7":
+            win = 4
+        else:
+            win = 5
+        board_window.addstr(
+            31, 0, "How to Play:")
+        board_window.addstr(
+            32, 0, f"Choose column 1-{self.col_size},   is you and   is the opponent.")
+        board_window.addstr(
+            33, 0, "Objective: connect   horizontally, verticallly or diagonally to win")
+        board_window.addstr(
+            34, 0, "psst..you can change game preferences in options menu")
+
+        curses.init_pair(10, curses.COLOR_YELLOW, 0)
+        board_window.attron(curses.color_pair(10))
+        board_window.addstr(
+            32, 19, "O")
+        board_window.addstr(
+            33, 19, f"{win}")
+        board_window.attroff(curses.color_pair(10))
+
+        curses.init_pair(11, curses.COLOR_CYAN, 0)
+        board_window.attron(curses.color_pair(11))
+        board_window.addstr(
+            32, 32, "X")
+        board_window.attroff(curses.color_pair(11))
+
+        board_window.refresh()
+        # instruction end ---------------------
+
+        # total attempt counting
         self.total_attempt = 0
         self.window.addstr(
             40, 136, f"Total attempt: {self.total_attempt}")
@@ -86,37 +120,9 @@ class GameBoardPage:
                 self.clicking_music()
                 self._gameover_page(value)
         else:
+            # make new list
             board.data_reset()
             logic.reset_data(self.game_mode)
-
-        if self.game_mode == "6:7":
-            win = 4
-        else:
-            win = 5
-        board_window.addstr(
-            31, 0, "How to Play:")
-        board_window.addstr(
-            32, 0, f"Choose column 1-{self.col_size},   is you and   is the opponent.")
-        board_window.addstr(
-            33, 0, "Objective: connect   horizontally, verticallly or diagonally to win")
-        board_window.addstr(
-            34, 0, "psst..you can change game preferences in options menu")
-
-        curses.init_pair(10, curses.COLOR_YELLOW, 0)
-        board_window.attron(curses.color_pair(10))
-        board_window.addstr(
-            32, 19, "O")
-        board_window.addstr(
-            33, 19, f"{win}")
-        board_window.attroff(curses.color_pair(10))
-
-        curses.init_pair(11, curses.COLOR_CYAN, 0)
-        board_window.attron(curses.color_pair(11))
-        board_window.addstr(
-            32, 32, "X")
-        board_window.attroff(curses.color_pair(11))
-
-        board_window.refresh()
 
         game_list = board.game_list
 
@@ -132,7 +138,7 @@ class GameBoardPage:
             if isPlayer:
                 col_key = self.window.getch()
                 if col_key in number_key:
-                    # game logic checking
+                    # player's move validation
                     valid_move, move_index = logic.slot_check(
                         game_list, number_key.index(col_key))
                     if valid_move:
@@ -154,7 +160,7 @@ class GameBoardPage:
                 # loading animation
                 self.window.addstr(7, 5, loading_string)
                 load = threading.Thread(
-                    target=self.loading, args=[self.window])
+                    target=self._loading, args=[self.window])
                 load.start()
                 load.join()
                 curses.flushinp()
@@ -181,20 +187,21 @@ class GameBoardPage:
             if win_boo:  # win
                 # direct to gameover page
                 time.sleep(0.5)
-                self.clicking_music()
+                self._clicking_music()
                 self._gameover_page(value)
                 break
             curses.curs_set(0)
             board.refresh_board()
 
     def _AI_move(self):
+        # call AI -> ai.py
         import AI.ai as ai_on
         return ai_on.ai(self.game_mode)
 
-    def clicking_music(self):
+    def _clicking_music(self):
         winsound.PlaySound('../assets/music/clicking.wav', winsound.SND_ASYNC)
 
-    def play_background(self):
+    def _play_background(self):
         with open('./assets/data/config.json', 'r') as f:
             import json
             data = json.load(f)
@@ -202,7 +209,7 @@ class GameBoardPage:
         winsound.PlaySound(
             f'./assets/music/{music}.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
 
-    def loading(self, window):
+    def _loading(self, window):
         animation = LoadingAnimation(window)
         animation.draw_loading(7, 40)
 

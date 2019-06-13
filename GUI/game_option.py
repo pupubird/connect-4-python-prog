@@ -42,6 +42,7 @@ class OptionsPage:
         start_y, start_x = 17, 55
         gap = 1
         for index, button in enumerate(buttons):
+            # draw button
             if current_button == index+1:
                 cur_btn = rectangle.Rectangle(
                     self.window, init_content=button, top_row=True, top_sym="X")
@@ -67,7 +68,7 @@ class OptionsPage:
             import GUI.game_newgame as newgame_page
             newgame_page.NewGameOptions(self.window)
 
-        elif current_button == 2:
+        elif current_button == 2:  # continue game
             import GUI.game_continue_option as continue_page
             continue_page.ContinueGameOptions(self.window)
         elif current_button == 3:

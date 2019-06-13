@@ -21,6 +21,14 @@ class OptionPage:
                 13, 60, "Press W A S D to control, ENTER to preview music.")
 
             if current_button == 1:
+                # button change animation------------------------------------
+                '''
+                 < a >
+                arrow move to
+                <  a  >
+                and move back to
+                 < a >
+                '''
                 music = rectangle.Rectangle(
                     self.window, top_row=True, top_sym=buttons[0])
                 music.content = music_list[current_music - 1]
@@ -93,18 +101,19 @@ class OptionPage:
                 self.window.addstr(28, 122, " ")
 
             self.window.refresh()
+            # button change animation end------------------------------------
 
         while True:
             curses.curs_set(0)
             draw_options(current_button, current_music, current_color)
             key = self.window.getch()
             disrupt_music()
-            if key == curses.KEY_UP or key == 119 or key == 87 and current_button > 1:
+            if key == 119 or key == 87 and current_button > 1:  # up key
                 current_button -= 1
-
-            elif key == curses.KEY_DOWN or key == 115 or key == 83 and current_button < len(buttons):
+            # down key
+            elif key == 115 or key == 83 and current_button < len(buttons):
                 current_button += 1
-            elif key == 97 or key == curses.KEY_LEFT:  # left
+            elif key == 97 or key == 65:  # left key
                 if current_button == 1:
                     if current_music > 1:
                         current_music -= 1
@@ -115,7 +124,7 @@ class OptionPage:
                         current_color -= 1
                     else:
                         pass
-            elif key == 100 or key == curses.KEY_RIGHT:  # right
+            elif key == 100 or key == 68:  # right key
                 if current_button == 1:
                     if current_music < len(music_list):
                         current_music += 1

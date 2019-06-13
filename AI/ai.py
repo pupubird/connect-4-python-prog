@@ -10,9 +10,11 @@ for 6:9:
 
 for 6:7:
     1. check if there is connect 4 available
+    same algorithm as 6:9
     ...
 
-
+        if available:
+            do the move
 else:
     return random col (most likely be the first move of the game)
 """
@@ -36,14 +38,15 @@ def ai(game_mode):
 
     for connect, sym in check_list:
         for mode in mode_list:
+            # call Rules -> rules.py 's helps to check with move
             value, _, boo = rules.winning_check(
                 connect, 'temp_board_data', game_mode, True, mode, sym)
-            if boo:
+            if boo:  # move found!
                 col, row = value
                 slot_boo, index = log.slot_check(board_data, col, True)
-                if slot_boo and index == row:
+                if slot_boo and index == row:  # slot check
                     return col, row
-    # means no move available, most likely to be the first move, hence randomly generate one move
+    # if loop doesnt break, no move available, most likely to be the first move, hence randomly generate one move
     import random
     size = 7 if game_mode == '6:7' else 9
 
@@ -51,7 +54,7 @@ def ai(game_mode):
     rand_boo, index = log.slot_check(board_data, rand_col, True)
     if rand_boo:
         return rand_col, index
-    while not rand_boo:
+    while not rand_boo:  # random generated col is invalid, generate again
         rand_col = random.choice([x for x in range(size)])
         rand_boo, index = log.slot_check(board_data, rand_col, True)
         if rand_boo:

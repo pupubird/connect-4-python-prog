@@ -27,6 +27,7 @@ def main(stdscr):
         curses.resize_term(49, 165)
         stdscr.clear()
         curses.curs_set(0)
+
         # draw logo
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         stdscr.attron(curses.color_pair(1))
@@ -41,6 +42,8 @@ def main(stdscr):
         height = 4
         start_y, start_x = 19, 55
         gap = 1
+
+        # draw button, using rectangle class from Component -> low level component
         for index, button in enumerate(buttons):
             if current_button == index+1:
                 cur_btn = rectangle.Rectangle(
@@ -64,21 +67,23 @@ def main(stdscr):
         stdscr.refresh()
 
     while True:
-
+        # game loop, get user input
         curses.curs_set(0)
         draw_menu()
         key = stdscr.getch()
-        # W D with capital considered
+        # W key
         if (key == 119 or key == 87) and current_button > 1:
             current_button -= 1
-
+        # S key
         if (key == 115 or key == 83) and current_button < len(buttons):
             current_button += 1
-
+        # Enter key
         if key == curses.KEY_ENTER or key in [10, 13]:
             stdscr.clear()
             y, x = stdscr.getmaxyx()
             board_win = curses.newwin(y, x)
+
+            # navigate to the button selected
             navigation(board_win, current_button)
             break
 
@@ -92,7 +97,7 @@ def navigation(stdscr, current_button):
     import sys
     clicking()
     if current_button == 1:  # start
-
+        # difficulty selection page
         game_option_page.OptionsPage(stdscr)
 
     elif current_button == 2:  # leaderboard

@@ -1,9 +1,11 @@
-# save scores and show sapnu here
 import curses
+import GUI.Component.low_level_component as rectangle
+import os
+import sys
 
 
 class GameOverPage:
-    # width:100, height:40
+    # window size width:100, height:40
     def __init__(self, window, orig_window, status, total_attempt, game_mode):
         self.window = window
         self.orig_window = orig_window
@@ -25,12 +27,10 @@ class GameOverPage:
             text = "lose"
         elif self.status == "draw":
             text = "draw"
-        else:
-            text = "lose"
         threading.Thread(target=self.play_background,
                          args=[text], daemon=True).start()
 
-        # draw status
+        # draw win/lose/draw logo
         curses.init_pair(1, curses.COLOR_YELLOW, 0)
         self.window.attron(curses.color_pair(1))
         with open(f"./assets/ASCII_Art/{text}.txt", "r") as logo:
@@ -40,39 +40,33 @@ class GameOverPage:
         self.window.refresh()
         self.window.attroff(curses.color_pair(1))
 
-        # print total attempt
-        if self.total_attempt > 15:
-            string = "You can do better"
-        elif self.total_attempt >= 10 and self.total_attempt <= 15:
-            string = "Not too bad"
-        elif self.total_attempt < 10:
-            string = "You have the talent!"
-
         # score
         size = self.game_mode.split(":")
         hori_size = size[0]
         verti_size = size[1]
-        if self.status == "O":
+        if self.status == "O":  # win
             score = ((int(hori_size) * int(verti_size)) -
                      self.total_attempt) * 100
-            # print total attempt
+            # print total attempt for win
             if self.total_attempt > 15:
                 string = "You can do better"
             elif self.total_attempt >= 10 and self.total_attempt <= 15:
                 string = "Not too bad"
             elif self.total_attempt < 10:
                 string = "You have the talent!"
-        elif self.status == "X":
+        elif self.status == "X":  # lose
             score = self.total_attempt * 100
-            # print total attempt
+            # print total attempt for lose
             if self.total_attempt > 15:
                 string = "You can do better"
             elif self.total_attempt >= 10 and self.total_attempt <= 15:
                 string = "Not too bad, try harder"
             elif self.total_attempt < 10:
                 string = "You have no talent :c!"
-        else:
-            score = 0
+        else:  # draw (not drawing, draw XD)
+            score = self.total_attempt * 150
+            # print total attempt
+            string = "Not too bad, try harder"
 
         self.window.addstr(11+3, 36, f"Your score: {score}")
         self.window.addstr(
@@ -81,8 +75,7 @@ class GameOverPage:
         self.window.border()
         self.window.refresh()
 
-        import GUI.Component.low_level_component as rectangle
-
+        # input player name
         name = rectangle.Rectangle(
             self.window, top_row=True, top_sym="Your Name(Only alphabet)")
         name.draw_rectangle(18, 25, 22, 68)
@@ -126,8 +119,7 @@ class GameOverPage:
                     self.distrup_music()
                     self.window.clear()
                     self.window.refresh()
-                    import os
-                    import sys
+                    # return to menu page
                     os.system('python app.py')
                     sys.exit(0)
                     break

@@ -36,17 +36,19 @@ class Rectangle:
         # symbol
         vertical_line = curses.ACS_VLINE
         horizontal_line = "-"
-        if not default_corn_sym:
+        if not default_corn_sym:  # not default, corner = L shape
             left_upcorner = curses.ACS_ULCORNER
             left_downcorner = curses.ACS_LLCORNER
             right_upcorner = curses.ACS_URCORNER
             right_downcorner = curses.ACS_LRCORNER
         else:
             left_upcorner = left_downcorner = right_upcorner = right_downcorner = "+"
+
         """
         Draw a rectangle with corners at the provided upper-left
         and lower-right coordinates.
         """
+
         try:
             # vertical line
             self.window.vline(up_left_y+1, up_left_x, vertical_line,
@@ -68,7 +70,7 @@ class Rectangle:
             self.window.attroff(curses.color_pair(1))
 
             # content
-            if self.content == "X":
+            if self.content == "X":  # different color for this ai symbol
                 self.window.addstr(
                     (low_right_y - up_left_y) // 2 + up_left_y,
                     (low_right_x - up_left_x) // 2 +
@@ -85,7 +87,7 @@ class Rectangle:
                     curses.color_pair(3)
                 )
 
-            # draw for top row numbers
+            # draw for top row content (name of the column in game board or name of this rectangle)
             if self.top_row:
 
                 self.window.attron(curses.color_pair(2))

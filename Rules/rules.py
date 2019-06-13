@@ -10,12 +10,21 @@ def load_data(filename, game_mode):
 
 def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_check="", specific_sym=""):
     board_data = load_data(filename, game_mode)
+    '''
+    This checking method is a blindfold checking,
+    we only look for the last symbol and the current symbol,
+
+    if current symbol = last symbol, means they are consecutively connected, 
+    hence the counter += 1
+
+    by doing this, we can avoid hardcoding and be able to reused again by the AI -> ai.py
+    for pattern checking
+    '''
 
     def verti_check():
         previous = str()
         connected = 1
-        # check for vertical column
-        # [0][-1] [0][-2] [0][-3] [0][-4]
+        # vertical check
         for i in range(len(board_data)):
             for j in range(1, len(board_data[i])+1):
                 if board_data[i][-j] == previous and previous != " ":
@@ -36,15 +45,13 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                         return board_data[i][-j], "", True
             previous = str()
             connected = 1
-
+        # nothing found
         return (0, 0), "verti", False
 
     def hori_check():
         previous = str()
         connected = 1
-
-        # check for horizontal row
-        # [0][-1] [1][-1] [2][-1]
+        # horizontal check
         for i in range(1, len(board_data[0])+1):
             for j in range(len(board_data)):
                 if board_data[j][-i] == previous and previous != " ":
@@ -55,12 +62,12 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                 if connected == win_connect and previous != " ":
                     if ai_mode:
                         if board_data[j][-i] == specific_sym:
-                            try:
+                            try:  # check for the right hand side of the connected row
                                 if board_data[j+1][-i] == " ":
                                     return (j + 1, -i), "hori", True
                             except Exception:
                                 pass
-                            try:
+                            try:  # check for left hand side of the connected row
                                 if board_data[j - win_connect][-i] == " " and j - 1 != -1:
                                     return (j - win_connect, -i), "hori", True
                             except Exception:
@@ -82,9 +89,6 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                 row = 1
                 while row <= (win_connect):
                     try:
-                        # col + row -1 is because whenever row + 1, col also grow with it
-
-                        # [0][-1] [1][-2] [2][-3] [3][-4]
                         if board_data[col + row - 1][-(row+i)] == previous and board_data[col + row - 1][-(row+i)] != ' ':
                             connected += 1
                         else:
@@ -95,12 +99,12 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
 
                             if ai_mode:
                                 if board_data[col + row - 1][-(row + i)] == specific_sym:
-                                    try:
+                                    try:  # check for right hand side of the connected positive diagonal
                                         if board_data[col + row][-(row + i + 1)] == " ":
                                             return (col + row, -(row + i + 1)), "pdiag", True
                                     except Exception:
                                         pass
-                                    try:
+                                    try:  # check for left hand side
                                         if board_data[col + row - 1 - win_connect][-(row + i - win_connect)] == " ":
                                             return (col + row - 1 - win_connect, (-(row + i - win_connect))), "pdiag", True
                                     except Exception:
@@ -127,8 +131,6 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                 row = 1
                 while row <= len(board_data):
                     try:
-                        # col + row -1 is because whenever row + 1, col also grow with it
-                        # [-1][-1] [-2][-2] -> [-1][-2] [-2][-3]
                         if board_data[-(row+col)][-(row+i)] == previous and board_data[-(row+col)][-(row+i)] != ' ':
                             connected += 1
                         else:
@@ -137,13 +139,13 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
                         if connected == win_connect and previous != ' ':
                             if ai_mode:
                                 if board_data[-(row+col)][-(row + i)] == specific_sym:
-                                    try:
+                                    try:  # right hand side
                                         if board_data[-(row + col + 1)][-(row + i + 1)] == " ":
                                             return (-(row + col+1), -(row + i + 1)), "ndiag", True
                                     except Exception:
                                         pass
 
-                                    try:
+                                    try:  # left hand side
                                         if board_data[-(row + col - win_connect)][-(row + i - 1)] == " ":
                                             return (-(row + col - win_connect), -(row + i - 1)), "ndiag", True
                                     except Exception:
@@ -159,7 +161,7 @@ def winning_check(win_connect, filename, game_mode, ai_mode=False, specific_chec
 
         return (0, 0), "ndiag", False
 
-    if ai_mode:
+    if ai_mode:  # AI mode on, check for specific pattern
         if specific_check == "pdiag":
             value, mode, boo = pdiag_check()
             if boo:
