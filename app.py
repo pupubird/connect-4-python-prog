@@ -40,7 +40,10 @@ def main(window):
     # direct to menu page
     background_music.start()
     curses.curs_set(0)
-    main_menu.main(window)
+    try:
+        main_menu.main(window)
+    except Exception:
+        input("If you are facing a 'addwstr() returned ERR' problem, please resize your terminal font-size to 16px")
 
 
 def music():
