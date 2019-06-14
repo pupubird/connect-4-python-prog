@@ -18,11 +18,11 @@ except Exception:
         os.system('start cmd.exe @cmd /k "python app.py"')
         break
     else:
-        input("""
-            if you are facing any issue:
+        input("""if you are facing any issue:
                 1. make sure python is in the system path
                 2. make sure the window is maximized
-            press any key to continue...""")
+            press any key to continue..."""
+              )
         os.system('start cmd.exe @cmd /k "python app.py"')
 
 
@@ -43,7 +43,8 @@ def main(window):
     try:
         main_menu.main(window)
     except Exception:
-        input("If you are facing a 'addwstr() returned ERR' problem, please resize your terminal font-size to 16px")
+        input("""If you are facing a 'addwstr() returned ERR' problem,
+        1. go to search bar, type scale, click the 'make everything bigger' button and adjust the scale to 125%""")
 
 
 def music():

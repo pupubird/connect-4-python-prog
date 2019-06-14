@@ -63,7 +63,7 @@ def main(stdscr):
                     width + start_x, False)
 
         stdscr.addstr(
-            36, 60, "Press W D to control, Enter to choose")
+            36, 60, "Press W S to control, Enter to choose")
         stdscr.refresh()
 
     while True:
