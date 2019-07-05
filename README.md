@@ -81,11 +81,11 @@ to download and install.
 
 These are multiple issues found (solved) :
 
-If you are facing &quot;\_curses\_error addwstr() returned ERR&quot;:
+1. If you are facing &quot;\_curses\_error addwstr() returned ERR&quot;:
 
 Go to setting - system - Display - change the scale and layout to 125% or below
 
-Python/pip is not in system path:
+2. Python/pip is not in system path:
 
 Please refer to:  [click me](https://geek-university.com/python/add-python-to-the-windows-path/)
 
