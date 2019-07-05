@@ -64,7 +64,6 @@ Lastly, the usage of colors and symbols creates a familiar experience pertaining
 
 As such, this variant of the Connect Four game has strengths and features which outweigh that of other variants.
 
-(422 words)
 
 ## Getting Started
 
@@ -74,9 +73,9 @@ As such, this variant of the Connect Four game has strengths and features which 
 
 ## Prerequisites
 
-    This program required python 3 version in order to run, 
-    if you do not have python 3, please visit to [https://www.python.org](https://www.python.org) 
-    to download and install.
+This program required python 3 version in order to run, 
+if you do not have python 3, please visit to [https://www.python.org](https://www.python.org) 
+to download and install.
 
 ## Issues
 
@@ -84,11 +83,11 @@ These are multiple issues found (solved) :
 
 If you are facing &quot;\_curses\_error addwstr() returned ERR&quot;:
 
-    Go to setting - system - Display - change the scale and layout to 125% or below
+Go to setting - system - Display - change the scale and layout to 125% or below
 
 Python/pip is not in system path:
 
-    Please refer to:  [click me](https://geek-university.com/python/add-python-to-the-windows-path/)
+Please refer to:  [click me](https://geek-university.com/python/add-python-to-the-windows-path/)
 
 If you had found any new issue, please email to [18026856@imail.sunway.edu.my](mailto:18026856@imail.sunway.edu.my) for further helps.
 
