@@ -2,7 +2,7 @@
 
 2019 March Programming Principles Assignment Group 4
 
-| Task | People in charged |
+| Task | People in charge |
 | --- | --- |
 | GUI | Chang Cheng (1802 6856),Keanu (1802 0552) |
 | Rules | Ke Xin (1710 6097), Wen Li  (1711 3564) |
