@@ -92,7 +92,7 @@ Please refer to:  [click me](https://geek-university.com/python/add-python-to-th
 If you had found any new issue, please email to [18026856@imail.sunway.edu.my](mailto:18026856@imail.sunway.edu.my) for further helps.
 
 
-## flaws
+## Flaws
 
 Due to technical issue, python curses is not able to run on Mac.
 
